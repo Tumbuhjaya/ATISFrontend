@@ -236,7 +236,7 @@
                       </b-tbody>
                     </b-table-simple>
 
-                    <b-button variant="warning-outline" class="mt-3"
+                    <b-button variant="warning" class="mt-3"
                       >Tambah Riwayat Pelatihan</b-button
                     >
                   </b-col>
@@ -269,7 +269,7 @@
                       </b-tbody>
                     </b-table-simple>
 
-                    <b-button variant="primary" class="mt-3"
+                    <b-button variant="warning" class="mt-3"
                       >Tambah Riwayat Pekerjaan</b-button
                     >
                   </b-col>
