@@ -85,9 +85,7 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <router-link :to="'/edit_pelatihan_opd'">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data"><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        </router-link>
+                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
                         <b-button variant="danger" size="sm"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
                         
                       </template>
@@ -170,9 +168,7 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <router-link :to="'/edit_pelatihan_opd'">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data"><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        </router-link>
+                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
                         <b-button variant="danger" size="sm"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
                         
                       </template>
@@ -255,9 +251,7 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <router-link :to="'/edit_pelatihan_opd'">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data"><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        </router-link>
+                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
                         <b-button variant="danger" size="sm" v-b-tooltip.hover title="Hapus Data"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
                         
                       </template>
