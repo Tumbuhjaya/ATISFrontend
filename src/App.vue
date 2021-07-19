@@ -1,32 +1,102 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  /* text-align: center;
+  color: #2c3e50; */
+  font-weight: 300;
 }
 
-#nav {
-  padding: 30px;
+h1,h2,h3,h4,h5,h6{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.title{
+  font-weight: 600;
 }
 
-#nav a.router-link-exact-active {
-  color: #42b983;
+.layout{
+  width: 100%;
+  height: 100px;
+  background-color: red;
+}
+
+header{
+  padding: 10px 0;
+  /* background-color: turquoise; */
+  box-shadow: 0 7px 20px 0 rgb(0 0 0 / 10%);
+}
+
+header .indentity{
+  width: 100%;
+  display: flex;
+  height: 80px;
+}
+
+header .indentity .indentity-name{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 80px;
+  margin-left: 15px;
+  flex-direction: column;
+}
+
+header .daftar-login{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  /* background-color: red; */
+}
+
+header .menu{
+  width: 100%;
+  height: 40px;
+  /* background-color: red; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .btn-check:focus + .btn, .btn:focus{
+  box-shadow: transparent;
+}
+
+footer{
+  background-color: rgb(243,244,246);
+  padding:60px 0;
+}
+
+footer .indentity-footer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* height: 80px; */
+}
+
+footer .indentity-footer .indentity-footer-name{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  margin-left: 15px;
+  flex-direction: column;
+  /* background-color: red; */
+}
+
+footer .indentity-footer .indentity-footer-name .fw400{
+  font-weight: 400;
 }
 </style>
