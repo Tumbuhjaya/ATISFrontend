@@ -39,6 +39,12 @@
                     ></b-form-select>
                 </b-form-group>
 
+                <b-form-group label-cols="6" label-cols-lg="3" label="Sub Kategori">
+                    <b-form-select
+                        :options="subkategori"
+                    ></b-form-select>
+                </b-form-group>
+
                 <b-form-group label-cols="6" label-cols-lg="3" label="Jenjang">
                     <b-form-select
                         :options="jenjang"
@@ -46,13 +52,17 @@
                 </b-form-group>
 
                 <b-form-group label-cols="6" label-cols-lg="3" label="Deskripsi">
-                    <b-form-textarea rows="3" max-rows="6"></b-form-textarea>
+                    <quill-editor></quill-editor>
                 </b-form-group>
 
                 
 
                 <b-form-group label-cols="6" label-cols-lg="3" label="Tanggal Pelatihan">
-                    <date-picker v-model="time1" valueType="format" style="width:100%"></date-picker>
+                    <div class="row">
+                        <b-col md="6"><date-picker v-model="time1" valueType="format" style="width:100%" placeholder="Tanggal Awal"></date-picker></b-col>
+                        <b-col md="6"><date-picker v-model="time2" valueType="format" style="width:100%" placeholder="Tanggal Akhir"></date-picker></b-col>
+                    </div>
+                    
                 </b-form-group>
 
                 <b-form-group label-cols="6" label-cols-lg="3" label="Kouta Peserta">
@@ -63,37 +73,43 @@
                     <b-form-input></b-form-input>
                 </b-form-group>
 
+                <b-form-group label-cols="6" label-cols-lg="3" label="Kecamatan">
+                    <b-form-select
+                        :options="kecamatan"
+                    ></b-form-select>
+                </b-form-group>
+
+                <b-form-group label-cols="6" label-cols-lg="3" label="Kelurahan">
+                    <b-form-select
+                        :options="kelurahan"
+                    ></b-form-select>
+                </b-form-group>
+
+                <b-form-group label-cols="6" label-cols-lg="3" label="Upload Banner">
+                    <b-form-file></b-form-file>
+                </b-form-group>
+
+                <b-form-group label-cols="6" label-cols-lg="3" label="Status Pelatihan">
+                    <b-form-select
+                        :options="status"
+                    ></b-form-select>
+                </b-form-group>
+
                 <b-row class="mt-5 mb-3">
                     <b-col md="12">
                         <h2 class="text-left"><span style="font-weight:400">Persyaratan</span> <strong>Peserta</strong></h2>
                     </b-col>
                 </b-row>
 
-                <b-form-group label-cols="6" label-cols-lg="3" label="Usia Peserta">
-                    <b-form-input></b-form-input>
-                </b-form-group>
-
-                <b-form-group label-cols="6" label-cols-lg="3" label="Kemampuan Dasar">
-                    <b-form-input></b-form-input>
-                </b-form-group>
-
-                <b-form-group label-cols="6" label-cols-lg="3" label="Pengalaman Kerja">
-                    <b-form-input></b-form-input>
-                </b-form-group>
-
                 <b-form-group label-cols="6" label-cols-lg="3" label="Syarat Umum">
-                    <b-form-textarea rows="3" max-rows="6"></b-form-textarea>
+                    <quill-editor></quill-editor>
                 </b-form-group>
 
                 <b-form-group label-cols="6" label-cols-lg="3" label="Syarat Khusus">
-                    <b-form-textarea rows="3" max-rows="6"></b-form-textarea>
+                    <quill-editor></quill-editor>
                 </b-form-group>
                 
-                <b-form-group label-cols="6" label-cols-lg="3" label="Status Pelatihan">
-                    <b-form-select
-                        :options="status"
-                    ></b-form-select>
-                </b-form-group>
+                
 
                 <b-button variant="primary" class="mt-3">Simpan</b-button>
             </b-col>
@@ -109,23 +125,44 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
+import Vue from 'vue'
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
+
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
+import VueQuillEditor from 'vue-quill-editor'
+
+Vue.use(VueQuillEditor, /* { default global options } */)
 
 export default {
   name: "TambahPelatihan",
   data(){
     return{
         time1: null,
+        time2: null,
         kategori: [
+            { value: null, text: "-- Pilih --" },
+        ],
+
+        subkategori: [
+            { value: null, text: "-- Pilih --" },
+        ],
+
+        kecamatan: [
+            { value: null, text: "-- Pilih --" },
+        ],
+
+        kelurahan: [
             { value: null, text: "-- Pilih --" },
         ],
 
         jenjang: [
             { value: null, text: "-- Pilih --" },
-            { value: "Pemula", text: "Pemula" },
-            { value: "Menengah", text: "Menengah" },
-            { value: "Profesional", text: "Profesional" },
+            { value: "Dasar", text: "Dasar" },
+            { value: "Lanjutan", text: "Lanjutan" },
         ],
 
         status: [
@@ -133,12 +170,17 @@ export default {
             { value: "Publish", text: "Publish" },
             { value: "Unpublish", text: "Unpublish" },
         ],
+
+        editorOption: {
+          // some quill options
+        }
     }
   },
   components: {
     ThisIsHeader,
     ThisIsFooter,
-    DatePicker
+    DatePicker,
+    VueQuillEditor
   },
 };
 </script>
@@ -152,5 +194,9 @@ export default {
   display: flex;
   justify-content: space-evenly;
   /* background-color: red; */
+}
+
+.ql-container{
+    height: 300px !important;
 }
 </style>

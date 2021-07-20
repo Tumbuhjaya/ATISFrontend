@@ -5,53 +5,288 @@
       <b-container>
         <b-row>
           <b-col md="6">
-            <h2><span style="font-weight:400">Selamat Datang,</span></h2>
+            <h2><span style="font-weight: 400">Selamat Datang,</span></h2>
             <h4><strong>Username Login</strong></h4>
           </b-col>
         </b-row>
 
-
         <b-row>
           <b-col md="12">
-            <hr>
+            <hr />
           </b-col>
         </b-row>
 
         <b-row class="mt-4">
           <b-col md="8" offset-md="2">
             <div class="box-submenu">
+              <div
+                style="
+                  width: 260px;
+                  display: flex;
+                  justify-content: center;
+                  flex-direction: column;
+                  align-items: center;
+                  position: relative;
+                "
+                v-b-modal.modal-lg
+              >
+                <img src="https://via.placeholder.com/260" alt="" />
+                <h3 class="mt-3 text-center"><strong>Profil</strong></h3>
 
-              <div style="width:260px;display:flex;justify-content:center;flex-direction:column;align-items:center;position:relative;">
-                <router-link :to="'/profil_masyarakat'">
-                  <img src="https://via.placeholder.com/260" alt="">
-                  <h3 class="mt-3 text-center"><strong>Profil</strong></h3>
-
-                  <div style="width:50px;height:50px;background-color:red;position:absolute;top:-25px;right:-25px;display:flex;border-radius:100%;justify-content:center;align-items:center">
-                    <img src="../../assets/attention.png" alt="" style="width:50px">
-                  </div>
-                </router-link>
+                <div
+                  style="
+                    width: 50px;
+                    height: 50px;
+                    background-color: red;
+                    position: absolute;
+                    top: -25px;
+                    right: -25px;
+                    display: flex;
+                    border-radius: 100%;
+                    justify-content: center;
+                    align-items: center;
+                  "
+                >
+                  <img
+                    src="../../assets/attention.png"
+                    alt=""
+                    style="width: 50px"
+                  />
+                </div>
               </div>
 
-              <div style="width:260px;display:flex;justify-content:center;flex-direction:column;align-items:center">
-              <img src="https://via.placeholder.com/260" alt="">
-              <h3 class="mt-3"><strong>Pelatihan</strong></h3>
+              <div
+                style="
+                  width: 260px;
+                  display: flex;
+                  justify-content: center;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <img src="https://via.placeholder.com/260" alt="" />
+                <h3 class="mt-3"><strong>Pelatihan</strong></h3>
               </div>
             </div>
           </b-col>
         </b-row>
-
-        
-        
-
-
-        
-
-        
-
-        
       </b-container>
     </section>
-      
+
+    <!-- modal -->
+    <b-modal id="modal-lg" size="lg" title="Data Profil" hide-footer>
+      <b-row>
+        <b-col md="12">
+          <b-tabs align="center">
+            <b-tab title="Identitas" active>
+              <b-card-text class="mt-3">
+                <b-row>
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Identitas</strong
+                      >
+                    </h4></b-col
+                  >
+                </b-row>
+
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-form-group label-cols="6" label-cols-lg="3" label="NIK">
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Jenis Kelamin"
+                    >
+                      <b-form-select :options="jenisKelamin"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Tanggal Lahir"
+                    >
+                      <date-picker
+                        v-model="time1"
+                        valueType="format"
+                        style="width: 100%"
+                      ></date-picker>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Alamat"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kecamatan"
+                    >
+                      <b-form-select :options="kecamatan"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kelurahan"
+                    >
+                      <b-form-select :options="kelurahan"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="No. Hp"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Email"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-row>
+                      <b-col md="12" class="mb-3"
+                        ><h4>
+                          <span style="font-weight: 400">Data</span
+                          >&nbsp;<strong>Sosial Ekonomi</strong>
+                        </h4></b-col
+                      >
+                    </b-row>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Pekerjaan"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Pendapatan"
+                    >
+                      <b-form-select :options="pendapatan"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Penerima Bantuan Pemerintah"
+                    >
+                      <b-form-select :options="bantuan"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Pendidikan Terakhir"
+                    >
+                      <b-form-select :options="pendidikan"></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Status Dalam Keluarga"
+                    >
+                      <b-form-select :options="keluarga"></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+              </b-card-text>
+            </b-tab>
+
+            <b-tab title="Riwayat Pelatihan">
+              <b-card-text>
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-table-simple small bordered class="mb-0">
+                      <b-thead>
+                        <b-tr>
+                          <b-th>Pelatihan</b-th>
+                          <b-th>Tahun</b-th>
+                          <b-th>Penyelenggara</b-th>
+                          <b-th>No. Sertifikat</b-th>
+                        </b-tr>
+                      </b-thead>
+                      <b-tbody>
+                        <b-tr>
+                          <b-td><b-form-input></b-form-input></b-td>
+                          <b-td><b-form-input></b-form-input></b-td>
+                          <b-td> <b-form-input></b-form-input></b-td>
+                          <b-td> <b-form-input></b-form-input></b-td>
+                        </b-tr>
+                      </b-tbody>
+                    </b-table-simple>
+
+                    <b-button variant="warning" class="mt-3"
+                      >Tambah Riwayat Pelatihan</b-button
+                    >
+                  </b-col>
+                </b-row>
+              </b-card-text>
+            </b-tab>
+
+            <b-tab title="Riwayat Pekerjaan">
+              <b-card-text class="mt-3">
+                <b-row>
+                  <b-col md="12">
+                    <b-table-simple small bordered class="mb-0">
+                      <b-thead>
+                        <b-tr>
+                          <b-th>Pekerjaan</b-th>
+                          <b-th>Perusahaan</b-th>
+                          <b-th>Posisi/Jabatan</b-th>
+                          <b-th>Tahun Mulai</b-th>
+                          <b-th>Tahun Berakhir</b-th>
+                        </b-tr>
+                      </b-thead>
+                      <b-tbody>
+                        <b-tr>
+                          <b-td><b-form-input></b-form-input></b-td>
+                          <b-td><b-form-input></b-form-input></b-td>
+                          <b-td> <b-form-input></b-form-input></b-td>
+                          <b-td> <b-form-input></b-form-input></b-td>
+                          <b-td> <b-form-input></b-form-input></b-td>
+                        </b-tr>
+                      </b-tbody>
+                    </b-table-simple>
+
+                    <b-button variant="warning" class="mt-3"
+                      >Tambah Riwayat Pekerjaan</b-button
+                    >
+                  </b-col>
+                </b-row>
+              </b-card-text>
+            </b-tab>
+
+            <b-tab title="Simpan Data">
+              <b-card-text class="mt-3">
+                <p>Apakah anda yakin akan menyimpan data ini ?</p>
+                <b-button variant="primary">Simpan</b-button>
+              </b-card-text>
+            </b-tab>
+          </b-tabs>
+        </b-col>
+      </b-row>
+    </b-modal>
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -60,24 +295,61 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 
 export default {
   name: "DashboardOpd",
-  data(){
-    return{
-      
-    }
+  data() {
+    return {
+      time1: null,
+      jenisKelamin: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Laki-laki", text: "Laki-laki" },
+        { value: "Perempuan", text: "Perempuan" },
+      ],
+
+      kecamatan: [{ value: null, text: "-- Pilih --" }],
+
+      kelurahan: [{ value: null, text: "-- Pilih --" }],
+
+      pendapatan: [{ value: null, text: "-- Pilih --" }],
+
+      bantuan: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Ya", text: "Ya" },
+        { value: "Tidak", text: "Tidak" },
+      ],
+
+      keluarga: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Suami/Ayah", text: "Suami/Ayah" },
+        { value: "Istri/Ibu", text: "Istri/Ibu" },
+        { value: "Anak", text: "Anak" },
+        { value: "Lainnya", text: "Lainnya" },
+      ],
+
+      pendidikan: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Tidak Lulus SD", text: "Tidak Lulus SD" },
+        { value: "SD", text: "SD" },
+        { value: "SMP", text: "SMP" },
+        { value: "SMA", text: "SMA" },
+        { value: "Perguruan Tinggi", text: "Perguruan Tinggi" },
+      ],
+    };
   },
   components: {
     ThisIsHeader,
     ThisIsFooter,
+    DatePicker,
   },
 };
 </script>
 
 <style scoped>
-#dashboard_masyarakat .section-one{
-  padding:60px 0;
+#dashboard_masyarakat .section-one {
+  padding: 60px 0;
 }
 
 #dashboard_masyarakat .section-one .box-submenu {
