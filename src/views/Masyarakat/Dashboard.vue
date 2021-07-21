@@ -93,11 +93,11 @@
                 <b-row class="mt-3">
                   <b-col md="12">
                     <b-form-group label-cols="6" label-cols-lg="3" label="NIK">
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.NIK"></b-form-input>
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.nama"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -105,7 +105,7 @@
                       label-cols-lg="3"
                       label="Jenis Kelamin"
                     >
-                      <b-form-select :options="jenisKelamin"></b-form-select>
+                      <b-form-select :options="jenisKelamin" v-model="dataUser.jenisKelamin"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -114,7 +114,7 @@
                       label="Tanggal Lahir"
                     >
                       <date-picker
-                        v-model="time1"
+                        v-model="dataUser.tanggalLahir"
                         valueType="format"
                         style="width: 100%"
                       ></date-picker>
@@ -125,7 +125,7 @@
                       label-cols-lg="3"
                       label="Alamat"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.alamat"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -133,7 +133,7 @@
                       label-cols-lg="3"
                       label="Kecamatan"
                     >
-                      <b-form-select :options="kecamatan"></b-form-select>
+                      <b-form-select :options="kecamatan" v-model="dataUser.kecamatan"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -141,7 +141,7 @@
                       label-cols-lg="3"
                       label="Kelurahan"
                     >
-                      <b-form-select :options="kelurahan"></b-form-select>
+                      <b-form-select :options="kelurahan" v-model="dataUser.kelurahan"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -149,7 +149,7 @@
                       label-cols-lg="3"
                       label="No. Hp"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.noHp"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -157,7 +157,7 @@
                       label-cols-lg="3"
                       label="Email"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.email"></b-form-input>
                     </b-form-group>
 
                     <b-row>
@@ -174,23 +174,23 @@
                       label-cols-lg="3"
                       label="Pekerjaan"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.pekerjaan"></b-form-input>
                     </b-form-group>
 
-                    <b-form-group
+                    <!-- <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
                       label="Pendapatan"
                     >
-                      <b-form-select :options="pendapatan"></b-form-select>
-                    </b-form-group>
+                      <b-form-select :options="pendapatan" v-model="dataUser.pendapatan"></b-form-select>
+                    </b-form-group> -->
 
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
                       label="Penerima Bantuan Pemerintah"
                     >
-                      <b-form-select :options="bantuan"></b-form-select>
+                      <b-form-select :options="bantuan" v-model="dataUser.penerimaBantuanPemerintah"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -198,7 +198,7 @@
                       label-cols-lg="3"
                       label="Pendidikan Terakhir"
                     >
-                      <b-form-select :options="pendidikan"></b-form-select>
+                      <b-form-select :options="pendidikan" v-model="dataUser.pendidikanTerakhir"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -206,7 +206,7 @@
                       label-cols-lg="3"
                       label="Status Dalam Keluarga"
                     >
-                      <b-form-select :options="keluarga"></b-form-select>
+                      <b-form-select :options="keluarga" v-model="dataUser.statusDalamKeluarga"></b-form-select>
                     </b-form-group>
                   </b-col>
                 </b-row>
@@ -297,12 +297,27 @@ import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
-
+import axios from "axios";
+import ipbackend from '../../ipbackend'
+// nama,jenisKelamin,tanggalLahir,alamat,kecamatan,kelurahan,noHp,email,penerimaBantuanPemerintah,pendidikanTerakhir,statusDalamKeluarga
 export default {
   name: "DashboardOpd",
   data() {
     return {
-      time1: null,
+       dataUser:{
+          nama:'',
+          jenisKelamin:'',
+          tanggalLahir:'',
+          alamat:'',
+          kecamatan:'',
+          kelurahan:'',
+          noHp:'',
+          email:'',
+          penerimaBantuanPemerintah:'',
+          pendidikanTerakhir:'',
+          statusDalamKeluarga:''
+          },
+      tanggalLahir: null,
       jenisKelamin: [
         { value: null, text: "-- Pilih --" },
         { value: "Laki-laki", text: "Laki-laki" },
@@ -344,6 +359,37 @@ export default {
     ThisIsFooter,
     DatePicker,
   },
+ async mounted(){
+        let ret =      localStorage.getItem('user');
+   ret = JSON.parse(ret)
+   let dataUser=   await axios.get(ipbackend+ 'users/listById/'+ret.id, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+    this.dataUser = dataUser.data.data[0];
+      console.log(dataUser.data.data[0]);
+  },
+   methods:{
+      login(){
+          console.log(this.data);
+          let vm = this
+          axios.post(ipbackend+ 'users/login', this.data).then(data=>{
+            //   console.log(data);
+               const dataUser = JSON.stringify(data.data);
+              localStorage.setItem('user', dataUser);
+              if(data.data.message=='sukses'){
+                   if(data.data.role=='Masyarakat'){
+                         vm.$router.push({ path: '/dashboard_masyarakat' })
+                   }else{
+                         vm.$router.push({ path: '/dashboard_opd' })
+                   }    
+                
+              }
+          })
+      }
+  }
 };
 </script>
 

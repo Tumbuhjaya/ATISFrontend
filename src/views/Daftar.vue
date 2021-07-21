@@ -15,28 +15,28 @@
 
                         <b-row>
                             <b-col md="12">
-                                <b-form-group label="Username">
-                                    <b-form-input
-                                    ></b-form-input>
+                                <b-form-group label="NIK">
+                                    <b-form-input v-model="data.NIK"
+                                    ></b-form-input >
                                 </b-form-group>
 
                                 <b-form-group label="Password">
-                                    <b-form-input
+                                    <b-form-input v-model="data.password"
                                         type="password"
                                     ></b-form-input>
                                 </b-form-group>
 
                                 <b-form-group label="No. Telepon">
-                                    <b-form-input
+                                    <b-form-input v-model="data.noHp"
                                     ></b-form-input>
                                 </b-form-group>
 
                                 <b-form-group label="Email">
-                                    <b-form-input
+                                    <b-form-input v-model="data.email"
                                     ></b-form-input>
                                 </b-form-group>
 
-                                <b-button variant="primary">Daftar</b-button>
+                                <b-button variant="primary" @click="simpan">Daftar</b-button>
                             </b-col>
                         </b-row>
                         
@@ -57,12 +57,33 @@
 // @ is an alias to /src
 import ThisIsHeader from "../components/ThisIsHeader";
 import ThisIsFooter from "../components/ThisIsFooter";
-
+import axios from "axios";
+import ipbackend from '../ipbackend'
 export default {
   name: 'Daftar',
   components: {
       ThisIsHeader,
       ThisIsFooter
+  },
+  data:function(){
+      return {
+          data:{
+          NIK: '',
+          password: '',
+          role:'Masyarakat',
+          noHp:'',
+          email:''
+          }
+         
+      }
+  },
+  methods:{
+      simpan(){
+          console.log(this.data);
+          axios.post(ipbackend+ 'users/register', this.data).then(data=>{
+              console.log(data);
+          })
+      }
   }
 }
 </script>

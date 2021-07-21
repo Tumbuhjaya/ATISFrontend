@@ -23,83 +23,131 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/daftar',
     name: 'Daftar',
-    component: Daftar
+    component: Daftar,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/pelatihan',
     name: 'Pelatihan',
-    component: Pelatihan
+    component: Pelatihan,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/detail_pelatihan',
     name: 'DetailPelatihan',
-    component: DetailPelatihan
+    component: DetailPelatihan,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/daftar_pelatihan',
     name: 'DaftarPelatihan',
-    component: DaftarPelatihan
+    component: DaftarPelatihan,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/galeri',
     name: 'Galeri',
-    component: Galeri
+    component: Galeri,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
     path: '/detail_galeri',
     name: 'DetailGaleri',
-    component: DetailGaleri
+    component: DetailGaleri,
+    meta: {
+      requiresAuth: false
+    }
   },
   {
     path: '/publikasi',
     name: 'Publikasi',
-    component: Publikasi
+    component: Publikasi,
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
   },
   {
     path: '/dashboard_opd',
     name: 'DashboardOpd',
-    component: DashboardOpd
+    component: DashboardOpd,
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
   },
 
   {
     path: '/tambah_pelatihan_opd',
     name: 'TambahPelatihanOpd',
-    component: TambahPelatihanOpd
+    component: TambahPelatihanOpd,
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
   },
 
   {
     path: '/edit_pelatihan_opd',
     name: 'EditPelatihanOpd',
-    component: EditPelatihanOpd
+    component: EditPelatihanOpd,
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
   },
 
   {
     path: '/dashboard_masyarakat',
     name: 'DashboardMasyarakat',
-    component: DashboardMasyarakat
+    component: DashboardMasyarakat,
+    meta: {
+      requiresAuth: true,
+      role: 'Masyarakat'
+    }
   },
 
   {
     path: '/profil_masyarakat',
     name: 'ProfilMasyarakat',
-    component: ProfilMasyarakat
+    component: ProfilMasyarakat,
+    meta: {
+      requiresAuth: true,
+      role: 'Masyarakat'
+    }
   },
 ]
 
@@ -108,5 +156,38 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+router.beforeEach(async (to, from, next) => {
+  let ret =      localStorage.getItem('user');
+   ret = JSON.parse(ret)
+   console.log(ret);
+  // const role = await Storage.get({ key: "role" })
+  console.log(to.query)
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (ret) {
+      if (!ret.token) {
+        next({
+          path: '/login',
+          query: { redirect: to.fullPath }
+        })
+      } else {
+        // if(to.query){
+        //   next({
+        //     path: '/dashboard_masyarakat'
+        //   })
+        // }else{
+        //   next()
+        // }
+        next()
+      }
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
 
+  } else {
+    next()
+  }
+})
 export default router

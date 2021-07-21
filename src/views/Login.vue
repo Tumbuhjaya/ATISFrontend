@@ -15,20 +15,20 @@
 
                         <b-row>
                             <b-col md="12">
-                                <b-form-group label="Username">
-                                    <b-form-input
+                                <b-form-group label="NIK">
+                                    <b-form-input v-model="data.NIK"
                                     ></b-form-input>
                                 </b-form-group>
 
                                 <b-form-group label="Password">
-                                    <b-form-input
+                                    <b-form-input v-model="data.password"
                                         type="password"
                                     ></b-form-input>
                                 </b-form-group>
 
                                 
 
-                                <b-button variant="primary">Login</b-button>
+                                <b-button variant="primary" @click="login">Login</b-button>
                             </b-col>
                         </b-row>
                         
@@ -49,12 +49,51 @@
 // @ is an alias to /src
 import ThisIsHeader from "../components/ThisIsHeader";
 import ThisIsFooter from "../components/ThisIsFooter";
-
+import axios from "axios";
+import ipbackend from '../ipbackend'
 export default {
   name: 'Login',
   components: {
       ThisIsHeader,
       ThisIsFooter
+  },
+    data:function(){
+      return {
+          data:{
+          NIK: '',
+          password: '',
+          }
+         
+      }
+  },
+  methods:{
+      login(){
+          console.log(this.data);
+          let vm = this
+          axios.post(ipbackend+ 'users/login', this.data).then(data=>{
+            //   console.log(data);
+               const dataUser = JSON.stringify(data.data);
+              localStorage.setItem('user', dataUser);
+              if(data.data.message=='sukses'){
+                   if(data.data.role=='Masyarakat'){
+                       if(vm.$route.query.redirect){
+
+                           vm.$router.push({ path: vm.$route.query.redirect })
+                       }else{
+                           vm.$router.push({ path: '/dashboard_masyarakat' })
+                       }
+                   }else{
+                          if(vm.$route.query.redirect){
+
+                           vm.$router.push({ path: vm.$route.query.redirect })
+                       }else{
+                           vm.$router.push({ path: '/dashboard_opd' })
+                       }
+                   }    
+                
+              }
+          })
+      }
   }
 }
 </script>
