@@ -14,7 +14,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="mt-5">
+        <b-row class="mt-4">
           <b-col md="8" offset-md="2">
             <b-alert show variant="success">
               <h4 class="alert-heading">Pencarian Data</h4>
