@@ -16,6 +16,10 @@ import EditPelatihanOpd from '../views/Opd/EditPelatihan.vue'
 // masyarakat
 import DashboardMasyarakat from '../views/Masyarakat/Dashboard.vue'
 import ProfilMasyarakat from '../views/Masyarakat/Profil.vue'
+// statistik
+import Statistik from '../views/Statistik/Statistik.vue'
+
+
 
 Vue.use(VueRouter)
 
@@ -147,6 +151,15 @@ const routes = [
     meta: {
       requiresAuth: true,
       role: 'Masyarakat'
+    }
+  },
+
+  {
+    path: '/statistik',
+    name: 'Statistik',
+    component: Statistik,
+    meta: {
+      requiresAuth: false
     }
   },
 ]
