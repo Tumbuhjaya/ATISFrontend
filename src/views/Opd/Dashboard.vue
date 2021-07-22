@@ -97,8 +97,23 @@
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
-                        <b-button variant="danger" size="sm"
+                        <b-button
+                          variant="danger"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Hapus Data"
                           ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+
+                        <b-button
+                          variant="success"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Detail Peserta"
+                          v-b-modal.modal-peserta
+                          ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
                       </template>
@@ -192,8 +207,22 @@
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
-                        <b-button variant="danger" size="sm"
+                        <b-button
+                          variant="danger"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Hapus Data"
                           ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button
+                          variant="success"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Detail Peserta"
+                          v-b-modal.modal-peserta
+                          ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
                       </template>
@@ -290,9 +319,19 @@
                         <b-button
                           variant="danger"
                           size="sm"
+                          class="mr-3"
                           v-b-tooltip.hover
                           title="Hapus Data"
                           ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button
+                          variant="success"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Detail Peserta"
+                          v-b-modal.modal-peserta
+                          ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
                       </template>
@@ -414,6 +453,95 @@
       <b-button variant="primary" class="mt-3">Simpan</b-button>
     </b-modal>
 
+    <!-- modal peserta -->
+    <b-modal
+      id="modal-peserta"
+      size="xl"
+      title="Data Peserta (Nama Pelatihan)"
+      hide-footer
+    >
+      <b-row>
+        <b-col md="12">
+          <b-row>
+            <b-col md="2">
+              <b-form-group
+                label="Per page"
+                label-for="per-page-select"
+                label-cols-md="6"
+                label-align-md="left"
+                label-size="md"
+                class="mb-0"
+              >
+                <b-form-select
+                  id="per-page-select"
+                  v-model="perPage"
+                  :options="pageOptions"
+                  size="md"
+                ></b-form-select>
+              </b-form-group>
+            </b-col>
+
+            <b-col md="5" offset-md="5">
+              <b-form-group
+                label="Filter"
+                label-for="filter-input"
+                label-cols-md="3"
+                label-align-md="right"
+                label-size="md"
+                class="mb-0"
+              >
+                <b-input-group size="md">
+                  <b-form-input
+                    id="filter-input"
+                    v-model="filter4"
+                    type="search"
+                    placeholder="Type to Search"
+                  ></b-form-input>
+
+                  <b-input-group-append>
+                    <b-button :disabled="!filter4" @click="filter4 = ''"
+                      >Clear</b-button
+                    >
+                  </b-input-group-append>
+                </b-input-group>
+              </b-form-group>
+            </b-col>
+          </b-row>
+
+          <b-row>
+            <b-col md="12">
+              <b-table
+                :items="items4"
+                :fields="fields4"
+                :current-page="currentPage"
+                :per-page="perPage"
+                :filter="filter4"
+                :filter-included-fields="filterOn"
+                stacked="md"
+                show-empty
+                bordered
+                small
+                @filtered="onFiltered"
+                class="mt-3"
+              >
+              </b-table>
+            </b-col>
+          </b-row>
+
+          <b-row>
+            <b-col md="5" offset-md="7">
+              <b-pagination
+                v-model="currentPage"
+                :total-rows="totalRows"
+                :per-page="perPage"
+                align="fill"
+                size="sm"
+              ></b-pagination>
+            </b-col>
+          </b-row>
+        </b-col>
+      </b-row>
+    </b-modal>
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -617,6 +745,86 @@ export default {
         },
       ],
 
+      fields4: [
+        {
+          key: "nonya",
+          label: "No",
+          sortable: true,
+          class: "text-center",
+        },
+        {
+          key: "niknya",
+          label: "NIK",
+          sortable: true,
+          sortDirection: "desc",
+          class: "text-left",
+        },
+        {
+          key: "namanya",
+          label: "Nama",
+          sortable: true,
+          sortDirection: "desc",
+          class: "text-left",
+        },
+        {
+          key: "kelaminnya",
+          label: "Jenis Kelamin",
+          sortable: true,
+          sortDirection: "desc",
+          class: "text-left",
+        },
+        {
+          key: "lahirnya",
+          label: "Tanggal Lahir",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "alamatnya",
+          label: "Alamat",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "kecamatannya",
+          label: "Kecamatan",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "kelurahannya",
+          label: "Kelurahan",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "hpnya",
+          label: "No. Hp",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "emailnya",
+          label: "Email",
+          sortable: true,
+          class: "text-left",
+        },
+      ],
+      items4: [
+        {
+          nonya: 1,
+          niknya: "nik",
+          namanya: "nama",
+          kelaminnya: "laki",
+          lahirnya: "18051992",
+          alamatnya: "Semarang",
+          kecamatannya: "Tingkir",
+          kelurahannya: "Tingkir Lor",
+          hpnya: "1234",
+          emailnya: "emailnya@gmail.com",
+        },
+      ],
+
       totalRows: 1,
       currentPage: 1,
       perPage: 50,
@@ -624,6 +832,7 @@ export default {
       filter: null,
       filter2: null,
       filter3: null,
+      filter4: null,
       filterOn: [],
 
       editorOption: {
