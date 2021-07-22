@@ -664,7 +664,31 @@ export default {
     VueQuillEditor,
     DatePicker,
   },
+ watch:{
+    dataInput: {
+     async handler(val, oldVal){
+       let vm = this;
+      //  console.log(val.kecamatanPelatihan, oldVal.kecamatanPelatihan);
+       // do stuff
+      //  console.log(val);
+      if(val.kecamatanPelatihan){
+          let kelurahan=   await axios.get(ipbackend+ 'kelurahan/listKelByKecamatan/'+vm.dataInput.kecamatanPelatihan, {
+        headers:{
 
+          token: ret.token
+        }
+      })
+       vm.kelurahan=[];
+        vm.kelurahan.push({ value: null, text: "-- Pilih --" })
+      kelurahan.data.data.forEach((item, idx)=>{
+          vm.kelurahan.push({ value: item.namaKelurahan, text: item.namaKelurahan })
+      })
+      }
+      
+     },
+     deep: true
+  }
+  },
   computed: {
     sortOptions() {
       // Create an options list from our fields
@@ -678,7 +702,36 @@ export default {
 
   async mounted() {
       // Set the initial number of items
+      let vm = this;
       this.totalRows = this.items.length
+
+       let kecamatan=   await axios.get(ipbackend+ 'kelurahan/listKecamatan/', {
+        headers:{
+
+          token: ret.token
+        }
+      })
+ 
+      console.log(kecamatan.data.data);
+      vm.kecamatan=[];
+        vm.kecamatan.push({ value: null, text: "-- Pilih --" })
+      kecamatan.data.data.forEach((item, idx)=>{
+          vm.kecamatan.push({ value: item.namaKecamatan, text: item.namaKecamatan })
+      })
+
+
+ let kelurahan=   await axios.get(ipbackend+ 'kelurahan/list/', {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       vm.kelurahan=[];
+        vm.kelurahan.push({ value: null, text: "-- Pilih --" })
+      kelurahan.data.data.forEach((item, idx)=>{
+          vm.kelurahan.push({ value: item.namaKelurahan, text: item.namaKelurahan })
+      })
+
 this.loadBelumDimulai();
   },
   methods: {
@@ -736,6 +789,22 @@ this.loadBelumDimulai();
         },
       })
     this.loadBelumDimulai();
+    this.dataInput={
+        judulPelatihan:'',
+        kejuruan:'',
+        subKejuruan:'',
+        statusPelatihan:'',
+        deskripsiPelatihan:'',
+        jenjang:'',
+        tanggalMulaiPelatihan:'',
+        tanggalSelesaiPelatihan:'',
+        kuotaPeserta:0,
+        lokasi:'',
+        kecamatanPelatihan:'',
+        kelurahanPelatihan:'',
+        syaratUmum:'',
+        syaratKhusus:''
+      }
     },
       onFiltered(filteredItems) {
         // Trigger pagination to update the number of buttons/pages due to filtering
