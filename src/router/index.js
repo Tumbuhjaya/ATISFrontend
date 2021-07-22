@@ -194,13 +194,6 @@ router.beforeEach(async (to, from, next) => {
           query: { redirect: to.fullPath }
         })
       } else {
-        // if(to.query){
-        //   next({
-        //     path: '/dashboard_masyarakat'
-        //   })
-        // }else{
-        //   next()
-        // }
         next()
       }
     } else {
