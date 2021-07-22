@@ -64,8 +64,10 @@
                   align-items: center;
                 "
               >
-                <img src="https://via.placeholder.com/260" alt="" />
-                <h3 class="mt-3"><strong>Pelatihan</strong></h3>
+                <router-link :to="'/riwayat_pelatihan'">
+                  <img src="https://via.placeholder.com/260" alt="" />
+                  <h3 class="mt-3"><strong>Pelatihan</strong></h3>
+                </router-link>
               </div>
             </div>
           </b-col>
@@ -105,7 +107,10 @@
                       label-cols-lg="3"
                       label="Jenis Kelamin"
                     >
-                      <b-form-select :options="jenisKelamin" v-model="dataUser.jenisKelamin"></b-form-select>
+                      <b-form-select
+                        :options="jenisKelamin"
+                        v-model="dataUser.jenisKelamin"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -133,7 +138,10 @@
                       label-cols-lg="3"
                       label="Kecamatan"
                     >
-                      <b-form-select :options="kecamatan" v-model="dataUser.kecamatan"></b-form-select>
+                      <b-form-select
+                        :options="kecamatan"
+                        v-model="dataUser.kecamatan"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -141,7 +149,10 @@
                       label-cols-lg="3"
                       label="Kelurahan"
                     >
-                      <b-form-select :options="kelurahan" v-model="dataUser.kelurahan"></b-form-select>
+                      <b-form-select
+                        :options="kelurahan"
+                        v-model="dataUser.kelurahan"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -190,7 +201,10 @@
                       label-cols-lg="3"
                       label="Penerima Bantuan Pemerintah"
                     >
-                      <b-form-select :options="bantuan" v-model="dataUser.penerimaBantuanPemerintah"></b-form-select>
+                      <b-form-select
+                        :options="bantuan"
+                        v-model="dataUser.penerimaBantuanPemerintah"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -198,7 +212,10 @@
                       label-cols-lg="3"
                       label="Pendidikan Terakhir"
                     >
-                      <b-form-select :options="pendidikan" v-model="dataUser.pendidikanTerakhir"></b-form-select>
+                      <b-form-select
+                        :options="pendidikan"
+                        v-model="dataUser.pendidikanTerakhir"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -206,7 +223,10 @@
                       label-cols-lg="3"
                       label="Status Dalam Keluarga"
                     >
-                      <b-form-select :options="keluarga" v-model="dataUser.statusDalamKeluarga"></b-form-select>
+                      <b-form-select
+                        :options="keluarga"
+                        v-model="dataUser.statusDalamKeluarga"
+                      ></b-form-select>
                     </b-form-group>
                   </b-col>
                 </b-row>
@@ -298,25 +318,25 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import axios from "axios";
-import ipbackend from '../../ipbackend'
+import ipbackend from "../../ipbackend";
 // nama,jenisKelamin,tanggalLahir,alamat,kecamatan,kelurahan,noHp,email,penerimaBantuanPemerintah,pendidikanTerakhir,statusDalamKeluarga
 export default {
   name: "DashboardOpd",
   data() {
     return {
-       dataUser:{
-          nama:'',
-          jenisKelamin:'',
-          tanggalLahir:'',
-          alamat:'',
-          kecamatan:'',
-          kelurahan:'',
-          noHp:'',
-          email:'',
-          penerimaBantuanPemerintah:'',
-          pendidikanTerakhir:'',
-          statusDalamKeluarga:''
-          },
+      dataUser: {
+        nama: "",
+        jenisKelamin: "",
+        tanggalLahir: "",
+        alamat: "",
+        kecamatan: "",
+        kelurahan: "",
+        noHp: "",
+        email: "",
+        penerimaBantuanPemerintah: "",
+        pendidikanTerakhir: "",
+        statusDalamKeluarga: "",
+      },
       tanggalLahir: null,
       jenisKelamin: [
         { value: null, text: "-- Pilih --" },
@@ -359,37 +379,35 @@ export default {
     ThisIsFooter,
     DatePicker,
   },
- async mounted(){
-        let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret)
-   let dataUser=   await axios.get(ipbackend+ 'users/listById/'+ret.id, {
-        headers:{
-
-          token: ret.token
-        }
-      })
+  async mounted() {
+    let ret = localStorage.getItem("user");
+    ret = JSON.parse(ret);
+    let dataUser = await axios.get(ipbackend + "users/listById/" + ret.id, {
+      headers: {
+        token: ret.token,
+      },
+    });
     this.dataUser = dataUser.data.data[0];
-      console.log(dataUser.data.data[0]);
+    console.log(dataUser.data.data[0]);
   },
-   methods:{
-      login(){
-          console.log(this.data);
-          let vm = this
-          axios.post(ipbackend+ 'users/login', this.data).then(data=>{
-            //   console.log(data);
-               const dataUser = JSON.stringify(data.data);
-              localStorage.setItem('user', dataUser);
-              if(data.data.message=='sukses'){
-                   if(data.data.role=='Masyarakat'){
-                         vm.$router.push({ path: '/dashboard_masyarakat' })
-                   }else{
-                         vm.$router.push({ path: '/dashboard_opd' })
-                   }    
-                
-              }
-          })
-      }
-  }
+  methods: {
+    login() {
+      console.log(this.data);
+      let vm = this;
+      axios.post(ipbackend + "users/login", this.data).then((data) => {
+        //   console.log(data);
+        const dataUser = JSON.stringify(data.data);
+        localStorage.setItem("user", dataUser);
+        if (data.data.message == "sukses") {
+          if (data.data.role == "Masyarakat") {
+            vm.$router.push({ path: "/dashboard_masyarakat" });
+          } else {
+            vm.$router.push({ path: "/dashboard_opd" });
+          }
+        }
+      });
+    },
+  },
 };
 </script>
 

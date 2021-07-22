@@ -16,6 +16,7 @@ import EditPelatihanOpd from '../views/Opd/EditPelatihan.vue'
 // masyarakat
 import DashboardMasyarakat from '../views/Masyarakat/Dashboard.vue'
 import ProfilMasyarakat from '../views/Masyarakat/Profil.vue'
+import RiwayatPelatihan from '../views/Masyarakat/RiwayatPelatihan.vue'
 // statistik
 import Statistik from '../views/Statistik/Statistik.vue'
 
@@ -148,6 +149,16 @@ const routes = [
     path: '/profil_masyarakat',
     name: 'ProfilMasyarakat',
     component: ProfilMasyarakat,
+    meta: {
+      requiresAuth: true,
+      role: 'Masyarakat'
+    }
+  },
+
+  {
+    path: '/riwayat_pelatihan',
+    name: 'RiwayatPelatihan',
+    component: RiwayatPelatihan,
     meta: {
       requiresAuth: true,
       role: 'Masyarakat'
