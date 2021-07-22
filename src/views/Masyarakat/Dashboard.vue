@@ -64,8 +64,12 @@
                   align-items: center;
                 "
               >
-                <img src="https://via.placeholder.com/260" alt="" />
-                <h3 class="mt-3"><strong>Pelatihan</strong></h3>
+                <router-link :to="'/riwayat_pelatihan'">
+                  <img src="https://via.placeholder.com/260" alt="" />
+                  <h3 class="mt-3 text-center">
+                    <strong>Riwayat Pelatihan</strong>
+                  </h3>
+                </router-link>
               </div>
             </div>
           </b-col>
@@ -105,7 +109,10 @@
                       label-cols-lg="3"
                       label="Jenis Kelamin"
                     >
-                      <b-form-select :options="jenisKelamin" v-model="dataUser.jenisKelamin"></b-form-select>
+                      <b-form-select
+                        :options="jenisKelamin"
+                        v-model="dataUser.jenisKelamin"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -133,7 +140,10 @@
                       label-cols-lg="3"
                       label="Kecamatan"
                     >
-                      <b-form-select :options="kecamatan" v-model="dataUser.kecamatan"></b-form-select>
+                      <b-form-select
+                        :options="kecamatan"
+                        v-model="dataUser.kecamatan"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -141,7 +151,10 @@
                       label-cols-lg="3"
                       label="Kelurahan"
                     >
-                      <b-form-select :options="kelurahan" v-model="dataUser.kelurahan"></b-form-select>
+                      <b-form-select
+                        :options="kelurahan"
+                        v-model="dataUser.kelurahan"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -190,7 +203,10 @@
                       label-cols-lg="3"
                       label="Penerima Bantuan Pemerintah"
                     >
-                      <b-form-select :options="bantuan" v-model="dataUser.penerimaBantuanPemerintah"></b-form-select>
+                      <b-form-select
+                        :options="bantuan"
+                        v-model="dataUser.penerimaBantuanPemerintah"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -198,7 +214,10 @@
                       label-cols-lg="3"
                       label="Pendidikan Terakhir"
                     >
-                      <b-form-select :options="pendidikan" v-model="dataUser.pendidikanTerakhir"></b-form-select>
+                      <b-form-select
+                        :options="pendidikan"
+                        v-model="dataUser.pendidikanTerakhir"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -206,7 +225,10 @@
                       label-cols-lg="3"
                       label="Status Dalam Keluarga"
                     >
-                      <b-form-select :options="keluarga" v-model="dataUser.statusDalamKeluarga"></b-form-select>
+                      <b-form-select
+                        :options="keluarga"
+                        v-model="dataUser.statusDalamKeluarga"
+                      ></b-form-select>
                     </b-form-group>
                   </b-col>
 

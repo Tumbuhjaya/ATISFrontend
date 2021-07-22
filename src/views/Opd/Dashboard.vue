@@ -13,11 +13,12 @@
         <b-row class="mt-5">
           <b-col md="12">
             <!-- <router-link :to="'/tambah_pelatihan_opd'"> -->
-            <b-button variant="primary" v-b-modal.modal-lg>Tambah Data</b-button>
+            <b-button variant="primary" v-b-modal.modal-lg
+              >Tambah Data</b-button
+            >
             <!-- </router-link> -->
           </b-col>
         </b-row>
-
 
         <b-row class="mt-3">
           <b-col md="12">
@@ -26,42 +27,43 @@
                 <b-row>
                   <b-col md="2">
                     <b-form-group
-                          label="Per page"
-                          label-for="per-page-select"
-                          label-cols-md="6"
-                          label-align-md="left"
-                          label-size="md"
-                          class="mb-0"
+                      label="Per page"
+                      label-for="per-page-select"
+                      label-cols-md="6"
+                      label-align-md="left"
+                      label-size="md"
+                      class="mb-0"
                     >
                       <b-form-select
-                              id="per-page-select"
-                              v-model="perPage"
-                              :options="pageOptions"
-                              size="md"
+                        id="per-page-select"
+                        v-model="perPage"
+                        :options="pageOptions"
+                        size="md"
                       ></b-form-select>
                     </b-form-group>
                   </b-col>
 
                   <b-col md="5" offset-md="5">
                     <b-form-group
-                          label="Filter"
-                          label-for="filter-input"
-                          label-cols-md="3"
-                          label-align-md="right"
-                          label-size="md"
-                          class="mb-0"
+                      label="Filter"
+                      label-for="filter-input"
+                      label-cols-md="3"
+                      label-align-md="right"
+                      label-size="md"
+                      class="mb-0"
                     >
-                    <b-input-group size="md">
-                      <b-form-input
-                              id="filter-input"
-                              v-model="filter"
-                              type="search"
-                              placeholder="Type to Search"
-                      ></b-form-input>
+                      <b-input-group size="md">
+                        <b-form-input
+                          id="filter-input"
+                          v-model="filter"
+                          type="search"
+                          placeholder="Type to Search"
+                        ></b-form-input>
 
-                      <b-input-group-append>
-                        <b-button :disabled="!filter" @click="filter = ''"
-                          >Clear</b-button>
+                        <b-input-group-append>
+                          <b-button :disabled="!filter" @click="filter = ''"
+                            >Clear</b-button
+                          >
                         </b-input-group-append>
                       </b-input-group>
                     </b-form-group>
@@ -85,9 +87,20 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        <b-button variant="danger" size="sm"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
-                        
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Edit Data"
+                          v-b-modal.modal-lg
+                          ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button variant="danger" size="sm"
+                          ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
                       </template>
                     </b-table>
                   </b-col>
@@ -100,7 +113,7 @@
                       :total-rows="totalRows"
                       :per-page="perPage"
                       align="fill"
-                      size="md"
+                      size="sm"
                     ></b-pagination>
                   </b-col>
                 </b-row>
@@ -109,42 +122,43 @@
                 <b-row>
                   <b-col md="2">
                     <b-form-group
-                          label="Per page"
-                          label-for="per-page-select"
-                          label-cols-md="6"
-                          label-align-md="left"
-                          label-size="md"
-                          class="mb-0"
+                      label="Per page"
+                      label-for="per-page-select"
+                      label-cols-md="6"
+                      label-align-md="left"
+                      label-size="md"
+                      class="mb-0"
                     >
                       <b-form-select
-                              id="per-page-select"
-                              v-model="perPage"
-                              :options="pageOptions"
-                              size="md"
+                        id="per-page-select"
+                        v-model="perPage"
+                        :options="pageOptions"
+                        size="md"
                       ></b-form-select>
                     </b-form-group>
                   </b-col>
 
                   <b-col md="5" offset-md="5">
                     <b-form-group
-                          label="Filter"
-                          label-for="filter-input"
-                          label-cols-md="3"
-                          label-align-md="right"
-                          label-size="md"
-                          class="mb-0"
+                      label="Filter"
+                      label-for="filter-input"
+                      label-cols-md="3"
+                      label-align-md="right"
+                      label-size="md"
+                      class="mb-0"
                     >
-                    <b-input-group size="md">
-                      <b-form-input
-                              id="filter-input"
-                              v-model="filter2"
-                              type="search"
-                              placeholder="Type to Search"
-                      ></b-form-input>
+                      <b-input-group size="md">
+                        <b-form-input
+                          id="filter-input"
+                          v-model="filter2"
+                          type="search"
+                          placeholder="Type to Search"
+                        ></b-form-input>
 
-                      <b-input-group-append>
-                        <b-button :disabled="!filter2" @click="filter2 = ''"
-                          >Clear</b-button>
+                        <b-input-group-append>
+                          <b-button :disabled="!filter2" @click="filter2 = ''"
+                            >Clear</b-button
+                          >
                         </b-input-group-append>
                       </b-input-group>
                     </b-form-group>
@@ -168,9 +182,20 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        <b-button variant="danger" size="sm"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
-                        
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Edit Data"
+                          v-b-modal.modal-lg
+                          ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button variant="danger" size="sm"
+                          ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
                       </template>
                     </b-table>
                   </b-col>
@@ -183,7 +208,7 @@
                       :total-rows="totalRows"
                       :per-page="perPage"
                       align="fill"
-                      size="md"
+                      size="sm"
                     ></b-pagination>
                   </b-col>
                 </b-row>
@@ -192,42 +217,43 @@
                 <b-row>
                   <b-col md="2">
                     <b-form-group
-                          label="Per page"
-                          label-for="per-page-select"
-                          label-cols-md="6"
-                          label-align-md="left"
-                          label-size="md"
-                          class="mb-0"
+                      label="Per page"
+                      label-for="per-page-select"
+                      label-cols-md="6"
+                      label-align-md="left"
+                      label-size="md"
+                      class="mb-0"
                     >
                       <b-form-select
-                              id="per-page-select"
-                              v-model="perPage"
-                              :options="pageOptions"
-                              size="md"
+                        id="per-page-select"
+                        v-model="perPage"
+                        :options="pageOptions"
+                        size="md"
                       ></b-form-select>
                     </b-form-group>
                   </b-col>
 
                   <b-col md="5" offset-md="5">
                     <b-form-group
-                          label="Filter"
-                          label-for="filter-input"
-                          label-cols-md="3"
-                          label-align-md="right"
-                          label-size="md"
-                          class="mb-0"
+                      label="Filter"
+                      label-for="filter-input"
+                      label-cols-md="3"
+                      label-align-md="right"
+                      label-size="md"
+                      class="mb-0"
                     >
-                    <b-input-group size="md">
-                      <b-form-input
-                              id="filter-input"
-                              v-model="filter3"
-                              type="search"
-                              placeholder="Type to Search"
-                      ></b-form-input>
+                      <b-input-group size="md">
+                        <b-form-input
+                          id="filter-input"
+                          v-model="filter3"
+                          type="search"
+                          placeholder="Type to Search"
+                        ></b-form-input>
 
-                      <b-input-group-append>
-                        <b-button :disabled="!filter3" @click="filter3 = ''"
-                          >Clear</b-button>
+                        <b-input-group-append>
+                          <b-button :disabled="!filter3" @click="filter3 = ''"
+                            >Clear</b-button
+                          >
                         </b-input-group-append>
                       </b-input-group>
                     </b-form-group>
@@ -251,9 +277,24 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <b-button variant="warning" size="sm" class="mr-3" v-b-tooltip.hover title="Edit Data" v-b-modal.modal-lg><b-icon icon="pencil-square"></b-icon> {{item.actions}}</b-button>
-                        <b-button variant="danger" size="sm" v-b-tooltip.hover title="Hapus Data"><b-icon icon="trash"></b-icon> {{item.actions}}</b-button>
-                        
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Edit Data"
+                          v-b-modal.modal-lg
+                          ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button
+                          variant="danger"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Hapus Data"
+                          ><b-icon icon="trash"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
                       </template>
                     </b-table>
                   </b-col>
@@ -266,14 +307,13 @@
                       :total-rows="totalRows"
                       :per-page="perPage"
                       align="fill"
-                      size="md"
+                      size="sm"
                     ></b-pagination>
                   </b-col>
                 </b-row>
               </b-tab>
             </b-tabs>
           </b-col>
-          
         </b-row>
       </b-container>
     </section>
@@ -282,7 +322,10 @@
     <b-modal id="modal-lg" size="lg" title="Data Pelatihan" hide-footer>
       <b-row class="mb-3">
         <b-col md="12">
-          <h2 class="text-left"><span style="font-weight:400">Informasi</span> <strong>Pelatihan</strong></h2>
+          <h2 class="text-left">
+            <span style="font-weight: 400">Informasi</span>
+            <strong>Pelatihan</strong>
+          </h2>
         </b-col>
       </b-row>
       <b-form-group label-cols="6" label-cols-lg="3" label="Judul Pelatihan">
@@ -357,7 +400,10 @@
 
       <b-row class="mt-5 mb-3">
         <b-col md="12">
-          <h2 class="text-left"><span style="font-weight:400">Persyaratan</span> <strong>Peserta</strong></h2>
+          <h2 class="text-left">
+            <span style="font-weight: 400">Persyaratan</span>
+            <strong>Peserta</strong>
+          </h2>
         </b-col>
       </b-row>
 
@@ -372,7 +418,7 @@
       <hr class="mb-0">
       <b-button variant="primary" class="mt-3" @click="simpanBelumDimulai">Simpan</b-button>
     </b-modal>
-      
+
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -381,12 +427,12 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
-import Vue from 'vue'
-import 'quill/dist/quill.core.css'
-import 'quill/dist/quill.snow.css'
-import 'quill/dist/quill.bubble.css'
+import Vue from "vue";
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 
-import VueQuillEditor from 'vue-quill-editor'
+import VueQuillEditor from "vue-quill-editor";
 
 import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
@@ -395,7 +441,7 @@ import ipbackend from '../../ipbackend'
  let ret =      localStorage.getItem('user');
    ret = JSON.parse(ret)
 
-Vue.use(VueQuillEditor, /* { default global options } */)
+Vue.use(VueQuillEditor /* { default global options } */);
 export default {
   name: "DashboardOpd",
   data(){
@@ -419,32 +465,24 @@ export default {
       },
       time1: null,
       time2: null,
-      kategori: [
-            { value: null, text: "-- Pilih --" },
-      ],
+      kategori: [{ value: null, text: "-- Pilih --" }],
 
-      subkategori: [
-            { value: null, text: "-- Pilih --" },
-      ],
+      subkategori: [{ value: null, text: "-- Pilih --" }],
 
-      kecamatan: [
-            { value: null, text: "-- Pilih --" },
-      ],
+      kecamatan: [{ value: null, text: "-- Pilih --" }],
 
-      kelurahan: [
-            { value: null, text: "-- Pilih --" },
-      ],
+      kelurahan: [{ value: null, text: "-- Pilih --" }],
 
       jenjang: [
-            { value: null, text: "-- Pilih --" },
-            { value: "Dasar", text: "Dasar" },
-            { value: "Lanjutan", text: "Lanjutan" },
+        { value: null, text: "-- Pilih --" },
+        { value: "Dasar", text: "Dasar" },
+        { value: "Lanjutan", text: "Lanjutan" },
       ],
 
       status: [
-            { value: null, text: "-- Pilih --" },
-            { value: "Publish", text: "Publish" },
-            { value: "Unpublish", text: "Unpublish" },
+        { value: null, text: "-- Pilih --" },
+        { value: "Publish", text: "Publish" },
+        { value: "Unpublish", text: "Unpublish" },
       ],
       fields: [
         {
@@ -489,9 +527,15 @@ export default {
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items: [
-          { nonya : 1, judulnya : 'dul', kategorinya : 'kat', tglnya : 'tgl', lokasinya : 'lok', statusnya : 'stat',  },
+        {
+          nonya: 1,
+          judulnya: "dul",
+          kategorinya: "kat",
+          tglnya: "tgl",
+          lokasinya: "lok",
+          statusnya: "stat",
+        },
       ],
-
 
       fields2: [
         {
@@ -536,9 +580,15 @@ export default {
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items2: [
-          { nonya : 1, judulnya : 'dul', kategorinya : 'kat', tglnya : 'tgl', lokasinya : 'lok', statusnya : 'stat',  },
+        {
+          nonya: 1,
+          judulnya: "dul",
+          kategorinya: "kat",
+          tglnya: "tgl",
+          lokasinya: "lok",
+          statusnya: "stat",
+        },
       ],
-
 
       fields3: [
         {
@@ -583,9 +633,16 @@ export default {
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items3: [
-          { nonya : 1, judulnya : 'dul', kategorinya : 'kat', tglnya : 'tgl', lokasinya : 'lok', statusnya : 'stat',  },
+        {
+          nonya: 1,
+          judulnya: "dul",
+          kategorinya: "kat",
+          tglnya: "tgl",
+          lokasinya: "lok",
+          statusnya: "stat",
+        },
       ],
-      
+
       totalRows: 1,
       currentPage: 1,
       perPage: 50,
@@ -593,32 +650,30 @@ export default {
       filter: null,
       filter2: null,
       filter3: null,
-      filterOn: [], 
+      filterOn: [],
 
       editorOption: {
-          // some quill options
-        }
-    }
+        // some quill options
+      },
+    };
   },
 
   components: {
     ThisIsHeader,
     ThisIsFooter,
     VueQuillEditor,
-    DatePicker
-
-
+    DatePicker,
   },
 
   computed: {
-      sortOptions() {
-        // Create an options list from our fields
-        return this.fields
-          .filter(f => f.sortable)
-          .map(f => {
-            return { text: f.label, value: f.key }
-          })
-      }
+    sortOptions() {
+      // Create an options list from our fields
+      return this.fields
+        .filter((f) => f.sortable)
+        .map((f) => {
+          return { text: f.label, value: f.key };
+        });
+    },
   },
 
   async mounted() {
@@ -688,12 +743,11 @@ this.loadBelumDimulai();
         this.currentPage = 1
       }
   },
-  
 };
 </script>
 
 <style scoped>
-#dashboard_opd .section-one{
-  padding:60px 0;
+#dashboard_opd .section-one {
+  padding: 60px 0;
 }
 </style>
