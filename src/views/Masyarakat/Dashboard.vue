@@ -66,7 +66,9 @@
               >
                 <router-link :to="'/riwayat_pelatihan'">
                   <img src="https://via.placeholder.com/260" alt="" />
-                  <h3 class="mt-3"><strong>Pelatihan</strong></h3>
+                  <h3 class="mt-3 text-center">
+                    <strong>Riwayat Pelatihan</strong>
+                  </h3>
                 </router-link>
               </div>
             </div>
