@@ -50,19 +50,41 @@
                 <h6 class="mt-0 mb-0">Beranda</h6>
               </router-link>
               <b-dropdown
+                class="njim"
                 id="dropdown-1"
                 text="Pelatihan"
                 variant="link"
                 toggle-class="text-decoration-none"
                 no-caret
               >
-                <b-dropdown-item
-                  ><router-link :to="'/pelatihan'"
-                    >Menjahit</router-link
-                  ></b-dropdown-item
-                >
-                <b-dropdown-item>Memasak</b-dropdown-item>
-                <b-dropdown-item>Menari</b-dropdown-item>
+                <div style="height: 160px; overflow-y: auto">
+                  <b-dropdown-item
+                    ><router-link :to="'/pelatihan'"
+                      >Menjahit&nbsp;&nbsp;<b-badge variant="primary"
+                        >4</b-badge
+                      ></router-link
+                    ></b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    >Memasak&nbsp;&nbsp;<b-badge variant="primary"
+                      >4</b-badge
+                    ></b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    >Menari&nbsp;&nbsp;<b-badge variant="primary"
+                      >4</b-badge
+                    ></b-dropdown-item
+                  ><b-dropdown-item
+                    >Memasak&nbsp;&nbsp;<b-badge variant="primary"
+                      >4</b-badge
+                    ></b-dropdown-item
+                  >
+                  <b-dropdown-item
+                    >Menari&nbsp;&nbsp;<b-badge variant="primary"
+                      >4</b-badge
+                    ></b-dropdown-item
+                  >
+                </div>
               </b-dropdown>
               <router-link :to="'/galeri'">
                 <h6 class="mt-0 mb-0">Galeri</h6>
