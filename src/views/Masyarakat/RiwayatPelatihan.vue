@@ -30,98 +30,8 @@
         <b-row class="mt-5">
           <b-col md="12">
             <b-tabs content-class="mt-3" align="center">
-              <b-tab title="Sedang Terlaksana" active>
-                <b-row>
-                  <b-col md="2">
-                    <b-form-group
-                      label="Per page"
-                      label-for="per-page-select"
-                      label-cols-md="6"
-                      label-align-md="left"
-                      label-size="md"
-                      class="mb-0"
-                    >
-                      <b-form-select
-                        id="per-page-select"
-                        v-model="perPage"
-                        :options="pageOptions"
-                        size="md"
-                      ></b-form-select>
-                    </b-form-group>
-                  </b-col>
-
-                  <b-col md="5" offset-md="5">
-                    <b-form-group
-                      label="Filter"
-                      label-for="filter-input"
-                      label-cols-md="3"
-                      label-align-md="right"
-                      label-size="md"
-                      class="mb-0"
-                    >
-                      <b-input-group size="md">
-                        <b-form-input
-                          id="filter-input"
-                          v-model="filter"
-                          type="search"
-                          placeholder="Type to Search"
-                        ></b-form-input>
-
-                        <b-input-group-append>
-                          <b-button :disabled="!filter" @click="filter = ''"
-                            >Clear</b-button
-                          >
-                        </b-input-group-append>
-                      </b-input-group>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-
-                <b-row>
-                  <b-col md="12">
-                    <b-table
-                      :items="items"
-                      :fields="fields"
-                      :current-page="currentPage"
-                      :per-page="perPage"
-                      :filter="filter"
-                      :filter-included-fields="filterOn"
-                      stacked="md"
-                      show-empty
-                      bordered
-                      small
-                      @filtered="onFiltered"
-                      class="mt-3"
-                    >
-                      <template #cell(actions)="item">
-                        <b-button
-                          variant="warning"
-                          size="sm"
-                          class="mr-3"
-                          v-b-tooltip.hover
-                          title="Detail Pelatihan"
-                          v-b-modal.modal-detail
-                          ><b-icon icon="info-circle"></b-icon>
-                          {{ item.actions }}</b-button
-                        >
-                      </template>
-                    </b-table>
-                  </b-col>
-                </b-row>
-
-                <b-row>
-                  <b-col md="5" offset-md="7">
-                    <b-pagination
-                      v-model="currentPage"
-                      :total-rows="totalRows"
-                      :per-page="perPage"
-                      align="fill"
-                      size="sm"
-                    ></b-pagination>
-                  </b-col>
-                </b-row>
-              </b-tab>
-              <b-tab title="Telah Terlaksana">
+            
+              <b-tab title="Daftar Pelatihan">
                 <b-row>
                   <b-col md="2">
                     <b-form-group
@@ -348,51 +258,8 @@ export default {
         { value: "5.000.000 s/d 7.000.000", text: "5.000.000 s/d 7.000.000" },
         { value: "> 7.000.000", text: "> 7.000.000" },
       ],
-      fields: [
-        {
-          key: "nonya",
-          label: "No",
-          sortable: true,
-          class: "text-center",
-        },
-        {
-          key: "judulnya",
-          label: "Judul Pelatihan",
-          sortable: true,
-          sortDirection: "desc",
-          class: "text-left",
-        },
-        {
-          key: "kategorinya",
-          label: "Kategori",
-          sortable: true,
-          sortDirection: "desc",
-          class: "text-left",
-        },
-        {
-          key: "tglnya",
-          label: "Tanggal Pelatihan",
-          sortable: true,
-          sortDirection: "desc",
-          class: "text-left",
-        },
-        {
-          key: "lokasinya",
-          label: "Lokasi",
-          sortable: true,
-          class: "text-left",
-        },
-        { key: "actions", label: "Actions", class: "text-center" },
-      ],
-      items: [
-        {
-          nonya: 1,
-          judulnya: "dul",
-          kategorinya: "kat",
-          tglnya: "tgl",
-          lokasinya: "lok",
-        },
-      ],
+      
+    
 
       fields2: [
         {
