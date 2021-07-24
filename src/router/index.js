@@ -53,7 +53,7 @@ const routes = [
   },
 
   {
-    path: '/pelatihan',
+    path: '/pelatihan/:kejuruan',
     name: 'Pelatihan',
     component: Pelatihan,
     meta: {
@@ -62,7 +62,7 @@ const routes = [
   },
 
   {
-    path: '/detail_pelatihan',
+    path: '/detail_pelatihan/:id',
     name: 'DetailPelatihan',
     component: DetailPelatihan,
     meta: {
@@ -71,11 +71,11 @@ const routes = [
   },
 
   {
-    path: '/daftar_pelatihan',
+    path: '/daftar_pelatihan/:id',
     name: 'DaftarPelatihan',
     component: DaftarPelatihan,
     meta: {
-      requiresAuth: false
+      requiresAuth: true
     }
   },
 

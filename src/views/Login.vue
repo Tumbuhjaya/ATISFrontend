@@ -9,6 +9,7 @@
                         <b-row>
                             <b-col md="12">
                                 <h2><span>Masuk</span> <strong>Akun STIS</strong></h2>
+                                <h4>{{pesan}}</h4>
                                 <hr>
                             </b-col>
                         </b-row>
@@ -62,7 +63,9 @@ export default {
           data:{
           NIK: '',
           password: '',
-          }
+          
+          },
+          pesan:''
          
       }
   },
@@ -72,10 +75,11 @@ export default {
           let vm = this
           axios.post(ipbackend+ 'users/login', this.data).then(data=>{
             //   console.log(data);
+            vm.pesan= data.data.message
                const dataUser = JSON.stringify(data.data);
               localStorage.setItem('user', dataUser);
               if(data.data.message=='sukses'){
-                   if(data.data.role=='Masyarakat'){
+                   if(data.data.role=='peserta'){
                        if(vm.$route.query.redirect){
 
                            vm.$router.push({ path: vm.$route.query.redirect })

@@ -94,6 +94,7 @@
                           v-b-tooltip.hover
                           title="Edit Data"
                           v-b-modal.modal-lg
+                          @click="edit(item.item.id)"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -313,6 +314,7 @@
                           v-b-tooltip.hover
                           title="Edit Data"
                           v-b-modal.modal-lg
+                          @click="edit(item.id)"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -602,15 +604,13 @@ export default {
       kelurahan: [{ value: null, text: "-- Pilih --" }],
 
       jenjang: [
-        { value: null, text: "-- Pilih --" },
         { value: "Dasar", text: "Dasar" },
         { value: "Lanjutan", text: "Lanjutan" },
       ],
 
       status: [
-        { value: null, text: "-- Pilih --" },
-        { value: "Publish", text: "Publish" },
-        { value: "Unpublish", text: "Unpublish" },
+        { value: "publish", text: "publish" },
+        { value: "unpublish", text: "unpublish" },
       ],
       fields: [
         {
@@ -655,14 +655,7 @@ export default {
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items: [
-        {
-          nonya: 1,
-          judulnya: "dul",
-          kategorinya: "kat",
-          tglnya: "tgl",
-          lokasinya: "lok",
-          statusnya: "stat",
-        },
+       
       ],
 
       fields2: [
@@ -893,6 +886,21 @@ export default {
           vm.kelurahan.push({ value: item.namaKelurahan, text: item.namaKelurahan })
       })
       }
+
+
+        if(val.kejuruan){
+          let subkategori=   await axios.get(ipbackend+ 'kejuruan/listSubKejuruanByKejuruan/'+vm.dataInput.kejuruan, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       vm.subkategori=[];
+        vm.subkategori.push({ value: null, text: "-- Pilih --" })
+      subkategori.data.data.forEach((item, idx)=>{
+          vm.subkategori.push({ value: item.namaSubKejuruan, text: item.namaSubKejuruan })
+      })
+      }
       
      },
      deep: true
@@ -942,8 +950,18 @@ export default {
       })
 
 this.loadBelumDimulai();
+this.ambilKejuruan();
   },
   methods: {
+  async  edit(id){
+       let itemnya=   await axios.get(ipbackend+ 'pelatihan/listpelatihanbyid/'+id, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+      console.log(itemnya);
+    },
     async loadBelumDimulai(){
 
     let vm = this;
@@ -955,16 +973,29 @@ this.loadBelumDimulai();
       })
        this.items = [];
       itemnya.data.data.forEach((item, idx)=>{
-        this.items.push({ nonya : idx+1, 
+        this.items.push({ 
+           id : item.id, 
+          nonya : idx+1, 
         judulnya : item.judulPelatihan,
          kategorinya : item.kejuruan, 
-         tglnya : item.tanggalMulaipelatihan, 
+         tglnya : item.tanggalMulaiPelatihan, 
          lokasinya : item.lokasi,
           statusnya :   item.statusPelatihan})
       })
-      console.log(itemnya);
+      // console.log(itemnya);
     },
-
+ async  ambilKejuruan(){
+   let vm = this;
+       let kategori=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/')
+      // console.log(kejuruan);
+    // this.kejuruan = kejuruan.data.data
+       this.kategori=[];
+        this.kategori.push({ value: null, text: "-- Pilih --" })
+      kategori.data.data.forEach((item, idx)=>{
+          vm.kategori.push({ value: item.namaKejuruan, text: item.namaKejuruan })
+      })
+      // console.log(vm.kejuruan);
+  },
      async simpanBelumDimulai(){
 // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
     var formData = new FormData();

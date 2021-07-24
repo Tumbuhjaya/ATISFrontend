@@ -328,22 +328,18 @@
                               <b-tbody>
                                 <b-tr>
                                   <b-td>
-                                    <b-form-input></b-form-input>
+                                    <b-form-input v-model="keteranganFile"></b-form-input>
                                   </b-td>
                                   <b-td>
-                                    <b-form-file></b-form-file>
+                                    <b-form-file v-model="file1"></b-form-file>
                                   </b-td>
-                                  <b-td>
-                                    <center><b-button variant="danger" size="sm" class="mt-1"><b-icon-trash></b-icon-trash></b-button></center>
-                                  </b-td>
+                                 
                                 </b-tr>
                               </b-tbody>
                             </b-table-simple>
                           </b-col>
 
-                          <b-col md="12">
-                            <b-button variant="success" size="sm" class="mt-3">Tambah Data Dukung</b-button>
-                          </b-col>
+                        
                         </b-row>
                       </b-card-text>
                     </b-tab>
@@ -351,7 +347,7 @@
                     <b-tab title="Simpan Data">
                       <b-card-text>
                         <p>Apakah anda yakin akan menyimpan data ini ?</p>
-                        <b-button variant="primary">Daftar</b-button>
+                        <b-button variant="primary" @click="daftar">Daftar</b-button>
                       </b-card-text>
                     </b-tab>
                   </b-tabs>
@@ -368,13 +364,48 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
+import "quill/dist/quill.core.css";
 
+import axios from "axios";
+import ipbackend from '../../ipbackend';
+import moment from 'moment';
+ let ret =      localStorage.getItem('user');
+   ret = JSON.parse(ret)
 export default {
   name: 'DaftarPelatihan',
   components: {
       ThisIsHeader,
       ThisIsFooter
-  }
+  },
+   data(){
+     return{
+       pelatihan:[],
+       ipbackend,
+       moment,
+       keteranganFile:'',
+       file1: null
+     }
+   },
+
+   methods:{
+    async daftar(){
+         var formData = new FormData();
+      formData.append("keteranganFile", this.keteranganFile);
+       formData.append("pelatihanId", this.$route.params.id);
+        formData.append("file1", this.file1);
+      let hasil =   await   axios({
+        method: "post",
+        url: ipbackend + 'poolpelatihan/register/',
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: ret.token,
+        },
+      })
+      alert(hasil.data.message)
+      console.log(hasil);
+     }
+   }
 }
 </script>
 
