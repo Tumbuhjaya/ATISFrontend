@@ -5,20 +5,23 @@
         <b-container>
             <b-row>
               <b-col md="12">
-                <h2><span>Pelatihan</span> <strong>Menjahit</strong></h2>
+                <h2><span>Pelatihan</span> <strong>{{$route.params.kejuruan}}</strong></h2>
               </b-col>
             </b-row>
 
             <b-row >
-              <b-col md="4" class="mt-4">
+           
+
+              <b-col md="4" class="mt-4" v-for="(item, idx) in pelatihan" :key="idx">
                 <div class="box">
-                  <img src="https://via.placeholder.com/360x260" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
+                  <img v-if="item.bannerPelatihan" :src="ipbackend+item.bannerPelatihan" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
+                  <img v-else src="https://via.placeholder.com/360x260" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
 
                   <div class="content">
-                    <h4 class="title">Judul Pelatihannya</h4>
+                    <h4 class="title">{{item.judulPelatihan}}</h4>
                     <b-row>
                       <b-col md="12">
-                        <b-badge variant="success" style="padding:5px">OPD Terkait</b-badge>
+                        <b-badge variant="success" style="padding:5px">{{item.namaOPD}}</b-badge>
                       </b-col>
                     </b-row>
                     <!-- <hr class="mb-10"> -->
@@ -29,17 +32,17 @@
                           <b-tbody>
                             <b-tr>
                               <b-td style="width:35px"><img src="../../assets/pelaksanaan.png" alt="" style="width:25px"></b-td>
-                              <b-td>21 Juli 2021 s/d 25 Juli 2021</b-td>
+                              <b-td>{{moment(item.tanggalMulaiPelatihan).format('LL')}} s/d {{moment(item.tanggalSelesaiPelatihan).format('LL')}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td style="width:35px"><img src="../../assets/peserta.png" alt="" style="width:25px"></b-td>
-                              <b-td>20 Peserta</b-td>
+                              <b-td>{{item.kuotaPeserta}} Peserta</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td style="width:35px"><img src="../../assets/lokasi.png" alt="" style="width:25px"></b-td>
-                              <b-td>Balai Pelatihan Kota Salatiga</b-td>
+                              <b-td>{{item.lokasi}}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -47,136 +50,14 @@
                     </b-row>
                     <hr class="mt-10">
 
-                    <router-link :to="'/detail_pelatihan'"><b-button variant="primary">Selengkapnya</b-button></router-link>
+                    <b-button variant="primary" @click="$router.push('/detail_pelatihan/'+item.id)">Selengkapnya</b-button>
                   </div>
                 </div>
               </b-col>
 
-              <b-col md="4" class="mt-4">
-                <div class="box">
-                  <img src="https://via.placeholder.com/360x260" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
+             
 
-                  <div class="content">
-                    <h4 class="title">Judul Pelatihannya</h4>
-                    <b-row>
-                      <b-col md="12">
-                        <b-badge variant="success" style="padding:5px">OPD Terkait</b-badge>
-                      </b-col>
-                    </b-row>
-                    <!-- <hr class="mb-10"> -->
-
-                    <b-row class="mt-3">
-                      <b-col md="12">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/pelaksanaan.png" alt="" style="width:25px"></b-td>
-                              <b-td>21 Juli 2021 s/d 25 Juli 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/peserta.png" alt="" style="width:25px"></b-td>
-                              <b-td>20 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/lokasi.png" alt="" style="width:25px"></b-td>
-                              <b-td>Balai Pelatihan Kota Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-                    </b-row>
-                    <hr class="mt-10">
-
-                    <b-button variant="primary">Selengkapnya</b-button>
-                  </div>
-                </div>
-              </b-col>
-
-              <b-col md="4" class="mt-4">
-                <div class="box">
-                  <img src="https://via.placeholder.com/360x260" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
-
-                  <div class="content">
-                    <h4 class="title">Judul Pelatihannya</h4>
-                    <b-row>
-                      <b-col md="12">
-                        <b-badge variant="success" style="padding:5px">OPD Terkait</b-badge>
-                      </b-col>
-                    </b-row>
-                    <!-- <hr class="mb-10"> -->
-
-                    <b-row class="mt-3">
-                      <b-col md="12">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/pelaksanaan.png" alt="" style="width:25px"></b-td>
-                              <b-td>21 Juli 2021 s/d 25 Juli 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/peserta.png" alt="" style="width:25px"></b-td>
-                              <b-td>20 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/lokasi.png" alt="" style="width:25px"></b-td>
-                              <b-td>Balai Pelatihan Kota Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-                    </b-row>
-                    <hr class="mt-10">
-
-                    <b-button variant="primary">Selengkapnya</b-button>
-                  </div>
-                </div>
-              </b-col>
-
-              <b-col md="4" class="mt-4">
-                <div class="box">
-                  <img src="https://via.placeholder.com/360x260" alt="" style="border-top-left-radius: 10px;border-top-right-radius:10px;width:100%">
-
-                  <div class="content">
-                    <h4 class="title">Judul Pelatihannya</h4>
-                    <b-row>
-                      <b-col md="12">
-                        <b-badge variant="success" style="padding:5px">OPD Terkait</b-badge>
-                      </b-col>
-                    </b-row>
-                    <!-- <hr class="mb-10"> -->
-
-                    <b-row class="mt-3">
-                      <b-col md="12">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/pelaksanaan.png" alt="" style="width:25px"></b-td>
-                              <b-td>21 Juli 2021 s/d 25 Juli 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/peserta.png" alt="" style="width:25px"></b-td>
-                              <b-td>20 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width:35px"><img src="../../assets/lokasi.png" alt="" style="width:25px"></b-td>
-                              <b-td>Balai Pelatihan Kota Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-                    </b-row>
-                    <hr class="mt-10">
-
-                    <b-button variant="primary">Selengkapnya</b-button>
-                  </div>
-                </div>
-              </b-col>
+            
             </b-row>
         </b-container>
     </section>
@@ -189,13 +70,35 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
-
+import axios from "axios";
+import ipbackend from '../../ipbackend';
+import moment from 'moment';
+moment.locale('id')
 export default {
   name: 'Login',
   components: {
       ThisIsHeader,
       ThisIsFooter
+  },
+    data(){
+     return{
+       pelatihan:[],
+       ipbackend,
+       moment
+     }
+   },
+     mounted(){
+     this.ambilPelatihan();
+   },
+   methods:{
+    async  ambilPelatihan(){
+
+       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/listPelByKejuruanBelumTerlaksana/'+this.$route.params.kejuruan)
+      console.log(pelatihan);
+    this.pelatihan = pelatihan.data.data
   }
+  
+   }
 }
 </script>
 

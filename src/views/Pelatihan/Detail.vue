@@ -5,14 +5,14 @@
         <b-container>
             <b-row>
               <b-col md="12">
-                <h5>Menjahit</h5>
-                <h2><strong>Judul Pelatihannya</strong></h2>
+                <h5>{{pelatihan.kejuruan}}</h5>
+                <h2><strong>{{pelatihan.judulPelatihan}}</strong></h2>
               </b-col>
             </b-row>
 
             <b-row class="mt-3">
               <b-col md="12">
-                  <img src="https://via.placeholder.com/1140x600" alt="">
+                  <img :src="ipbackend+pelatihan.bannerPelatihan" alt="">
               </b-col>
             </b-row>
 
@@ -22,7 +22,11 @@
                 </b-col>
 
                 <b-col md="12" class="mt-3">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi eum assumenda quaerat laudantium, fugit accusantium in perferendis ab earum provident, dolores eveniet cumque! Provident commodi numquam expedita recusandae modi officia quas. Deserunt temporibus odio quaerat similique quis fuga laboriosam consequatur quos voluptatem laudantium ut, doloremque, veritatis aspernatur adipisci nihil saepe facilis! Alias hic ut fuga odit optio inventore accusantium ducimus, magni quibusdam voluptatem magnam accusamus vitae autem odio? Sequi esse consequuntur sed, natus eveniet labore laboriosam! Veniam aperiam dolorum earum obcaecati iste. Necessitatibus aliquid repudiandae facilis, a modi, ipsam quia commodi impedit, quam dolorem deleniti veritatis pariatur sint consequatur amet!
+                    <div class="ql-container">
+                            <div class="ql-editor" v-html="pelatihan.deskripsiPelatihan">
+                            </div>
+                        </div>
+             
                 </b-col>
             </b-row>
             <b-row class="mt-5">
@@ -39,7 +43,7 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-3">
-                            <h6>21 Juli 2021 s/d 25 Juli 2021</h6>
+                            <h6>{{moment(pelatihan.tanggalMulaiPelatihan).format('LL')}} s/d {{moment(pelatihan.tanggalSelesaiPelatihan).format('LL')}}</h6>
                         </b-col>
                     </b-row>
 
@@ -49,7 +53,7 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-3">
-                            <h6>20 Peserta</h6>
+                            <h6>{{pelatihan.kuotaPeserta}} Peserta</h6>
                         </b-col>
                     </b-row>
 
@@ -59,7 +63,7 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-2">
-                            <h6>Balai Pelatihan Kerja</h6>
+                            <h6>{{pelatihan.lokasi}}</h6>
                         </b-col>
                     </b-row>
                     
@@ -72,7 +76,7 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-3">
-                            <h6>OPD Terkait</h6>
+                            <h6>{{pelatihan.namaOPD}}</h6>
                         </b-col>
                     </b-row>
 
@@ -82,7 +86,7 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-2">
-                            <h6>Dasar/Pemula</h6>
+                            <h6>{{pelatihan.jenjang}}</h6>
                         </b-col>
                     </b-row>
                 </b-col>
@@ -95,47 +99,19 @@
                 <b-col md="12">
                     <hr>
                 </b-col>
-                <b-col md="6">
-                    <b-row>
-                        <b-col md="12">
-                            <h4><span style="font-weight:400">Usia</span> <strong>Peserta</strong></h4>
-                        </b-col>    
+            
 
-                        <b-col md="12" class="mt-3">
-                            <h6>18 s/d 30 Tahun</h6>
-                        </b-col>
-                    </b-row>
-
-                    <b-row class="mt-4">
-                        <b-col md="12">
-                            <h4><span style="font-weight:400">Kemampuan</span> <strong>Dasar</strong></h4>
-                        </b-col>    
-
-                        <b-col md="12" class="mt-3">
-                            <h6>Tidak Ada</h6>
-                        </b-col>
-                    </b-row>
-
-                    <b-row class="mt-4">
-                        <b-col md="12">
-                            <h4><span style="font-weight:400">Pengalaman</span> <strong>Kerja</strong></h4>
-                        </b-col>    
-
-                        <b-col md="12" class="mt-2">
-                            <h6>Tidak Ada</h6>
-                        </b-col>
-                    </b-row>
-                    
-                </b-col>
-
-                <b-col md="6">
+                <b-col md="12">
                     <b-row>
                         <b-col md="12">
                             <h4><span style="font-weight:400">Persyaratan</span> <strong>Umum</strong></h4>
                         </b-col>    
 
                         <b-col md="12" class="mt-3">
-                            <h6>Tidak Ada</h6>
+                             <div class="ql-container">
+                            <div class="ql-editor" v-html="pelatihan.syaratUmum">
+                            </div>
+                        </div>
                         </b-col>
                     </b-row>
 
@@ -145,7 +121,10 @@
                         </b-col>    
 
                         <b-col md="12" class="mt-2">
-                            <h6>Tidak Ada</h6>
+                            <div class="ql-container">
+                            <div class="ql-editor" v-html="pelatihan.syaratKhusus">
+                            </div>
+                        </div>
                         </b-col>
                     </b-row>
                 </b-col>
@@ -158,7 +137,7 @@
 
             <b-row class="mt-3">
                 <b-col md="12">
-                    <router-link :to="'/login'"><b-button variant="primary">Daftar Pelatihan</b-button></router-link>
+                    <router-link :to="'/daftar_pelatihan/'+$route.params.id"><b-button variant="primary">Daftar Pelatihan</b-button></router-link>
                 </b-col>
             </b-row>
         </b-container>
@@ -172,13 +151,36 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
+import "quill/dist/quill.core.css";
 
+import axios from "axios";
+import ipbackend from '../../ipbackend';
+import moment from 'moment';
 export default {
   name: 'DetailPelatihan',
   components: {
       ThisIsHeader,
       ThisIsFooter
+  },
+   data(){
+     return{
+       pelatihan:[],
+       ipbackend,
+       moment
+     }
+   },
+     mounted(){
+     this.ambilPelatihan();
+   },
+   methods:{
+    async  ambilPelatihan(){
+        console.log(this.$route.params.id);
+       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/listpelatihanbyid/'+this.$route.params.id)
+      console.log(pelatihan);
+    this.pelatihan = pelatihan.data.data[0]
   }
+  
+   }
 }
 </script>
 

@@ -13,8 +13,8 @@
         <b-row class="mt-5">
           <b-col md="12">
             <!-- <router-link :to="'/tambah_pelatihan_opd'"> -->
-            <b-button variant="primary" v-b-modal.modal-lg
-              >Tambah Data</b-button
+            <b-button variant="primary" v-b-modal.modal-lg @click="reset"
+              >PELATIHAN BARU</b-button
             >
             <!-- </router-link> -->
           </b-col>
@@ -94,6 +94,7 @@
                           v-b-tooltip.hover
                           title="Edit Data"
                           v-b-modal.modal-lg
+                          @click="edit(item.item.id)"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -103,6 +104,7 @@
                           class="mr-3"
                           v-b-tooltip.hover
                           title="Hapus Data"
+                            @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -113,6 +115,7 @@
                           v-b-tooltip.hover
                           title="Detail Peserta"
                           v-b-modal.modal-peserta
+                            @click="listUser(item.item.id)"
                           ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -196,7 +199,7 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <template #cell(actions)="item">
+                               <template #cell(actions)="item">
                         <b-button
                           variant="warning"
                           size="sm"
@@ -204,6 +207,7 @@
                           v-b-tooltip.hover
                           title="Edit Data"
                           v-b-modal.modal-lg
+                          @click="edit(item.item.id)"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -213,15 +217,18 @@
                           class="mr-3"
                           v-b-tooltip.hover
                           title="Hapus Data"
+                            @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
                         >
+
                         <b-button
                           variant="success"
                           size="sm"
                           v-b-tooltip.hover
                           title="Detail Peserta"
                           v-b-modal.modal-peserta
+                            @click="listUser(item.item.id)"
                           ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -305,7 +312,7 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <template #cell(actions)="item">
+                              <template #cell(actions)="item">
                         <b-button
                           variant="warning"
                           size="sm"
@@ -313,6 +320,7 @@
                           v-b-tooltip.hover
                           title="Edit Data"
                           v-b-modal.modal-lg
+                          @click="edit(item.item.id)"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -322,15 +330,18 @@
                           class="mr-3"
                           v-b-tooltip.hover
                           title="Hapus Data"
+                            @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
                         >
+
                         <b-button
                           variant="success"
                           size="sm"
                           v-b-tooltip.hover
                           title="Detail Peserta"
                           v-b-modal.modal-peserta
+                            @click="listUser(item.item.id)"
                           ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -455,14 +466,15 @@
       </b-form-group>
       
       <hr class="mb-0">
-      <b-button variant="primary" class="mt-3" @click="simpanBelumDimulai">Simpan</b-button>
+      <b-button variant="primary" class="mt-3" v-if="dataInput.id" @click="update">Update</b-button>
+      <b-button variant="primary" class="mt-3" v-else @click="simpanBelumDimulai">Simpan</b-button>
     </b-modal>
 
     <!-- modal peserta -->
     <b-modal
       id="modal-peserta"
       size="xl"
-      title="Data Peserta (Nama Pelatihan)"
+      title="Data Peserta"
       hide-footer
     >
       <b-row>
@@ -516,7 +528,7 @@
           <b-row>
             <b-col md="12">
               <b-table
-                :items="items4"
+                :items="dataPeserta"
                 :fields="fields4"
                 :current-page="currentPage"
                 :per-page="perPage"
@@ -568,13 +580,15 @@ import axios from "axios";
 import ipbackend from '../../ipbackend'
  let ret =      localStorage.getItem('user');
    ret = JSON.parse(ret)
-
+import moment from 'moment';
+moment.locale('id');
 Vue.use(VueQuillEditor /* { default global options } */);
 export default {
   name: "DashboardOpd",
   data(){
     return{
       ipbackend,
+      dataPeserta:[],
       dataInput:{
         judulPelatihan:'',
         kejuruan:'',
@@ -602,15 +616,13 @@ export default {
       kelurahan: [{ value: null, text: "-- Pilih --" }],
 
       jenjang: [
-        { value: null, text: "-- Pilih --" },
         { value: "Dasar", text: "Dasar" },
         { value: "Lanjutan", text: "Lanjutan" },
       ],
 
       status: [
-        { value: null, text: "-- Pilih --" },
-        { value: "Publish", text: "Publish" },
-        { value: "Unpublish", text: "Unpublish" },
+        { value: "publish", text: "publish" },
+        { value: "unpublish", text: "unpublish" },
       ],
       fields: [
         {
@@ -655,14 +667,7 @@ export default {
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items: [
-        {
-          nonya: 1,
-          judulnya: "dul",
-          kategorinya: "kat",
-          tglnya: "tgl",
-          lokasinya: "lok",
-          statusnya: "stat",
-        },
+       
       ],
 
       fields2: [
@@ -836,20 +841,7 @@ export default {
           class: "text-left",
         },
       ],
-      items4: [
-        {
-          nonya: 1,
-          niknya: "nik",
-          namanya: "nama",
-          kelaminnya: "laki",
-          lahirnya: "18051992",
-          alamatnya: "Semarang",
-          kecamatannya: "Tingkir",
-          kelurahannya: "Tingkir Lor",
-          hpnya: "1234",
-          emailnya: "emailnya@gmail.com",
-        },
-      ],
+      
 
       totalRows: 1,
       currentPage: 1,
@@ -891,6 +883,21 @@ export default {
         vm.kelurahan.push({ value: null, text: "-- Pilih --" })
       kelurahan.data.data.forEach((item, idx)=>{
           vm.kelurahan.push({ value: item.namaKelurahan, text: item.namaKelurahan })
+      })
+      }
+
+
+        if(val.kejuruan){
+          let subkategori=   await axios.get(ipbackend+ 'kejuruan/listSubKejuruanByKejuruan/'+vm.dataInput.kejuruan, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       vm.subkategori=[];
+        vm.subkategori.push({ value: null, text: "-- Pilih --" })
+      subkategori.data.data.forEach((item, idx)=>{
+          vm.subkategori.push({ value: item.namaSubKejuruan, text: item.namaSubKejuruan })
       })
       }
       
@@ -942,8 +949,48 @@ export default {
       })
 
 this.loadBelumDimulai();
+this.ambilKejuruan();
+this.loadSedangDimulai();
+this.loadTerlaksana();
   },
   methods: {
+  async  edit(id){
+
+       let itemnya=   await axios.get(ipbackend+ 'pelatihan/listpelatihanbyid/'+id, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+      // console.log(itemnya);
+      this.dataInput = itemnya.data.data[0]
+    },
+    async  listUser(id){
+   
+      this.dataPeserta=[]
+       let itemnya=   await axios.get(ipbackend+ 'poolpelatihan/listPesertaByPelatihan/'+id, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       itemnya.data.data.forEach((item, idx)=>{
+        this.dataPeserta.push(    {
+          nonya: idx+1,
+          niknya: item.NIK,
+          namanya: item.nama,
+          kelaminnya: item.jenisKelamin,
+          lahirnya: moment(item.tanggalLahir).format('LL'),
+          alamatnya: item.alamat,
+          kecamatannya: item.kecamatan,
+          kelurahannya: item.kelurahan,
+          hpnya: item.noHp,
+          emailnya: item.email
+        })
+
+       })
+      // console.log(itemnya);
+    },
     async loadBelumDimulai(){
 
     let vm = this;
@@ -955,16 +1002,73 @@ this.loadBelumDimulai();
       })
        this.items = [];
       itemnya.data.data.forEach((item, idx)=>{
-        this.items.push({ nonya : idx+1, 
+        this.items.push({ 
+           id : item.id, 
+          nonya : idx+1, 
         judulnya : item.judulPelatihan,
          kategorinya : item.kejuruan, 
-         tglnya : item.tanggalMulaipelatihan, 
+         tglnya : moment(item.tanggalMulaiPelatihan).format('LL'), 
          lokasinya : item.lokasi,
           statusnya :   item.statusPelatihan})
       })
-      console.log(itemnya);
+      // console.log(itemnya);
     },
+     async loadSedangDimulai(){
 
+    let vm = this;
+   let itemnya=   await axios.get(ipbackend+ 'pelatihan/pelatihanSedangBerlangsung/', {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       this.items2 = [];
+      itemnya.data.data.forEach((item, idx)=>{
+        this.items2.push({ 
+           id : item.id, 
+          nonya : idx+1, 
+        judulnya : item.judulPelatihan,
+         kategorinya : item.kejuruan, 
+         tglnya : moment(item.tanggalMulaiPelatihan).format('LL'), 
+         lokasinya : item.lokasi,
+          statusnya :   item.statusPelatihan})
+      })
+      // console.log(itemnya);
+    },
+     async loadTerlaksana(){
+
+    let vm = this;
+   let itemnya=   await axios.get(ipbackend+ 'pelatihan/pelatihanSudahSelesai/', {
+        headers:{
+
+          token: ret.token
+        }
+      })
+       this.items3 = [];
+      itemnya.data.data.forEach((item, idx)=>{
+        this.items3.push({ 
+           id : item.id, 
+          nonya : idx+1, 
+        judulnya : item.judulPelatihan,
+         kategorinya : item.kejuruan, 
+         tglnya : moment(item.tanggalMulaiPelatihan).format('LL'), 
+         lokasinya : item.lokasi,
+          statusnya :   item.statusPelatihan})
+      })
+      // console.log(itemnya);
+    },
+ async  ambilKejuruan(){
+   let vm = this;
+       let kategori=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/')
+      // console.log(kejuruan);
+    // this.kejuruan = kejuruan.data.data
+       this.kategori=[];
+        this.kategori.push({ value: null, text: "-- Pilih --" })
+      kategori.data.data.forEach((item, idx)=>{
+          vm.kategori.push({ value: item.namaKejuruan, text: item.namaKejuruan })
+      })
+      // console.log(vm.kejuruan);
+  },
      async simpanBelumDimulai(){
 // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
     var formData = new FormData();
@@ -982,13 +1086,13 @@ this.loadBelumDimulai();
                  formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
                   formData.append("syaratUmum", this.dataInput.syaratUmum);
                    formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-                    if(this.$refs.file.files[0]){
-                formData.append("file1", this.$refs.file.files[0]);
+                      if(this.$refs.file.files.length){
+              formData.append("file1", this.$refs.file.files[0]);
           }
    let vm = this;
  
 
-    await   axios({
+  let hasil=  await   axios({
         method: "post",
         url: ipbackend + 'pelatihan/register/',
         data: formData,
@@ -997,8 +1101,87 @@ this.loadBelumDimulai();
           token: ret.token,
         },
       })
-    this.loadBelumDimulai();
+            alert(hasil.data.message);
+       this.loadBelumDimulai();
+     this.loadSedangDimulai();
+      this.loadTerlaksana();
     this.dataInput={
+        judulPelatihan:'',
+        kejuruan:'',
+        subKejuruan:'',
+        statusPelatihan:'',
+        deskripsiPelatihan:'',
+        jenjang:'',
+        tanggalMulaiPelatihan:'',
+        tanggalSelesaiPelatihan:'',
+        kuotaPeserta:0,
+        lokasi:'',
+        kecamatanPelatihan:'',
+        kelurahanPelatihan:'',
+        syaratUmum:'',
+        syaratKhusus:''
+      }
+    },
+
+
+
+       async update(){
+// judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
+    var formData = new FormData();
+    formData.append("id", this.dataInput.id);
+      formData.append("judulPelatihan", this.dataInput.judulPelatihan);
+       formData.append("kejuruan", this.dataInput.kejuruan);
+        formData.append("subKejuruan", this.dataInput.subKejuruan);
+         formData.append("statusPelatihan", this.dataInput.statusPelatihan);
+          formData.append("deskripsiPelatihan", this.dataInput.deskripsiPelatihan);
+           formData.append("jenjang", this.dataInput.jenjang);
+            formData.append("tanggalMulaiPelatihan", this.dataInput.tanggalMulaiPelatihan);
+             formData.append("tanggalSelesaiPelatihan", this.dataInput.tanggalSelesaiPelatihan);
+              formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
+               formData.append("lokasi", this.dataInput.lokasi);
+                formData.append("kecamatanPelatihan", this.dataInput.kecamatanPelatihan);
+                 formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
+                  formData.append("syaratUmum", this.dataInput.syaratUmum);
+                   formData.append("syaratKhusus", this.dataInput.syaratKhusus);
+                   
+                    if(this.$refs.file.files.length){
+                formData.append("file1", this.$refs.file.files[0]);
+          }
+   let vm = this;
+ 
+
+   let hasil =  await   axios({
+        method: "post",
+        url: ipbackend + 'pelatihan/update/',
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: ret.token,
+        },
+      })
+      alert(hasil.data.message);
+    this.loadBelumDimulai();
+     this.loadSedangDimulai();
+      this.loadTerlaksana();
+    this.dataInput={
+        judulPelatihan:'',
+        kejuruan:'',
+        subKejuruan:'',
+        statusPelatihan:'',
+        deskripsiPelatihan:'',
+        jenjang:'',
+        tanggalMulaiPelatihan:'',
+        tanggalSelesaiPelatihan:'',
+        kuotaPeserta:0,
+        lokasi:'',
+        kecamatanPelatihan:'',
+        kelurahanPelatihan:'',
+        syaratUmum:'',
+        syaratKhusus:''
+      }
+    },
+    reset(){
+this.dataInput={
         judulPelatihan:'',
         kejuruan:'',
         subKejuruan:'',
