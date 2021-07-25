@@ -5,7 +5,7 @@
         <b-row>
           <b-col md="4">
             <div class="indentity">
-              <img src="https://via.placeholder.com/80" alt="" />
+              <img src="../assets/logo kota salatiga.png" alt="width:80px" />
               <div class="indentity-name">
                 <h3 class="mt-0 mb-0"><strong>S T I S</strong></h3>
                 <h6 style="font-size: 16px; font-weight: 400">
