@@ -19,8 +19,10 @@
             <b-row>
               <b-col md="12">
                 <h2>
-                  <span style="font-weight: 400">Tentang</span>
-                  <strong>Salatiga Tranning Integration System</strong>
+                  <strong
+                    ><span style="font-weight: 400">Tentang</span> Salatiga
+                    Tranning Integration System</strong
+                  >
                 </h2>
               </b-col>
 
@@ -45,8 +47,10 @@
             <b-row>
               <b-col md="12">
                 <h2>
-                  <span style="font-weight: 400">Info</span>
-                  <strong>Lowongan Pekerjaan</strong>
+                  <strong
+                    ><span style="font-weight: 400">Info</span> Lowongan
+                    Pekerjaan</strong
+                  >
                 </h2>
               </b-col>
             </b-row>
@@ -66,8 +70,9 @@
         <b-row>
           <b-col md="12">
             <h2>
-              <span style="font-weight: 400">Agenda</span>
-              <strong>Kegiatan</strong>
+              <strong
+                ><span style="font-weight: 400">Agenda</span> Kegiatan</strong
+              >
             </h2>
           </b-col>
 
@@ -133,8 +138,9 @@
         <b-row>
           <b-col md="12">
             <h2>
-              <span style="font-weight: 400">Apa</span>
-              <strong>Kata Mereka</strong>
+              <strong
+                ><span style="font-weight: 400">Apa</span> Kata Mereka</strong
+              >
             </h2>
           </b-col>
         </b-row>
