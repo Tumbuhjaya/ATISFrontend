@@ -46,7 +46,7 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/views/Login'),
     meta: {
       requiresAuth: false
     }
@@ -55,7 +55,7 @@ const routes = [
   {
     path: '/pelatihan/:kejuruan',
     name: 'Pelatihan',
-    component: Pelatihan,
+    component: () => import('@/views/Pelatihan/Pelatihan'),
     meta: {
       requiresAuth: false
     }
@@ -64,7 +64,7 @@ const routes = [
   {
     path: '/detail_pelatihan/:id',
     name: 'DetailPelatihan',
-    component: DetailPelatihan,
+    component: () => import('@/views/Pelatihan/Detail'),
     meta: {
       requiresAuth: false
     }
@@ -73,7 +73,7 @@ const routes = [
   {
     path: '/daftar_pelatihan/:id',
     name: 'DaftarPelatihan',
-    component: DaftarPelatihan,
+    component: () => import('@/views/Pelatihan/Daftar'),
     meta: {
       requiresAuth: true
     }
@@ -82,7 +82,7 @@ const routes = [
   {
     path: '/galeri',
     name: 'Galeri',
-    component: Galeri,
+    component: () => import('@/views/Galeri/Galeri'),
     meta: {
       requiresAuth: false
     }
@@ -91,7 +91,7 @@ const routes = [
   {
     path: '/detail_galeri',
     name: 'DetailGaleri',
-    component: DetailGaleri,
+    component: () => import('@/views/Galeri/Detail'),
     meta: {
       requiresAuth: false
     }
@@ -99,7 +99,7 @@ const routes = [
   {
     path: '/publikasi',
     name: 'Publikasi',
-    component: Publikasi,
+    component: () => import('@/views/Publikasi/Publikasi'),
     meta: {
       requiresAuth: true,
       role: 'Opd'
@@ -108,7 +108,7 @@ const routes = [
   {
     path: '/dashboard_opd',
     name: 'DashboardOpd',
-    component: DashboardOpd,
+    component: () => import('@/views/Opd/Dashboard'),
     meta: {
       requiresAuth: true,
       role: 'Opd'
@@ -118,7 +118,7 @@ const routes = [
   {
     path: '/tambah_pelatihan_opd',
     name: 'TambahPelatihanOpd',
-    component: TambahPelatihanOpd,
+    component: () => import('@/views/Opd/TambahPelatihan'),
     meta: {
       requiresAuth: true,
       role: 'Opd'
@@ -128,7 +128,7 @@ const routes = [
   {
     path: '/edit_pelatihan_opd',
     name: 'EditPelatihanOpd',
-    component: EditPelatihanOpd,
+    component: () => import('@/views/Opd/EditPelatihan'),
     meta: {
       requiresAuth: true,
       role: 'Opd'
@@ -138,7 +138,7 @@ const routes = [
   {
     path: '/dashboard_masyarakat',
     name: 'DashboardMasyarakat',
-    component: DashboardMasyarakat,
+    component: () => import('@/views/Masyarakat/Dashboard'),
     meta: {
       requiresAuth: true,
       role: 'Masyarakat'
@@ -148,7 +148,7 @@ const routes = [
   {
     path: '/profil_masyarakat',
     name: 'ProfilMasyarakat',
-    component: ProfilMasyarakat,
+    component: () => import('@/views/Masyarakat/Profil'),
     meta: {
       requiresAuth: true,
       role: 'Masyarakat'
@@ -158,7 +158,7 @@ const routes = [
   {
     path: '/riwayat_pelatihan',
     name: 'RiwayatPelatihan',
-    component: RiwayatPelatihan,
+    component: () => import('@/views/Masyarakat/RiwayatPelatihan'),
     meta: {
       requiresAuth: true,
       role: 'Masyarakat'
@@ -168,7 +168,7 @@ const routes = [
   {
     path: '/statistik',
     name: 'Statistik',
-    component: Statistik,
+    component: () => import('@/views/Statistik/Statistik'),
     meta: {
       requiresAuth: false
     }
