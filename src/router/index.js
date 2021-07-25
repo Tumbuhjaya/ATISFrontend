@@ -37,7 +37,7 @@ const routes = [
   {
     path: '/daftar',
     name: 'Daftar',
-    component: Daftar,
+    component: () => import('@/views/Daftar'),
     meta: {
       requiresAuth: false
     }
