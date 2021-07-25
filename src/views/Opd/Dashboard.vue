@@ -541,6 +541,20 @@
                 @filtered="onFiltered"
                 class="mt-3"
               >
+                   <template #cell(filePendukung)="item">
+                  
+<a  :href="ipbackend+item.item.filePendukung" target="_blank">
+                        <b-button
+                          variant="success"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Download"
+                        
+                          ><b-icon icon="info-circle"></b-icon>
+                          </b-button
+                        >
+                        </a>
+                      </template>
               </b-table>
             </b-col>
           </b-row>
@@ -840,6 +854,18 @@ export default {
           sortable: true,
           class: "text-left",
         },
+         {
+          key: "filePendukung",
+          label: "File Pendukung",
+          sortable: true,
+          class: "text-left",
+        },
+         {
+          key: "keteranganFile",
+          label: "Keterangan File",
+          sortable: true,
+          class: "text-left",
+        },
       ],
       
 
@@ -965,6 +991,19 @@ this.loadTerlaksana();
       // console.log(itemnya);
       this.dataInput = itemnya.data.data[0]
     },
+      async  hapus(id){
+
+       let itemnya=   await axios.post(ipbackend+ 'pelatihan/delete/',{id}, {
+        headers:{
+
+          token: ret.token
+        }
+      })
+        alert(itemnya.data.message);
+        this.loadBelumDimulai();
+        this.loadSedangDimulai();
+        this.loadTerlaksana();
+    },
     async  listUser(id){
    
       this.dataPeserta=[]
@@ -985,7 +1024,9 @@ this.loadTerlaksana();
           kecamatannya: item.kecamatan,
           kelurahannya: item.kelurahan,
           hpnya: item.noHp,
-          emailnya: item.email
+          emailnya: item.email,
+          filePendukung: item.file,
+          keteranganFile: item.keteranganFile
         })
 
        })

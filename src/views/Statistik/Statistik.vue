@@ -15,7 +15,7 @@
         </b-row>
 
         <b-row class="mt-4">
-          <b-col md="8" offset-md="2">
+          <!-- <b-col md="8" offset-md="2">
             <b-alert show variant="success">
               <h4 class="alert-heading">Pencarian Data</h4>
 
@@ -36,7 +36,7 @@
                 </div>
               </div>
             </b-alert>
-          </b-col>
+          </b-col> -->
           <b-col md="12" class="mt-3">
             <div>
               <b-tabs content-class="mt-3" align="center">
@@ -52,7 +52,7 @@
                       <b-row>
                         <b-col md="12">
                           <b-table
-                            :items="items"
+                            :items="chartOptions.data[0].dataPoints"
                             :fields="fields"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -91,7 +91,7 @@
                       <b-row>
                         <b-col md="12">
                           <b-table
-                            :items="items2"
+                            :items="chartOptions2.data[0].dataPoints"
                             :fields="fields2"
                             :current-page="currentPage"
                             :per-page="perPage"
@@ -137,10 +137,15 @@ import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
 let CanvasJS = require("../../../node_modules/canvasjs/dist/canvasjs");
 // import CanvasJS from "@/canvasjs/dist/canvasjs.min.js";
+import axios from "axios";
+import ipbackend from '../../ipbackend'
+ let ret =      localStorage.getItem('user');
+   ret = JSON.parse(ret)
 export default {
   name: "Statistik",
   data() {
     return {
+       ipbackend,
       // opd
       opd: [{ value: null, text: "-- Pilih --" }],
 
@@ -150,45 +155,35 @@ export default {
       // table1
       fields: [
         {
-          key: "opdnya",
+          key: "label",
           label: "OPD",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "jumlahnya",
+          key: "y",
           label: "Jumlah",
           sortable: true,
           class: "text-left",
         },
       ],
-      items: [
-        {
-          opdnya: "Dinas Sosial",
-          jumlahnya: 10,
-        },
-      ],
+   
       // table2
       fields2: [
         {
-          key: "kategorinya",
+          key: "label",
           label: "Kategori",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "jumlahnya",
+          key: "y",
           label: "Jumlah",
           sortable: true,
           class: "text-left",
         },
       ],
-      items2: [
-        {
-          kategorinya: "Menari",
-          jumlahnya: 10,
-        },
-      ],
+   
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
@@ -247,9 +242,40 @@ export default {
     };
   },
 
-  mounted() {
+ async mounted() {
     // console.log(CanvasJS);
+
+       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByOPD/', {
+         headers:{
+           token: ret.token
+         }
+       })
+      console.log(pelatihan);
+       let items  = [];
+    
+      pelatihan.data.data.forEach((item, idx)=>{
+        items.push({ y: Number(item.count), label: item.namaOPD })
+      })
+
+      this.chartOptions.data[0].dataPoints = items;
     this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
+
+
+
+
+       let kejuruan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/', {
+         headers:{
+           token: ret.token
+         }
+       })
+  
+       let items2  = [];
+    
+      kejuruan.data.data.forEach((item, idx)=>{
+        items2.push({ y: Number(item.count), label: item.namaKejuruan })
+      })
+
+      this.chartOptions2.data[0].dataPoints = items2;
     this.chart2 = new CanvasJS.Chart("chartContainer2", this.chartOptions2);
     this.chart.render();
     this.chart2.render();

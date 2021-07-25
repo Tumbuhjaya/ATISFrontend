@@ -234,11 +234,18 @@
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
-
+import axios from "axios";
+import ipbackend from '../../ipbackend'
+import moment from 'moment';
+ let ret =      localStorage.getItem('user');
+   ret = JSON.parse(ret)
 export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+       pelatihan:[],
+       ipbackend,
+       moment,
       tambah_terampil: [
         { value: "Ya", text: "Ya" },
         { value: "Tidak", text: "Tidak" },
@@ -334,7 +341,8 @@ export default {
 
   mounted() {
     // Set the initial number of items
-    this.totalRows = this.items.length;
+    this.totalRows = this.items2.length;
+    this.ambilPelatihan();
   },
   methods: {
     onFiltered(filteredItems) {
@@ -342,6 +350,28 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+     async  ambilPelatihan(){
+
+       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/listPelatihanByUsersLogin/', {
+         headers:{
+           token: ret.token
+         }
+       })
+      console.log(pelatihan);
+    // this.pelatihan = pelatihan.data.data
+      this.items2 = [];
+    
+      pelatihan.data.data.forEach((item, idx)=>{
+        this.items2.push({ 
+           id : item.id, 
+          nonya : idx+1, 
+        judulnya : item.judulPelatihan,
+         kategorinya : item.kejuruan, 
+         tglnya : moment(item.tanggalMulaiPelatihan).format('LL'), 
+         lokasinya : item.lokasi,
+          statusnya :   item.statusPelatihan})
+      })
+  }
   },
 };
 </script>
