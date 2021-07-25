@@ -5,9 +5,9 @@
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap");
 #app {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center;
@@ -15,34 +15,44 @@
   font-weight: 300;
 }
 
-h1,h2,h3,h4,h5,h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
 
-.title{
+.title {
   font-weight: 600;
 }
 
-.layout{
+.layout {
   width: 100%;
   height: 100px;
   background-color: red;
 }
 
-header{
+header {
   padding: 10px 0;
   /* background-color: turquoise; */
   box-shadow: 0 7px 20px 0 rgb(0 0 0 / 10%);
+  /* position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1; */
 }
 
-header .indentity{
+header .indentity {
   width: 100%;
   display: flex;
   height: 80px;
 }
 
-header .indentity .indentity-name{
+header .indentity .indentity-name {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -51,7 +61,7 @@ header .indentity .indentity-name{
   flex-direction: column;
 }
 
-header .daftar-login{
+header .daftar-login {
   width: 100%;
   height: 40px;
   display: flex;
@@ -60,7 +70,7 @@ header .daftar-login{
   /* background-color: red; */
 }
 
-header .menu{
+header .menu {
   width: 100%;
   height: 40px;
   /* background-color: red; */
@@ -69,16 +79,17 @@ header .menu{
   align-items: center;
 }
 
-header .btn-check:focus + .btn, .btn:focus{
+header .btn-check:focus + .btn,
+.btn:focus {
   box-shadow: transparent;
 }
 
-footer{
-  background-color: rgb(243,244,246);
-  padding:60px 0;
+footer {
+  background-color: rgb(243, 244, 246);
+  padding: 60px 0;
 }
 
-footer .indentity-footer{
+footer .indentity-footer {
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -86,7 +97,7 @@ footer .indentity-footer{
   /* height: 80px; */
 }
 
-footer .indentity-footer .indentity-footer-name{
+footer .indentity-footer .indentity-footer-name {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +107,7 @@ footer .indentity-footer .indentity-footer-name{
   /* background-color: red; */
 }
 
-footer .indentity-footer .indentity-footer-name .fw400{
+footer .indentity-footer .indentity-footer-name .fw400 {
   font-weight: 400;
 }
 </style>

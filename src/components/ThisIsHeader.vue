@@ -7,9 +7,9 @@
             <div class="indentity">
               <img src="../assets/logo kota salatiga.png" alt="width:80px" />
               <div class="indentity-name">
-                <h3 class="mt-0 mb-0"><strong>S T I S</strong></h3>
+                <h3 class="mt-0 mb-0"><strong>A T I S</strong></h3>
                 <h6 style="font-size: 16px; font-weight: 400">
-                  Salatiga Tranning Integartion System
+                  Aplikasi Training Integartion System
                 </h6>
               </div>
             </div>
@@ -17,7 +17,7 @@
 
           <b-col md="7" offset-md="1">
             <div class="daftar-login">
-              <router-link v-if="user.length==0" :to="'/login'">
+              <router-link v-if="user.length == 0" :to="'/login'">
                 <b-button
                   variant="outline-primary"
                   style="margin-right: 15px"
@@ -25,7 +25,7 @@
                   >Masuk</b-button
                 >
               </router-link>
-              <router-link v-if="user.length==0" :to="'/daftar'">
+              <router-link v-if="user.length == 0" :to="'/daftar'">
                 <b-button
                   variant="outline-primary"
                   size="sm"
@@ -35,15 +35,21 @@
               </router-link>
 
               <b-dropdown
-                v-if="user.length>0"
+                v-if="user.length > 0"
                 id="dropdown-1"
-                :text="'Halo, '+user[0].nama "
+                :text="'Halo, ' + user[0].nama"
                 variant="outline-primary"
                 size="sm"
                 right
               >
-               <b-dropdown-item v-if="user[0].role=='peserta'" @click="$router.push('/dashboard_masyarakat')">Dashboard</b-dropdown-item>
-               <b-dropdown-item v-else @click="$router.push('/dashboard_opd')">Dashboard</b-dropdown-item>
+                <b-dropdown-item
+                  v-if="user[0].role == 'peserta'"
+                  @click="$router.push('/dashboard_masyarakat')"
+                  >Dashboard</b-dropdown-item
+                >
+                <b-dropdown-item v-else @click="$router.push('/dashboard_opd')"
+                  >Dashboard</b-dropdown-item
+                >
                 <b-dropdown-item @click="logout">Logout</b-dropdown-item>
               </b-dropdown>
             </div>
@@ -62,13 +68,13 @@
               >
                 <div style="height: 160px; overflow-y: auto">
                   <b-dropdown-item v-for="(item, idx) in kejuruan" :key="idx">
-                    <router-link :to="'/pelatihan/'+item.namaKejuruan"
-                      >{{item.namaKejuruan}}&nbsp;&nbsp;<b-badge variant="primary"
-                        >{{item.count}}</b-badge
+                    <router-link :to="'/pelatihan/' + item.namaKejuruan"
+                      >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
+                        variant="primary"
+                        >{{ item.count }}</b-badge
                       ></router-link
                     ></b-dropdown-item
                   >
-                 
                 </div>
               </b-dropdown>
               <router-link :to="'/galeri'">
@@ -92,49 +98,47 @@
 
 <script>
 import axios from "axios";
-import ipbackend from '../ipbackend'
+import ipbackend from "../ipbackend";
 
 export default {
   name: "ThisIsHeader",
-   data(){
-     return{
-       kejuruan:[],
-       ret:'',
-       user:[]
-     }
-   },
-  async mounted(){
-     this.ambilKejuruan();
-  let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret);
-   this.ret = ret
-     if(this.ret){
-       let user=   await axios.get(ipbackend+ 'users/listbyid/'+ret.id, {
-         headers:{
-           token: ret.token
-         }
-       })
+  data() {
+    return {
+      kejuruan: [],
+      ret: "",
+      user: [],
+    };
+  },
+  async mounted() {
+    this.ambilKejuruan();
+    let ret = localStorage.getItem("user");
+    ret = JSON.parse(ret);
+    this.ret = ret;
+    if (this.ret) {
+      let user = await axios.get(ipbackend + "users/listbyid/" + ret.id, {
+        headers: {
+          token: ret.token,
+        },
+      });
       console.log(user);
-     this.user = user.data.data
-  }
-     },
-   methods:{
-     logout(){
-       localStorage.removeItem('user');
-       this.ret=false;
-       this.user=[];
-       this.$router.push('/')
-     },
-    async  ambilKejuruan(){
-
-       let kejuruan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/')
+      this.user = user.data.data;
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem("user");
+      this.ret = false;
+      this.user = [];
+      this.$router.push("/");
+    },
+    async ambilKejuruan() {
+      let kejuruan = await axios.get(
+        ipbackend + "pelatihan/grafikPelatihanByKejuruan/"
+      );
       console.log(kejuruan);
-    this.kejuruan = kejuruan.data.data
-  }
-  
-   }
-
-   
+      this.kejuruan = kejuruan.data.data;
+    },
+  },
 };
 </script>
 
