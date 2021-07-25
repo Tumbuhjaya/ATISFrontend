@@ -27,19 +27,13 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque
-                laudantium qui officiis, praesentium odio quas at iure,
-                accusantium soluta quam blanditiis quaerat? Illo repudiandae
-                eveniet hic, quasi eaque consectetur ducimus temporibus animi?
-                Doloribus culpa eos alias voluptatum sunt, ratione fuga rem
-                itaque eveniet inventore vitae incidunt cupiditate ut, a
-                reiciendis est consequatur, magnam asperiores eius placeat
-                commodi. Dolorum error accusamus quia in cupiditate quae nulla
-                libero veritatis, consequuntur odio mollitia possimus veniam
-                praesentium. Deleniti eaque minus molestias inventore odit,
-                quidem alias? Minima animi ipsa, et maxime quia esse voluptas
-                fugiat fuga, cumque non magnam distinctio exercitationem dolores
-                aut molestias nulla?
+                S.T.I.S merupakan sistem informasi yang menjadi wadah yang
+                mengintegrasikan database program pelatihan, peserta, dan output
+                pelatihan dari setiap instansi penyelenggara. Sistem ini juga
+                berfungsi memudahkan peserta pelatihan untuk mendapat informasi
+                yang relevan dengan bidang pelatihan yang pernah diikutinya,
+                seperti misalnya event untuk memasarkan produk usahanya atau
+                lowongan kerja.
               </b-col>
             </b-row>
           </b-col>
@@ -77,57 +71,48 @@
           </b-col>
 
           <b-col md="4" class="mt-3">
-            <b-card
-              title="Agenda Kegiatan 1"
-              img-src="https://via.placeholder.com/360x260"
-              img-alt="Image"
-              img-top
-              tag="article"
-            >
-              <b-card-text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-                voluptatibus eligendi ea a fugiat explicabo earum itaque velit?
-                Accusantium, eveniet!
-              </b-card-text>
+            <div class="box-kegiatan">
+              <img src="../assets/agenda1.jpg" alt="" />
+              <div class="content">
+                <h5><strong>Pameran UMKM Salatiga</strong></h5>
+                <h6 class="mt-2">
+                  Dinas Koperasi dan UKM Salatiga menyelenggarakan pameran
+                  produk UMKM masyarakat Salatiga ....
+                </h6>
 
-              <b-button href="#" variant="primary">Selengkapnya</b-button>
-            </b-card>
+                <b-button variant="primary" class="mt-3">Selengkapnya</b-button>
+              </div>
+            </div>
           </b-col>
 
           <b-col md="4" class="mt-3">
-            <b-card
-              title="Agenda Kegiatan 2"
-              img-src="https://via.placeholder.com/360x260"
-              img-alt="Image"
-              img-top
-              tag="article"
-            >
-              <b-card-text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-                voluptatibus eligendi ea a fugiat explicabo earum itaque velit?
-                Accusantium, eveniet!
-              </b-card-text>
+            <div class="box-kegiatan">
+              <img src="../assets/agenda2.jpg" alt="" />
+              <div class="content">
+                <h5><strong>Lomba Memasak</strong></h5>
+                <h6 class="mt-2">
+                  Dinas Sosial Salatiga menyelenggarakan lomba memasak bagi
+                  masyarakat Salatiga ....
+                </h6>
 
-              <b-button href="#" variant="primary">Selengkapnya</b-button>
-            </b-card>
+                <b-button variant="primary" class="mt-3">Selengkapnya</b-button>
+              </div>
+            </div>
           </b-col>
 
           <b-col md="4" class="mt-3">
-            <b-card
-              title="Card Title"
-              img-src="https://via.placeholder.com/360x260"
-              img-alt="Image"
-              img-top
-              tag="article"
-            >
-              <b-card-text>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam
-                voluptatibus eligendi ea a fugiat explicabo earum itaque velit?
-                Accusantium, eveniet!
-              </b-card-text>
+            <div class="box-kegiatan">
+              <img src="../assets/agenda3.jpg" alt="" />
+              <div class="content">
+                <h5><strong>Pameran Batik dan Kerajinan Salatiga</strong></h5>
+                <h6 class="mt-2">
+                  Dinas Pendidikan Salatiga menyelenggarakan pameran batik dan
+                  kerajinan Salatiga....
+                </h6>
 
-              <b-button href="#" variant="primary">Selengkapnya</b-button>
-            </b-card>
+                <b-button variant="primary" class="mt-3">Selengkapnya</b-button>
+              </div>
+            </div>
           </b-col>
         </b-row>
       </b-container>
@@ -150,18 +135,25 @@
             <b-row>
               <b-col md="3">
                 <img
-                  src="https://via.placeholder.com/300"
+                  src="../assets/komentator.jpg"
                   alt=""
                   style="width: 100%; border-radius: 100%"
                 />
               </b-col>
               <b-col md="8" offset-md="1">
                 <div class="comment">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veritatis deserunt incidunt ducimus at. Fugit beatae cum in
-                  maxime porro error adipisci odio consequatur reprehenderit
-                  animi perspiciatis ea a, eum incidunt optio. Quibusdam esse,
-                  ipsum expedita debitis vitae quo magnam. Iusto.
+                  <p>
+                    “Saya sangat terbantu dengan sistem ini. Mencari pelatihan
+                    yang saya butuhkan sangat mudah. Cara daftarnya pun sangat
+                    mudah. Alhamdulillah sekarang saya sudah bekerja di beberapa
+                    proyek pembangunan berkat mengikuti pelatihan menukang”
+                  </p>
+
+                  <p>
+                    <i
+                      ><strong>Abdul,<br />30 Tahun</strong></i
+                    >
+                  </p>
                 </div>
               </b-col>
             </b-row>
@@ -205,9 +197,27 @@ export default {
 #home .section-three .comment {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   /* background-color: red; */
   height: 261px;
+  flex-direction: column;
+}
+
+#home .box-kegiatan {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+#home .box-kegiatan img {
+  width: 100%;
+  height: 200px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+#home .box-kegiatan .content {
+  padding: 30px 20px;
 }
 </style>
