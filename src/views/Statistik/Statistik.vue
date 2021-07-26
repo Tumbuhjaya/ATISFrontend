@@ -44,7 +44,7 @@
                   <b-row>
                     <b-col md="8">
                       <div
-                        style="width: 100%; height: 500px; background-color: "
+                        style="width: 100%; height: 1000px; background-color: "
                         id="chartContainer"
                       ></div>
                     </b-col>
@@ -69,7 +69,7 @@
                         <b-col md="12">
                           <b-pagination
                             v-model="currentPage"
-                            :total-rows="totalRows"
+                            :total-rows="chartOptions.data[0].dataPoints.length"
                             :per-page="perPage"
                             align="fill"
                             size="sm"
@@ -83,7 +83,7 @@
                   <b-row>
                     <b-col md="8">
                       <div
-                        style="width: 100%; height: 500px; background-color: "
+                        style="width: 100%; height: 800px; background-color: "
                         id="chartContainer2"
                       ></div>
                     </b-col>
@@ -108,7 +108,9 @@
                         <b-col md="12">
                           <b-pagination
                             v-model="currentPage"
-                            :total-rows="totalRows"
+                            :total-rows="
+                              chartOptions2.data[0].dataPoints.length
+                            "
                             :per-page="perPage"
                             align="fill"
                             size="sm"
@@ -138,14 +140,14 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 let CanvasJS = require("../../../node_modules/canvasjs/dist/canvasjs");
 // import CanvasJS from "@/canvasjs/dist/canvasjs.min.js";
 import axios from "axios";
-import ipbackend from '../../ipbackend'
+import ipbackend from "../../ipbackend";
 
 export default {
   name: "Statistik",
   data() {
     return {
-       ipbackend,
-       user:{},
+      ipbackend,
+      user: {},
       // opd
       opd: [{ value: null, text: "-- Pilih --" }],
 
@@ -167,7 +169,7 @@ export default {
           class: "text-left",
         },
       ],
-   
+
       // table2
       fields2: [
         {
@@ -183,7 +185,7 @@ export default {
           class: "text-left",
         },
       ],
-   
+
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
@@ -192,13 +194,13 @@ export default {
       chartOptions: {
         axisX: {
           labelFontSize: 14,
-
-          labelAutoFit: true,
-          labelTextAlign: "center",
+          interval: 1,
+          labelAngle: 90,
         },
 
         axisY: {
           labelFontSize: 14,
+          interval: 1,
         },
         data: [
           {
@@ -215,15 +217,16 @@ export default {
 
       chartOptions2: {
         width: "730",
-        height: "500",
+        height: "800",
         axisX: {
           labelFontSize: 14,
-          labelAutoFit: true,
-          labelTextAlign: "center",
+          interval: 1,
+          labelAngle: 90,
         },
 
         axisY: {
           labelFontSize: 14,
+          interval: 1,
         },
         data: [
           {
@@ -242,33 +245,33 @@ export default {
     };
   },
 
- async mounted() {
+  async mounted() {
     // console.log(CanvasJS);
 
+    let pelatihan = await axios.get(
+      ipbackend + "pelatihan/grafikPelatihanByOPD/"
+    );
+    console.log(pelatihan);
+    let items = [];
 
-       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByOPD/')
-      console.log(pelatihan);
-       let items  = [];
-    
-      pelatihan.data.data.forEach((item, idx)=>{
-        items.push({ y: Number(item.count), label: item.namaOPD })
-      })
+    pelatihan.data.data.forEach((item, idx) => {
+      items.push({ y: Number(item.count), label: item.namaOPD });
+    });
 
-      this.chartOptions.data[0].dataPoints = items;
+    this.chartOptions.data[0].dataPoints = items;
     this.chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
 
+    let kejuruan = await axios.get(
+      ipbackend + "pelatihan/grafikPelatihanByKejuruan/"
+    );
 
+    let items2 = [];
 
+    kejuruan.data.data.forEach((item, idx) => {
+      items2.push({ y: Number(item.count), label: item.namaKejuruan });
+    });
 
-       let kejuruan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/')
-  
-       let items2  = [];
-    
-      kejuruan.data.data.forEach((item, idx)=>{
-        items2.push({ y: Number(item.count), label: item.namaKejuruan })
-      })
-
-      this.chartOptions2.data[0].dataPoints = items2;
+    this.chartOptions2.data[0].dataPoints = items2;
     this.chart2 = new CanvasJS.Chart("chartContainer2", this.chartOptions2);
     this.chart.render();
     this.chart2.render();
