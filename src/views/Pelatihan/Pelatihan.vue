@@ -7,7 +7,7 @@
           <b-col md="12">
             <h2>
               <span>Pelatihan</span>
-              <strong>{{ $route.params.kejuruan }}</strong>
+              <strong> {{ $route.params.kejuruan }}</strong>
             </h2>
           </b-col>
         </b-row>
@@ -124,7 +124,7 @@ import ipbackend from "../../ipbackend";
 import moment from "moment";
 moment.locale("id");
 export default {
-  name: "Login",
+  name: "Pelatihan",
   components: {
     ThisIsHeader,
     ThisIsFooter,
@@ -136,9 +136,17 @@ export default {
       moment,
     };
   },
-  mounted() {
-    this.ambilPelatihan();
-  },
+  watch: {
+    '$route.params': {
+        handler(newValue) {
+            // const { userName } = newValue
+
+             this.ambilPelatihan();
+        },
+        immediate: true,
+    }
+},
+
   methods: {
     async ambilPelatihan() {
       let pelatihan = await axios.get(

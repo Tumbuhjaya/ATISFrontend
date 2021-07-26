@@ -75,9 +75,22 @@ export default {
   },
   methods: {
     simpan() {
-      console.log(this.data);
+      // console.log(this.data);
+      let vm = this;
       axios.post(ipbackend + "users/register", this.data).then((data) => {
         console.log(data);
+        vm.data= {
+        NIK: "",
+        password: "",
+        role: "peserta",
+        noHp: "",
+        email: "",
+      },
+        alert(data.data.message);
+        if(data.data.message=='sukses'){
+
+          vm.$router.push('/login');
+        }
       });
     },
   },

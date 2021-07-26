@@ -592,8 +592,7 @@ import DatePicker from 'vue2-datepicker';
 import 'vue2-datepicker/index.css';
 import axios from "axios";
 import ipbackend from '../../ipbackend'
- let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret)
+
 import moment from 'moment';
 moment.locale('id');
 Vue.use(VueQuillEditor /* { default global options } */);
@@ -601,6 +600,7 @@ export default {
   name: "DashboardOpd",
   data(){
     return{
+      user:{},
       ipbackend,
       dataPeserta:[],
       dataInput:{
@@ -945,12 +945,14 @@ export default {
   async mounted() {
       // Set the initial number of items
       let vm = this;
+       let ret =      localStorage.getItem('user');
+   vm.user = JSON.parse(ret)
       this.totalRows = this.items.length
 
        let kecamatan=   await axios.get(ipbackend+ 'kelurahan/listKecamatan/', {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
  
@@ -965,7 +967,7 @@ export default {
  let kelurahan=   await axios.get(ipbackend+ 'kelurahan/list/', {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
        vm.kelurahan=[];
@@ -985,7 +987,7 @@ this.loadTerlaksana();
        let itemnya=   await axios.get(ipbackend+ 'pelatihan/listpelatihanbyid/'+id, {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
       // console.log(itemnya);
@@ -996,7 +998,7 @@ this.loadTerlaksana();
        let itemnya=   await axios.post(ipbackend+ 'pelatihan/delete/',{id}, {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
         alert(itemnya.data.message);
@@ -1010,7 +1012,7 @@ this.loadTerlaksana();
        let itemnya=   await axios.get(ipbackend+ 'poolpelatihan/listPesertaByPelatihan/'+id, {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
        itemnya.data.data.forEach((item, idx)=>{
@@ -1038,7 +1040,7 @@ this.loadTerlaksana();
    let itemnya=   await axios.get(ipbackend+ 'pelatihan/pelatihanBelumDimulai/', {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
        this.items = [];
@@ -1060,7 +1062,7 @@ this.loadTerlaksana();
    let itemnya=   await axios.get(ipbackend+ 'pelatihan/pelatihanSedangBerlangsung/', {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
        this.items2 = [];
@@ -1082,7 +1084,7 @@ this.loadTerlaksana();
    let itemnya=   await axios.get(ipbackend+ 'pelatihan/pelatihanSudahSelesai/', {
         headers:{
 
-          token: ret.token
+          token: vm.user.token
         }
       })
        this.items3 = [];
@@ -1139,7 +1141,7 @@ this.loadTerlaksana();
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
-          token: ret.token,
+          token: vm.user.token,
         },
       })
             alert(hasil.data.message);
@@ -1197,7 +1199,7 @@ this.loadTerlaksana();
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
-          token: ret.token,
+          token: vm.user.token,
         },
       })
       alert(hasil.data.message);

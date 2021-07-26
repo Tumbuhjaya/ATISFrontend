@@ -139,13 +139,13 @@ let CanvasJS = require("../../../node_modules/canvasjs/dist/canvasjs");
 // import CanvasJS from "@/canvasjs/dist/canvasjs.min.js";
 import axios from "axios";
 import ipbackend from '../../ipbackend'
- let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret)
+
 export default {
   name: "Statistik",
   data() {
     return {
        ipbackend,
+       user:{},
       // opd
       opd: [{ value: null, text: "-- Pilih --" }],
 
@@ -245,11 +245,8 @@ export default {
  async mounted() {
     // console.log(CanvasJS);
 
-       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByOPD/', {
-         headers:{
-           token: ret.token
-         }
-       })
+
+       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByOPD/')
       console.log(pelatihan);
        let items  = [];
     
@@ -263,11 +260,7 @@ export default {
 
 
 
-       let kejuruan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/', {
-         headers:{
-           token: ret.token
-         }
-       })
+       let kejuruan=   await axios.get(ipbackend+ 'pelatihan/grafikPelatihanByKejuruan/')
   
        let items2  = [];
     

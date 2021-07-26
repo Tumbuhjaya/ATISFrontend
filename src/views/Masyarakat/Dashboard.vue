@@ -341,13 +341,13 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import axios from "axios";
 import ipbackend from '../../ipbackend'
- let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret)
+
 // nama,jenisKelamin,tanggalLahir,alamat,kecamatan,kelurahan,noHp,email,penerimaBantuanPemerintah,pendidikanTerakhir,statusDalamKeluarga
 export default {
   name: "DashboardOpd",
   data() {
     return {
+      user:{},
       inputRiwayatPelatihan:{
           namaPelatihanLain:'',
           tahunPelatihanLain:'',
@@ -363,7 +363,7 @@ export default {
       ipbackend,
       riwayatPelatihan:[],
       riwayatPekerjaan:[],
-      user: ret,
+    
        dataUser:{
           nama:'',
           jenisKelamin:'',
@@ -445,7 +445,8 @@ export default {
        let vm = this;
   
  
-
+ let ret =      localStorage.getItem('user');
+   vm.user = JSON.parse(ret)
 
         let kecamatan=   await axios.get(ipbackend+ 'kelurahan/listKecamatan/', {
         headers:{
@@ -568,7 +569,7 @@ export default {
     },
     async loadData(){
     let vm = this;
-   let dataUser=   await axios.get(ipbackend+ 'users/listById/'+ret.id, {
+   let dataUser=   await axios.get(ipbackend+ 'users/listById/'+vm.user.id, {
         headers:{
 
           token: vm.user.token
