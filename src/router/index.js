@@ -116,6 +116,16 @@ const routes = [
   },
 
   {
+    path: '/data_peserta',
+    name: 'DataPeserta',
+    component: () => import('@/views/Opd/DataPeserta'),
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
+  },
+
+  {
     path: '/tambah_pelatihan_opd',
     name: 'TambahPelatihanOpd',
     component: () => import('@/views/Opd/TambahPelatihan'),
