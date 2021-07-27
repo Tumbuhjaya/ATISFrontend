@@ -27,7 +27,7 @@
           </b-col>
         </b-row> -->
 
-        <b-row class="mt-3">
+        <b-row class="mt-5">
           <b-col md="2">
             <b-form-group
               label="Per page"
@@ -76,7 +76,7 @@
         <b-row>
           <b-col md="12">
             <b-table
-              :items="items"
+              :items="dataPeserta"
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"
@@ -89,6 +89,22 @@
               @filtered="onFiltered"
               class="mt-3"
             >
+              <template #cell(filePendukung)="item">
+                <center>
+                  <a
+                    :href="ipbackend + item.item.filePendukung"
+                    target="_blank"
+                  >
+                    <b-button
+                      variant="success"
+                      size="sm"
+                      v-b-tooltip.hover
+                      title="Download"
+                      ><b-icon icon="cloud-download"></b-icon>
+                    </b-button>
+                  </a>
+                </center>
+              </template>
               <template #cell(actions)="item">
                 <center>
                   <b-button
@@ -146,55 +162,57 @@
                         <b-tr>
                           <b-td style="width: 180px">Nama</b-td>
                           <b-td style="width: 5px">:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.nama }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Jenis Kelamin</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.jenisKelamin }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Tanggal Lahir</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{
+                            moment(profil.tanggalLahir).format("LL")
+                          }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>NIK</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.NIK }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Alamat</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.alamat }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Kelurahan</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.kelurahan }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Kecamatan</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.kecamatan }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>No. HP</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.noHp }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Email</b-td>
                           <b-td>:</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil.email }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -219,23 +237,28 @@
                         <b-tr>
                           <b-td style="width: 180px">Pendidikan Terakhir</b-td>
                           <b-td style="width: 5px">:</b-td>
-                          <b-td></b-td>
+                          <b-td>{{ profil.pendidikanTerakhir }}</b-td>
                         </b-tr>
 
                         <b-tr>
                           <b-td>Status Dalam Keluarga</b-td>
                           <b-td>:</b-td>
-                          <b-td></b-td>
+                          <b-td>{{ profil.statusDalamKeluarga }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
                   </b-col>
                 </b-row>
-              </b-card-text>
-            </b-tab>
 
-            <b-tab title="Riwayat Pelatihan">
-              <b-card-text>
+                <b-row class="mt-5">
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>
+                      <strong>Riwayat Pelatihan</strong>
+                    </h4></b-col
+                  >
+                </b-row>
+
                 <b-row class="mt-3">
                   <b-col md="12">
                     <b-table-simple small bordered class="mb-0">
@@ -258,11 +281,16 @@
                     </b-table-simple>
                   </b-col>
                 </b-row>
-              </b-card-text>
-            </b-tab>
 
-            <b-tab title="Riwayat Pekerjaan">
-              <b-card-text>
+                <b-row class="mt-5">
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>
+                      <strong>Riwayat Pekerjaan</strong>
+                    </h4></b-col
+                  >
+                </b-row>
+
                 <b-row class="mt-3">
                   <b-col md="12">
                     <b-table-simple small bordered class="mb-0">
@@ -290,6 +318,86 @@
                     </b-table-simple>
                   </b-col>
                 </b-row>
+              </b-card-text>
+            </b-tab>
+
+            <b-tab title="Riwayat Pelatihan">
+              <b-card-text>
+                <div v-for="(item, idx) in pelatihan" :key="idx">
+                  <b-row>
+                    <b-col md="12"
+                      ><h4>
+                        <span style="font-weight: 400"></span>
+                        <strong>{{ item.judulPelatihan }}</strong>
+                      </h4></b-col
+                    >
+                  </b-row>
+                  <b-row class="mt-3">
+                    <b-col md="12">
+                      <b-table-simple small borderless class="mb-0">
+                        <b-tbody>
+                          <b-tr>
+                            <b-td style="width: 180px">Kategori</b-td>
+                            <b-td style="width: 5px">:</b-td>
+                            <b-td>{{ item.kejuruan }}</b-td>
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Pelatihan</b-td>
+                            <b-td>:</b-td>
+                            <b-td>
+                              <div class="ql-container">
+                                <div
+                                  class="ql-editor"
+                                  v-html="item.deskripsiPelatihan"
+                                ></div></div
+                            ></b-td>
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Tanggal Pelatihan</b-td>
+                            <b-td>:</b-td>
+                            <b-td
+                              >{{
+                                moment(item.tanggalMulaiPelatihan).format("LL")
+                              }}
+                              s/d
+                              {{
+                                moment(item.tanggalSelesaiPelatihan).format(
+                                  "LL"
+                                )
+                              }}</b-td
+                            >
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Kuota Peserta</b-td>
+                            <b-td>:</b-td>
+                            <b-td>{{ item.kuota }} Peserta</b-td>
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Lokasi</b-td>
+                            <b-td>:</b-td>
+                            <b-td>J{{ item.lokasi }}</b-td>
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Penyelenggara</b-td>
+                            <b-td>:</b-td>
+                            <b-td>{{ item.namaOPD }}</b-td>
+                          </b-tr>
+
+                          <b-tr>
+                            <b-td>Jenjang Pelatihan</b-td>
+                            <b-td>:</b-td>
+                            <b-td>{{ item.jenjang }}</b-td>
+                          </b-tr>
+                        </b-tbody>
+                      </b-table-simple>
+                    </b-col>
+                  </b-row>
+                </div>
               </b-card-text>
             </b-tab>
 
@@ -341,11 +449,18 @@ export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      user: {},
       ipbackend,
       moment,
+      dataPeserta: [],
+      profil: [],
+      pelatihanLain: [],
+      riwayatPekerjaan: [],
       verifikasi: [
-        { value: "Ya", text: "Ya" },
-        { value: "Tidak", text: "Tidak" },
+        { value: 0, text: "Belum Diverifikasi" },
+        { value: 1, text: "Disetujui" },
+        { value: 2, text: "Syarat Belum Lengkap" },
+        { value: 3, text: "Ditolak" },
       ],
       fields: [
         {
@@ -354,13 +469,13 @@ export default {
           sortable: true,
           class: "text-center",
         },
-        {
-          key: "niknya",
-          label: "NIK",
-          sortable: true,
-          sortDirection: "desc",
-          class: "text-left",
-        },
+        // {
+        //   key: "niknya",
+        //   label: "NIK",
+        //   sortable: true,
+        //   sortDirection: "desc",
+        //   class: "text-left",
+        // },
         {
           key: "namanya",
           label: "Nama",
@@ -399,40 +514,34 @@ export default {
           sortable: true,
           class: "text-left",
         },
+        // {
+        //   key: "hpnya",
+        //   label: "No. Hp",
+        //   sortable: true,
+        //   class: "text-left",
+        // },
+        // {
+        //   key: "emailnya",
+        //   label: "Email",
+        //   sortable: true,
+        //   class: "text-left",
+        // },
         {
-          key: "hpnya",
-          label: "No. Hp",
+          key: "filePendukung",
+          label: "File Pendukung",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "emailnya",
-          label: "Email",
+          key: "keteranganFile",
+          label: "Keterangan File",
           sortable: true,
           class: "text-left",
         },
-        {
-          key: "actions",
-          label: "Action",
-          sortable: true,
-          class: "text-left",
-        },
+        { key: "actions", label: "Actions", class: "text-center" },
       ],
 
-      items: [
-        {
-          nonya: 1,
-          niknya: "00909009",
-          namanya: "kat",
-          kelaminnya: "tgl",
-          lahirnya: "lok",
-          alamatnya: "lok",
-          kecamatannya: "lok",
-          kelurahannya: "lok",
-          hpnya: "lok",
-          emailnya: "lok",
-        },
-      ],
+      items: [],
 
       totalRows: 1,
       currentPage: 1,
@@ -466,10 +575,86 @@ export default {
   },
 
   mounted() {
+    let vm = this;
+    let ret = localStorage.getItem("user");
+    vm.user = JSON.parse(ret);
     // Set the initial number of items
+    this.listUser();
     this.totalRows = this.items.length;
+    this.loadProfil();
   },
   methods: {
+    async loadProfil() {
+      let profil = await axios.get(ipbackend + "users/listById/" + ret.id, {
+        headers: {
+          token: ret.token,
+        },
+      });
+      //  console.log(profil.data.data[0],'-------');
+      this.profil = profil.data.data[0];
+
+      let pelatihanLain = await axios.get(
+        ipbackend + "pelatihanlain/listByUsersId/" + ret.id,
+        {
+          headers: {
+            token: ret.token,
+          },
+        }
+      );
+      this.pelatihanLain = pelatihanLain.data.data;
+
+      let riwayatPekerjaan = await axios.get(
+        ipbackend + "riwayatpekerjaan/listByUsersId/" + ret.id,
+        {
+          headers: {
+            token: ret.token,
+          },
+        }
+      );
+      this.riwayatPekerjaan = riwayatPekerjaan.data.data;
+
+      let pelatihan = await axios.get(
+        ipbackend + "pelatihan/listPelatihanByUsersId/" + ret.id,
+        {
+          headers: {
+            token: ret.token,
+          },
+        }
+      );
+      this.pelatihan = pelatihan.data.data;
+    },
+    async listUser() {
+      let vm = this;
+      this.dataPeserta = [];
+      let itemnya = await axios.get(
+        ipbackend +
+          "poolpelatihan/listPesertaByPelatihan/" +
+          this.$route.params.id,
+        {
+          headers: {
+            token: vm.user.token,
+          },
+        }
+      );
+      console.log("abcde");
+      itemnya.data.data.forEach((item, idx) => {
+        this.dataPeserta.push({
+          nonya: idx + 1,
+          // niknya: item.NIK,
+          namanya: item.nama,
+          kelaminnya: item.jenisKelamin,
+          lahirnya: moment(item.tanggalLahir).format("LL"),
+          alamatnya: item.alamat,
+          kecamatannya: item.kecamatan,
+          kelurahannya: item.kelurahan,
+          // hpnya: item.noHp,
+          // emailnya: item.email,
+          filePendukung: item.file,
+          keteranganFile: item.keteranganFile,
+        });
+      });
+      // console.log(itemnya);
+    },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;

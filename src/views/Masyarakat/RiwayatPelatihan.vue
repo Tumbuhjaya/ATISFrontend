@@ -94,34 +94,29 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <div
-                          style="
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Monitoring Evaluasi"
+                          v-b-modal.modal-monev
+                          @click="
+                            detailPel(item.item.pelatihanId, item.item.userId)
                           "
-                        >
-                          <b-button
-                            variant="info"
-                            size="sm"
-                            class="mr-3"
-                            v-b-tooltip.hover
-                            title="Monitoring Evaluasi"
-                            v-b-modal.modal-monev
-                            ><b-icon icon="file-ruled"></b-icon>
-                            {{ item.actions }}</b-button
-                          >
+                          ><b-icon icon="file-ruled"></b-icon>
+                        </b-button>
+                      </template>
 
-                          <!-- <b-button
-                            variant="warning"
-                            size="sm"
-                            v-b-tooltip.hover
-                            title="Revisi Berkas"
-                            v-b-modal.modal-monev
-                            ><b-icon icon="pencil-square"></b-icon>
-                            {{ item.actions }}</b-button
-                          > -->
-                        </div>
+                      <template #cell(status)="item">
+                        <span v-if="item.item.status == 0"
+                          >Belum Diverifikasi</span
+                        >
+                        <span v-else-if="item.item.status == 1">Disetujui</span>
+                        <span v-else-if="item.item.status == 2"
+                          >Syarat Belum Lengkap</span
+                        >
+                        <span v-else-if="item.item.status == 3">Ditolak</span>
                       </template>
                     </b-table>
                   </b-col>
@@ -207,41 +202,58 @@
 
     <!-- modal 2-->
     <b-modal id="modal-monev" size="lg" title="Monitoring Evaluasi" hide-footer>
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="8"
-        label="Apakah program pelatihan menambah keterampilan baru bagi Anda?"
-      >
-        <b-form-select :options="tambah_terampil"></b-form-select>
+      <b-form-group label-cols="4" label-cols-lg="8" label="Keterangan">
+        {{ detail.keterangan }}
+      </b-form-group>
+
+      <b-form-group label-cols="4" label-cols-lg="8" label="Keterangan File">
+        <a
+          :href="ipbackend + '/' + detail.file"
+          target="_blank"
+          v-if="detail.file"
+          >[DOWNLOAD]</a
+        >
+        <b-form-input v-model="detail.keteranganFile"></b-form-input>
+      </b-form-group>
+
+      <b-form-group label-cols="4" label-cols-lg="8" label="File">
+        <b-form-file refs="file" v-model="fileUpload"></b-form-file>
       </b-form-group>
 
       <b-form-group
         label-cols="4"
         label-cols-lg="8"
-        label="Apakah setelah mengikuti pelatihan, Anda sudah bisa membuka usaha sendiri atau mendapat pekerjaan yang sesuai keterampilan?"
+        label="Apakah anda mendapatkan pekerjaan yang sesuai pelatihan?"
       >
-        <b-form-select :options="usaha_sendiri"></b-form-select>
+        <b-form-select
+          :options="usaha_sendiri"
+          v-model="detail.kesesuaianDenganPekerjaan"
+        ></b-form-select>
       </b-form-group>
 
       <b-form-group
         label-cols="4"
         label-cols-lg="8"
-        label="Apakah pendapatan Anda mengalami perubahan setelah mengikuti pelatihan?
-"
+        label="Apakah Pendapatan anda bertambah setelah mengikuti pelatihan?"
       >
-        <b-form-select :options="perubahan"></b-form-select>
+        <b-form-select
+          :options="usaha_sendiri"
+          v-model="detail.perubahanPendapatan"
+        ></b-form-select>
       </b-form-group>
-
       <b-form-group
         label-cols="4"
         label-cols-lg="8"
         label="Berapa pendapatan Anda saat ini dalam sebulan?"
       >
-        <b-form-select :options="pendapatan"></b-form-select>
+        <b-form-select
+          :options="pendapatan"
+          v-model="detail.gajiSetelahPelatihan"
+        ></b-form-select>
       </b-form-group>
 
       <hr class="mb-0" />
-      <b-button variant="primary" class="mt-3">Simpan</b-button>
+      <b-button variant="primary" class="mt-3" @click="update">Simpan</b-button>
     </b-modal>
     <ThisIsFooter></ThisIsFooter>
   </div>
@@ -254,13 +266,15 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
-let ret = localStorage.getItem("user");
-ret = JSON.parse(ret);
+
 export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      fileUpload: "",
+      user: {},
       pelatihan: [],
+      detail: {},
       ipbackend,
       moment,
       tambah_terampil: [
@@ -317,6 +331,12 @@ export default {
           sortable: true,
           class: "text-left",
         },
+        {
+          key: "statusnya",
+          label: "Status",
+          sortable: true,
+          class: "text-left",
+        },
         { key: "actions", label: "Actions", class: "text-center" },
       ],
       items2: [
@@ -355,11 +375,76 @@ export default {
   },
 
   mounted() {
+    let ret = localStorage.getItem("user");
+    this.user = JSON.parse(ret);
     // Set the initial number of items
     this.totalRows = this.items2.length;
     this.ambilPelatihan();
   },
   methods: {
+    async detailPel(pelatihanId, userId) {
+      // console.log(item);
+      let pelatihan = await axios.get(
+        ipbackend +
+          "poolpelatihan/listByPelatihanIdUserId/" +
+          pelatihanId +
+          "/" +
+          userId,
+        {
+          headers: {
+            token: this.user.token,
+          },
+        }
+      );
+      //  console.log(pelatihan);
+      this.detail = pelatihan.data.data[0];
+    },
+
+    async update() {
+      // console.log(item);
+      let vm = this;
+      var formData = new FormData();
+
+      formData.append("keteranganFile", vm.detail.keteranganFile);
+      formData.append(
+        "kesesuaianDenganPekerjaan",
+        vm.detail.kesesuaianDenganPekerjaan
+      );
+      formData.append("perubahanPendapatan", vm.detail.perubahanPendapatan);
+      formData.append("gajiSetelahPelatihan", vm.detail.gajiSetelahPelatihan);
+
+      formData.append("id", vm.detail.poolPelatihanId);
+      if (vm.fileUpload) {
+        formData.append("file1", vm.fileUpload);
+      }
+
+      axios({
+        method: "post",
+        url: ipbackend + "poolpelatihan/update",
+        data: formData,
+        headers: {
+          "Content-Type": "multipart/form-data",
+          token: vm.user.token,
+        },
+      })
+        .then(async (data) => {
+          console.log(data);
+          //  this.loadData();
+          await axios.post(
+            ipbackend + "poolpelatihan/changeStatus/",
+            { id: vm.detail.poolPelatihanId, status: 0 },
+            {
+              headers: {
+                token: this.user.token,
+              },
+            }
+          );
+          alert(data.data.message);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
@@ -370,7 +455,7 @@ export default {
         ipbackend + "pelatihan/listPelatihanByUsersLogin/",
         {
           headers: {
-            token: ret.token,
+            token: this.user.token,
           },
         }
       );
@@ -386,7 +471,10 @@ export default {
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
-          statusnya: item.statusPelatihan,
+          statusnya: item.status,
+          poolPelatihanId: item.poolPelatihanId,
+          pelatihanId: item.pelatihanId,
+          userId: item.userId,
         });
       });
     },

@@ -116,7 +116,7 @@ const routes = [
   },
 
   {
-    path: '/data_peserta',
+    path: '/data_peserta/:id',
     name: 'DataPeserta',
     component: () => import('@/views/Opd/DataPeserta'),
     meta: {
