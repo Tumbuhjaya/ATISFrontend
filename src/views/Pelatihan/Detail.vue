@@ -13,11 +13,12 @@
         </b-row>
 
         <b-row class="mt-3">
-          <b-col md="12">
+          <b-col md="6">
             <!-- <img :src="ipbackend + pelatihan.bannerPelatihan" alt="" /> -->
             <img
               v-if="pelatihan.bannerPelatihan"
               :src="ipbackend + pelatihan.bannerPelatihan"
+              style="width: 100%"
             />
 
             <img
@@ -25,27 +26,21 @@
               src="https://via.placeholder.com/1140x500?text=Tidak Ada Foto"
             />
           </b-col>
-        </b-row>
 
-        <b-row class="mt-5">
-          <b-col md="12">
-            <h2>
-              <strong
-                ><span style="font-weight: 400">Deskripsi</span>
-                Pelatihan</strong
-              >
-            </h2>
-          </b-col>
-
-          <b-col md="12" class="mt-3">
-            <div class="ql-container">
-              <div
-                class="ql-editor"
-                v-html="pelatihan.deskripsiPelatihan"
-              ></div>
-            </div>
+          <b-col md="6">
+            <b-row>
+              <b-col md="12">
+                <div class="ql-container">
+                  <div
+                    class="ql-editor"
+                    v-html="pelatihan.deskripsiPelatihan"
+                  ></div>
+                </div>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
+
         <b-row class="mt-5">
           <b-col md="12">
             <h2>
@@ -155,36 +150,47 @@
 
           <b-col md="12">
             <b-row>
-              <b-col md="12">
-                <h4>
-                  <strong
-                    ><span style="font-weight: 400">Persyaratan</span>
-                    Umum</strong
-                  >
-                </h4>
-              </b-col>
+              <b-col md="6">
+                <b-row>
+                  <b-col md="12">
+                    <h4>
+                      <strong
+                        ><span style="font-weight: 400">Persyaratan</span>
+                        Umum</strong
+                      >
+                    </h4>
+                  </b-col>
 
-              <b-col md="12" class="mt-3">
-                <div class="ql-container">
-                  <div class="ql-editor" v-html="pelatihan.syaratUmum"></div>
-                </div>
+                  <b-col md="12" class="mt-3">
+                    <div class="ql-container">
+                      <div
+                        class="ql-editor"
+                        v-html="pelatihan.syaratUmum"
+                      ></div>
+                    </div>
+                  </b-col>
+                </b-row>
               </b-col>
-            </b-row>
+              <b-col md="6">
+                <b-row>
+                  <b-col md="12">
+                    <h4>
+                      <strong
+                        ><span style="font-weight: 400">Persyaratan</span>
+                        Khusus</strong
+                      >
+                    </h4>
+                  </b-col>
 
-            <b-row class="mt-4">
-              <b-col md="12">
-                <h4>
-                  <strong
-                    ><span style="font-weight: 400">Persyaratan</span>
-                    Khusus</strong
-                  >
-                </h4>
-              </b-col>
-
-              <b-col md="12" class="mt-2">
-                <div class="ql-container">
-                  <div class="ql-editor" v-html="pelatihan.syaratKhusus"></div>
-                </div>
+                  <b-col md="12" class="mt-2">
+                    <div class="ql-container">
+                      <div
+                        class="ql-editor"
+                        v-html="pelatihan.syaratKhusus"
+                      ></div>
+                    </div>
+                  </b-col>
+                </b-row>
               </b-col>
             </b-row>
           </b-col>
@@ -254,7 +260,7 @@ export default {
   padding: 60px 0;
 }
 
-.ql-container {
+/* .ql-container {
   height: 200px !important;
-}
+} */
 </style>

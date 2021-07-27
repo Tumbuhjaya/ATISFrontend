@@ -133,7 +133,7 @@ export default {
     },
     async ambilKejuruan() {
       let kejuruan = await axios.get(
-        ipbackend + "pelatihan/grafikPelatihanByKejuruan/"
+        ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
       );
       console.log(kejuruan);
       this.kejuruan = kejuruan.data.data;

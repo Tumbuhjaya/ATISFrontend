@@ -110,4 +110,13 @@ footer .indentity-footer .indentity-footer-name {
 footer .indentity-footer .indentity-footer-name .fw400 {
   font-weight: 400;
 }
+
+.ql-editor {
+  padding: 0 !important;
+}
+
+.ql-editor ol,
+.ql-editor ul {
+  padding-left: 0 !important;
+}
 </style>
