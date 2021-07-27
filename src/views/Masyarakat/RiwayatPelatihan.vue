@@ -30,7 +30,6 @@
         <b-row class="mt-5">
           <b-col md="12">
             <b-tabs content-class="mt-3" align="center">
-            
               <b-tab title="Daftar Pelatihan">
                 <b-row>
                   <b-col md="2">
@@ -95,16 +94,34 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <b-button
-                          variant="warning"
-                          size="sm"
-                          class="mr-3"
-                          v-b-tooltip.hover
-                          title="Monitoring Evaluasi"
-                          v-b-modal.modal-monev
-                          ><b-icon icon="file-ruled"></b-icon>
-                          {{ item.actions }}</b-button
+                        <div
+                          style="
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                          "
                         >
+                          <b-button
+                            variant="info"
+                            size="sm"
+                            class="mr-3"
+                            v-b-tooltip.hover
+                            title="Monitoring Evaluasi"
+                            v-b-modal.modal-monev
+                            ><b-icon icon="file-ruled"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+
+                          <!-- <b-button
+                            variant="warning"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Revisi Berkas"
+                            v-b-modal.modal-monev
+                            ><b-icon icon="pencil-square"></b-icon>
+                            {{ item.actions }}</b-button
+                          > -->
+                        </div>
                       </template>
                     </b-table>
                   </b-col>
@@ -235,17 +252,17 @@
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
 import axios from "axios";
-import ipbackend from '../../ipbackend'
-import moment from 'moment';
- let ret =      localStorage.getItem('user');
-   ret = JSON.parse(ret)
+import ipbackend from "../../ipbackend";
+import moment from "moment";
+let ret = localStorage.getItem("user");
+ret = JSON.parse(ret);
 export default {
   name: "RiwayatPelatihan",
   data() {
     return {
-       pelatihan:[],
-       ipbackend,
-       moment,
+      pelatihan: [],
+      ipbackend,
+      moment,
       tambah_terampil: [
         { value: "Ya", text: "Ya" },
         { value: "Tidak", text: "Tidak" },
@@ -265,8 +282,6 @@ export default {
         { value: "5.000.000 s/d 7.000.000", text: "5.000.000 s/d 7.000.000" },
         { value: "> 7.000.000", text: "> 7.000.000" },
       ],
-      
-    
 
       fields2: [
         {
@@ -350,28 +365,31 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-     async  ambilPelatihan(){
-
-       let pelatihan=   await axios.get(ipbackend+ 'pelatihan/listPelatihanByUsersLogin/', {
-         headers:{
-           token: ret.token
-         }
-       })
+    async ambilPelatihan() {
+      let pelatihan = await axios.get(
+        ipbackend + "pelatihan/listPelatihanByUsersLogin/",
+        {
+          headers: {
+            token: ret.token,
+          },
+        }
+      );
       console.log(pelatihan);
-    // this.pelatihan = pelatihan.data.data
+      // this.pelatihan = pelatihan.data.data
       this.items2 = [];
-    
-      pelatihan.data.data.forEach((item, idx)=>{
-        this.items2.push({ 
-           id : item.id, 
-          nonya : idx+1, 
-        judulnya : item.judulPelatihan,
-         kategorinya : item.kejuruan, 
-         tglnya : moment(item.tanggalMulaiPelatihan).format('LL'), 
-         lokasinya : item.lokasi,
-          statusnya :   item.statusPelatihan})
-      })
-  }
+
+      pelatihan.data.data.forEach((item, idx) => {
+        this.items2.push({
+          id: item.id,
+          nonya: idx + 1,
+          judulnya: item.judulPelatihan,
+          kategorinya: item.kejuruan,
+          tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
+          lokasinya: item.lokasi,
+          statusnya: item.statusPelatihan,
+        });
+      });
+    },
   },
 };
 </script>
