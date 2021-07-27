@@ -33,10 +33,11 @@
             <b-row class="mt-3">
               <b-col md="12">
                 <p style="font-size: 12px">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Maiores earum iste voluptatum! Ipsum, neque, libero maiores
-                  architecto quia iure, accusantium repudiandae assumenda illo
-                  tempore inventore voluptatibus nemo ratione eligendi ullam.
+                  Salatiga Training Integration System (S.T.I.S) merupakan salah
+                  satu program yang dicanangkan oleh Bappeda Salatiga pada tahun
+                  2021 yang bertujuan mengintegrasikan dan mensinkronkan
+                  program-program pelatihan yang diselenggarakan oleh setiap
+                  instansi Pemerintah Kota Salatiga
                 </p>
               </b-col>
             </b-row>

@@ -8,7 +8,7 @@
             <div class="box">
               <b-row>
                 <b-col md="12">
-                  <h2><span>Daftar</span> <strong>Akun STIS</strong></h2>
+                  <h2><span>Daftar</span> <strong>Akun ATIS</strong></h2>
                   <hr />
                 </b-col>
               </b-row>
@@ -79,17 +79,16 @@ export default {
       let vm = this;
       axios.post(ipbackend + "users/register", this.data).then((data) => {
         console.log(data);
-        vm.data= {
-        NIK: "",
-        password: "",
-        role: "peserta",
-        noHp: "",
-        email: "",
-      },
-        alert(data.data.message);
-        if(data.data.message=='sukses'){
-
-          vm.$router.push('/login');
+        (vm.data = {
+          NIK: "",
+          password: "",
+          role: "peserta",
+          noHp: "",
+          email: "",
+        }),
+          alert(data.data.message);
+        if (data.data.message == "sukses") {
+          vm.$router.push("/login");
         }
       });
     },
