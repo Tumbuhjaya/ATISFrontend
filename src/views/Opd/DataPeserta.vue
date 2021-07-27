@@ -114,6 +114,7 @@
                     v-b-tooltip.hover
                     title="Verifikasi"
                     v-b-modal.modal-lg
+                    @click="loadProfil(item.item.idnya, $route.params.id)"
                     ><b-icon icon="check2-square"></b-icon>
                     {{ item.actions }}</b-button
                   >
@@ -410,7 +411,7 @@
                       label-cols-lg="3"
                       label="Verifikasi"
                     >
-                      <b-form-select :options="verifikasi"></b-form-select>
+                      <b-form-select :options="verifikasi" v-model="detailUser.status"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -418,14 +419,14 @@
                       label-cols-lg="3"
                       label="Keterangan"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="detailUser.keterangan"></b-form-input>
                     </b-form-group>
                   </b-col>
                 </b-row>
 
                 <hr />
                 <p>Apakah anda yakin akan menyimpan data ini ?</p>
-                <b-button variant="primary">Simpan</b-button>
+                <b-button variant="primary" @click="update">Simpan</b-button>
               </b-card-text>
             </b-tab>
           </b-tabs>
@@ -443,12 +444,14 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
-let ret = localStorage.getItem("user");
-ret = JSON.parse(ret);
+
 export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      detailUser:{},
+      user:{},
+      pelatihan:[],
       user: {},
       ipbackend,
       moment,
@@ -456,6 +459,7 @@ export default {
       profil: [],
       pelatihanLain: [],
       riwayatPekerjaan: [],
+      detail:{},
       verifikasi: [
         { value: 0, text: "Belum Diverifikasi" },
         { value: 1, text: "Disetujui" },
@@ -581,47 +585,100 @@ export default {
     // Set the initial number of items
     this.listUser();
     this.totalRows = this.items.length;
-    this.loadProfil();
+    // this.loadProfil();
   },
   methods: {
-    async loadProfil() {
-      let profil = await axios.get(ipbackend + "users/listById/" + ret.id, {
+      async update() {
+      // console.log(item);
+      let vm = this;
+      var formData = new FormData();
+
+      formData.append("keterangan", vm.detailUser.keterangan);
+ 
+      // formData.append("status", vm.detailUser.status);
+
+      formData.append("id", vm.detailUser.poolPelatihanId);
+  
+
+      axios({
+        method: "post",
+        url: ipbackend + "poolpelatihan/update",
+        data: formData,
         headers: {
-          token: ret.token,
+          "Content-Type": "multipart/form-data",
+          token: vm.user.token,
+        },
+      })
+        .then(async (data) => {
+          console.log(data);
+          //  this.loadData();
+          await axios.post(
+            ipbackend + "poolpelatihan/changeStatus/",
+            { id: vm.detailUser.poolPelatihanId, status: vm.detailUser.status },
+            {
+              headers: {
+                token: vm.user.token,
+              },
+            }
+          );
+          
+          alert(data.data.message);
+          vm.detailUser={}
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    },
+    async loadProfil(id, idPelatihan) {
+      let vm = this;
+      let profil = await axios.get(ipbackend + "users/listById/" + id, {
+        headers: {
+          token: vm.user.token,
         },
       });
       //  console.log(profil.data.data[0],'-------');
       this.profil = profil.data.data[0];
 
       let pelatihanLain = await axios.get(
-        ipbackend + "pelatihanlain/listByUsersId/" + ret.id,
+        ipbackend + "pelatihanlain/listByUsersId/" + id,
         {
           headers: {
-            token: ret.token,
+            token: vm.user.token,
           },
         }
       );
       this.pelatihanLain = pelatihanLain.data.data;
 
       let riwayatPekerjaan = await axios.get(
-        ipbackend + "riwayatpekerjaan/listByUsersId/" + ret.id,
+        ipbackend + "riwayatpekerjaan/listByUsersId/" + id,
         {
           headers: {
-            token: ret.token,
+            token: vm.user.token,
           },
         }
       );
       this.riwayatPekerjaan = riwayatPekerjaan.data.data;
 
       let pelatihan = await axios.get(
-        ipbackend + "pelatihan/listPelatihanByUsersId/" + ret.id,
+        ipbackend + "pelatihan/listPelatihanByUsersId/" + id,
         {
           headers: {
-            token: ret.token,
+            token: vm.user.token,
           },
         }
       );
       this.pelatihan = pelatihan.data.data;
+
+
+         let detailUser = await axios.get(
+        ipbackend + "poolPelatihan/listByPelatihanIdUserId/" +idPelatihan+'/'+ id,
+        {
+          headers: {
+            token: vm.user.token,
+          },
+        }
+      );
+      this.detailUser = detailUser.data.data[0];
     },
     async listUser() {
       let vm = this;
@@ -640,6 +697,7 @@ export default {
       itemnya.data.data.forEach((item, idx) => {
         this.dataPeserta.push({
           nonya: idx + 1,
+          idnya: item.id,
           // niknya: item.NIK,
           namanya: item.nama,
           kelaminnya: item.jenisKelamin,
