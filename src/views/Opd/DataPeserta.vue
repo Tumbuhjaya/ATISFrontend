@@ -76,7 +76,7 @@
         <b-row>
           <b-col md="12">
             <b-table
-              :items="items"
+              :items="dataPeserta"
               :fields="fields"
               :current-page="currentPage"
               :per-page="perPage"
@@ -341,8 +341,12 @@ export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      user:{},
       ipbackend,
       moment,
+         dataPeserta: [],
+         pelatihanLain:[],
+         riwayatPekerjaan:[],
       verifikasi: [
         { value: "Ya", text: "Ya" },
         { value: "Tidak", text: "Tidak" },
@@ -412,26 +416,21 @@ export default {
           class: "text-left",
         },
         {
-          key: "actions",
-          label: "Action",
+          key: "filePendukung",
+          label: "File Pendukung",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "keteranganFile",
+          label: "Keterangan File",
           sortable: true,
           class: "text-left",
         },
       ],
 
       items: [
-        {
-          nonya: 1,
-          niknya: "00909009",
-          namanya: "kat",
-          kelaminnya: "tgl",
-          lahirnya: "lok",
-          alamatnya: "lok",
-          kecamatannya: "lok",
-          kelurahannya: "lok",
-          hpnya: "lok",
-          emailnya: "lok",
-        },
+       
       ],
 
       totalRows: 1,
@@ -466,10 +465,44 @@ export default {
   },
 
   mounted() {
+    let vm =this;
+      let ret = localStorage.getItem("user");
+    vm.user = JSON.parse(ret);
     // Set the initial number of items
+    this.listUser()
     this.totalRows = this.items.length;
   },
   methods: {
+        async listUser() {
+      let vm = this;
+      this.dataPeserta = [];
+      let itemnya = await axios.get(
+        ipbackend + "poolpelatihan/listPesertaByPelatihan/" + this.$route.params.id,
+        {
+          headers: {
+            token: vm.user.token,
+          },
+        }
+      );
+      console.log("abcde");
+      itemnya.data.data.forEach((item, idx) => {
+        this.dataPeserta.push({
+          nonya: idx + 1,
+          niknya: item.NIK,
+          namanya: item.nama,
+          kelaminnya: item.jenisKelamin,
+          lahirnya: moment(item.tanggalLahir).format("LL"),
+          alamatnya: item.alamat,
+          kecamatannya: item.kecamatan,
+          kelurahannya: item.kelurahan,
+          hpnya: item.noHp,
+          emailnya: item.email,
+          filePendukung: item.file,
+          keteranganFile: item.keteranganFile,
+        });
+      });
+      // console.log(itemnya);
+    },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;

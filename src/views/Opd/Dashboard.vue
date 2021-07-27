@@ -109,7 +109,7 @@
                           {{ item.actions }}</b-button
                         >
 
-                        <router-link :to="'/data_peserta'">
+                        <router-link :to="'/data_peserta/'+item.item.id">
                           <b-button
                             variant="success"
                             size="sm"
@@ -932,7 +932,7 @@ export default {
               vm.dataInput.kecamatanPelatihan,
             {
               headers: {
-                token: ret.token,
+                token: vm.user.token,
               },
             }
           );
@@ -953,7 +953,7 @@ export default {
               vm.dataInput.kejuruan,
             {
               headers: {
-                token: ret.token,
+                token: vm.user.token,
               },
             }
           );
