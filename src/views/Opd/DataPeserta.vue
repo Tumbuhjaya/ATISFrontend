@@ -304,12 +304,20 @@
                     >
                       <b-form-select :options="verifikasi"></b-form-select>
                     </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Keterangan"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
                   </b-col>
                 </b-row>
 
                 <hr />
                 <p>Apakah anda yakin akan menyimpan data ini ?</p>
-                <b-button variant="primary" @click="daftar">Daftar</b-button>
+                <b-button variant="primary">Simpan</b-button>
               </b-card-text>
             </b-tab>
           </b-tabs>
