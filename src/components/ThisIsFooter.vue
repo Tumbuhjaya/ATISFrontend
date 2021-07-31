@@ -33,7 +33,7 @@
             <b-row class="mt-3">
               <b-col md="12">
                 <p style="font-size: 12px">
-                  Salatiga Training Integration System (S.T.I.S) merupakan salah
+                  Aplikasi Training Integration System (ATIS) merupakan salah
                   satu program yang dicanangkan oleh Bappeda Salatiga pada tahun
                   2021 yang bertujuan mengintegrasikan dan mensinkronkan
                   program-program pelatihan yang diselenggarakan oleh setiap
@@ -46,7 +46,7 @@
           <b-col md="6" offset-md="1">
             <b-row>
               <b-col md="4">
-                <h5>Tentang STSI</h5>
+                <h5>Tentang ATIS</h5>
                 <h5>Pelatihan</h5>
                 <h5>Penyelenggara</h5>
                 <h5>Statistik</h5>

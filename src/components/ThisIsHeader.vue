@@ -80,7 +80,9 @@
               <router-link :to="'/galeri'">
                 <h6 class="mt-0 mb-0">Galeri</h6>
               </router-link>
-              <h6 class="mt-0 mb-0">Cari Peserta</h6>
+              <router-link :to="'/alumni'">
+                <h6 class="mt-0 mb-0">Database Peserta</h6>
+              </router-link>
               <router-link :to="'/publikasi'">
                 <h6 class="mt-0 mb-0">Publikasi</h6>
               </router-link>

@@ -119,4 +119,8 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 .ql-editor ul {
   padding-left: 0 !important;
 }
+
+.table-width {
+  width: 160px !important;
+}
 </style>

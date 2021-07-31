@@ -7,9 +7,24 @@
           <b-col md="12">
             <h2 class="text-center">
               <strong
-                >Data <span style="font-weight: 400">Peserta</span></strong
+                >Data Peserta</span></strong
               >
             </h2>
+
+            <h2 class="text-center">{{ dataPeserta[0].judulPelatihan }}</h2>
+          </b-col>
+        </b-row>
+
+
+        <b-row class="mt-3">
+          <b-col md="4" offset-md="4">
+            <div style="width:100%;display:flex;justify-content:space-evenly">
+              <router-link :to="'/dashboard_opd'">
+                <h6>Dashboard</h6>
+              </router-link>
+              <h6>|</h6>
+              <h6><strong>Data Peserta</strong></h6>
+            </div>
           </b-col>
         </b-row>
 
@@ -89,6 +104,15 @@
               @filtered="onFiltered"
               class="mt-3"
             >
+              <template #cell(statusnya)="item">
+                <center>
+                 
+                    <b-badge variant="dark"  v-if="item.item.statusnya == 0">Belum Diverifikasi</b-badge>
+                    <b-badge variant="success"  v-else-if="item.item.statusnya == 1">Disetujui</b-badge>
+                    <b-badge variant="info"  v-else-if="item.item.statusnya == 2">Syarat Belum Lengkap</b-badge>
+                    <b-badge variant="danger"  v-else-if="item.item.statusnya == 3">Ditolak</b-badge>
+                </center>
+              </template>
               <template #cell(filePendukung)="item">
                 <center>
                   <a
@@ -96,7 +120,7 @@
                     target="_blank"
                   >
                     <b-button
-                      variant="success"
+                      variant="primary"
                       size="sm"
                       v-b-tooltip.hover
                       title="Download"
@@ -139,7 +163,7 @@
     </section>
 
     <!-- modal -->
-    <b-modal id="modal-lg" size="xl" title="Detail Peserta" hide-footer>
+    <b-modal id="modal-lg" size="xl" title="Verifikasi Peserta" hide-footer>
       <b-row>
         <b-col md="12">
           <b-tabs align="center">
@@ -250,16 +274,48 @@
                     </b-table-simple>
                   </b-col>
                 </b-row>
+              </b-card-text>
+            </b-tab>
 
-                <b-row class="mt-5">
-                  <b-col md="12"
-                    ><h4>
-                      <span style="font-weight: 400">Data</span>
-                      <strong>Riwayat Pelatihan</strong>
-                    </h4></b-col
-                  >
+            <b-tab title="Riwayat Pelatihan ATIS">
+              <b-card-text>
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-table-simple small bordered class="mb-0">
+                      <b-thead>
+                        <b-tr>
+                          <b-th>Judul</b-th>
+                          <b-th>Kategori</b-th>
+                          <b-th>Tanggal Pelaksanaan</b-th>
+                          <b-th>Penyelenggara</b-th>
+                          <b-th>Jenjang Pelatihan</b-th>
+                        </b-tr>
+                      </b-thead>
+                      <b-tbody>
+                        <b-tr v-for="(item, idx) in pelatihan" :key="idx">
+                          <b-td>{{ item.judulPelatihan }}</b-td>
+                          <b-td>{{ item.kejuruan }}</b-td>
+                          <b-td
+                            >{{
+                              moment(item.tanggalMulaiPelatihan).format("LL")
+                            }}
+                            s/d
+                            {{
+                              moment(item.tanggalSelesaiPelatihan).format("LL")
+                            }}</b-td
+                          >
+                          <b-td>{{ item.namaOPD }}</b-td>
+                          <b-td>{{ item.jenjang }}</b-td>
+                        </b-tr>
+                      </b-tbody>
+                    </b-table-simple>
+                  </b-col>
                 </b-row>
+              </b-card-text>
+            </b-tab>
 
+            <b-tab title="Riwayat Pelatihan Lainnya">
+              <b-card-text>
                 <b-row class="mt-3">
                   <b-col md="12">
                     <b-table-simple small bordered class="mb-0">
@@ -282,16 +338,11 @@
                     </b-table-simple>
                   </b-col>
                 </b-row>
+              </b-card-text>
+            </b-tab>
 
-                <b-row class="mt-5">
-                  <b-col md="12"
-                    ><h4>
-                      <span style="font-weight: 400">Data</span>
-                      <strong>Riwayat Pekerjaan</strong>
-                    </h4></b-col
-                  >
-                </b-row>
-
+            <b-tab title="Riwayat Pekerjaan">
+              <b-card-text>
                 <b-row class="mt-3">
                   <b-col md="12">
                     <b-table-simple small bordered class="mb-0">
@@ -322,86 +373,6 @@
               </b-card-text>
             </b-tab>
 
-            <b-tab title="Riwayat Pelatihan">
-              <b-card-text>
-                <div v-for="(item, idx) in pelatihan" :key="idx">
-                  <b-row>
-                    <b-col md="12"
-                      ><h4>
-                        <span style="font-weight: 400"></span>
-                        <strong>{{ item.judulPelatihan }}</strong>
-                      </h4></b-col
-                    >
-                  </b-row>
-                  <b-row class="mt-3">
-                    <b-col md="12">
-                      <b-table-simple small borderless class="mb-0">
-                        <b-tbody>
-                          <b-tr>
-                            <b-td style="width: 180px">Kategori</b-td>
-                            <b-td style="width: 5px">:</b-td>
-                            <b-td>{{ item.kejuruan }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Pelatihan</b-td>
-                            <b-td>:</b-td>
-                            <b-td>
-                              <div class="ql-container">
-                                <div
-                                  class="ql-editor"
-                                  v-html="item.deskripsiPelatihan"
-                                ></div></div
-                            ></b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Tanggal Pelatihan</b-td>
-                            <b-td>:</b-td>
-                            <b-td
-                              >{{
-                                moment(item.tanggalMulaiPelatihan).format("LL")
-                              }}
-                              s/d
-                              {{
-                                moment(item.tanggalSelesaiPelatihan).format(
-                                  "LL"
-                                )
-                              }}</b-td
-                            >
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Kuota Peserta</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ item.kuota }} Peserta</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Lokasi</b-td>
-                            <b-td>:</b-td>
-                            <b-td>J{{ item.lokasi }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Penyelenggara</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ item.namaOPD }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Jenjang Pelatihan</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ item.jenjang }}</b-td>
-                          </b-tr>
-                        </b-tbody>
-                      </b-table-simple>
-                    </b-col>
-                  </b-row>
-                </div>
-              </b-card-text>
-            </b-tab>
-
             <b-tab title="Verifikasi & Simpan Data">
               <b-card-text>
                 <b-row class="mt-3">
@@ -411,7 +382,10 @@
                       label-cols-lg="3"
                       label="Verifikasi"
                     >
-                      <b-form-select :options="verifikasi" v-model="detailUser.status"></b-form-select>
+                      <b-form-select
+                        :options="verifikasi"
+                        v-model="detailUser.status"
+                      ></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -419,7 +393,9 @@
                       label-cols-lg="3"
                       label="Keterangan"
                     >
-                      <b-form-input v-model="detailUser.keterangan"></b-form-input>
+                      <b-form-input
+                        v-model="detailUser.keterangan"
+                      ></b-form-input>
                     </b-form-group>
                   </b-col>
                 </b-row>
@@ -449,9 +425,9 @@ export default {
   name: "RiwayatPelatihan",
   data() {
     return {
-      detailUser:{},
-      user:{},
-      pelatihan:[],
+      detailUser: {},
+      user: {},
+      pelatihan: [],
       user: {},
       ipbackend,
       moment,
@@ -459,7 +435,7 @@ export default {
       profil: [],
       pelatihanLain: [],
       riwayatPekerjaan: [],
-      detail:{},
+      detail: {},
       verifikasi: [
         { value: 0, text: "Belum Diverifikasi" },
         { value: 1, text: "Disetujui" },
@@ -494,12 +470,12 @@ export default {
           sortDirection: "desc",
           class: "text-left",
         },
-        {
-          key: "lahirnya",
-          label: "Tanggal Lahir",
-          sortable: true,
-          class: "text-left",
-        },
+        // {
+        //   key: "lahirnya",
+        //   label: "Tanggal Lahir",
+        //   sortable: true,
+        //   class: "text-left",
+        // },
         {
           key: "alamatnya",
           label: "Alamat",
@@ -530,6 +506,12 @@ export default {
         //   sortable: true,
         //   class: "text-left",
         // },
+        {
+          key: "statusnya",
+          label: "Status",
+          sortable: true,
+          class: "text-left",
+        },
         {
           key: "filePendukung",
           label: "File Pendukung",
@@ -588,17 +570,16 @@ export default {
     // this.loadProfil();
   },
   methods: {
-      async update() {
+    async update() {
       // console.log(item);
       let vm = this;
       var formData = new FormData();
 
       formData.append("keterangan", vm.detailUser.keterangan);
- 
+
       // formData.append("status", vm.detailUser.status);
 
       formData.append("id", vm.detailUser.poolPelatihanId);
-  
 
       axios({
         method: "post",
@@ -621,9 +602,9 @@ export default {
               },
             }
           );
-          
+
           alert(data.data.message);
-          vm.detailUser={}
+          vm.detailUser = {};
         })
         .catch((err) => {
           alert(err);
@@ -669,9 +650,12 @@ export default {
       );
       this.pelatihan = pelatihan.data.data;
 
-
-         let detailUser = await axios.get(
-        ipbackend + "poolPelatihan/listByPelatihanIdUserId/" +idPelatihan+'/'+ id,
+      let detailUser = await axios.get(
+        ipbackend +
+          "poolPelatihan/listByPelatihanIdUserId/" +
+          idPelatihan +
+          "/" +
+          id,
         {
           headers: {
             token: vm.user.token,
@@ -693,15 +677,16 @@ export default {
           },
         }
       );
-      console.log("abcde");
+      // console.log("abcde");
       itemnya.data.data.forEach((item, idx) => {
         this.dataPeserta.push({
           nonya: idx + 1,
           idnya: item.id,
+          judulPelatihan: item.judulPelatihan,
           // niknya: item.NIK,
           namanya: item.nama,
           kelaminnya: item.jenisKelamin,
-          lahirnya: moment(item.tanggalLahir).format("LL"),
+          // lahirnya: moment(item.tanggalLahir).format("LL"),
           alamatnya: item.alamat,
           kecamatannya: item.kecamatan,
           kelurahannya: item.kelurahan,
@@ -709,9 +694,11 @@ export default {
           // emailnya: item.email,
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
+          statusnya: item.status,
         });
       });
-      // console.log(itemnya);
+      console.log(itemnya, "anjay");
+      console.log(dataPeserta, "ihir");
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering

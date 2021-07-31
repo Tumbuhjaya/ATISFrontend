@@ -12,7 +12,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="mt-3">
+        <b-row class="mt-5">
           <b-col md="6">
             <!-- <img :src="ipbackend + pelatihan.bannerPelatihan" alt="" /> -->
             <img
@@ -195,6 +195,7 @@
             </b-row>
           </b-col>
         </b-row>
+
         <b-row class="mt-3">
           <b-col md="12">
             <hr />

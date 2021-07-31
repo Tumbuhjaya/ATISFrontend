@@ -20,14 +20,14 @@
               <b-col md="12">
                 <h2>
                   <strong
-                    ><span style="font-weight: 400">Tentang</span> Salatiga
-                    Tranning Integration System</strong
+                    ><span style="font-weight: 400">Tentang</span> Aplikasi
+                    Training Integration System</strong
                   >
                 </h2>
               </b-col>
 
               <b-col md="12" class="mt-3">
-                S.T.I.S merupakan sistem informasi yang menjadi wadah yang
+                A.T.I.S merupakan sistem informasi yang menjadi wadah yang
                 mengintegrasikan database program pelatihan, peserta, dan output
                 pelatihan dari setiap instansi penyelenggara. Sistem ini juga
                 berfungsi memudahkan peserta pelatihan untuk mendapat informasi

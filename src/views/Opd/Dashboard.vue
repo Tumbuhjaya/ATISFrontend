@@ -6,7 +6,7 @@
         <b-row>
           <b-col md="12">
             <h2 class="text-center"><strong>Dashboard</strong></h2>
-            <h4 class="text-center">Nama OPD</h4>
+            <h4 class="text-center">{{ user.namaOPD.namaOPD }}</h4>
           </b-col>
         </b-row>
 
@@ -14,7 +14,7 @@
           <b-col md="12">
             <!-- <router-link :to="'/tambah_pelatihan_opd'"> -->
             <b-button variant="primary" v-b-modal.modal-lg @click="reset"
-              >PELATIHAN BARU</b-button
+              >Tambah Data Pelatihan</b-button
             >
             <!-- </router-link> -->
           </b-col>
@@ -109,10 +109,11 @@
                           {{ item.actions }}</b-button
                         >
 
-                        <router-link :to="'/data_peserta/'+item.item.id">
+                        <router-link :to="'/data_peserta/' + item.item.id">
                           <b-button
                             variant="success"
                             size="sm"
+                            v-b-tooltip.hover
                             title="Detail Peserta"
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
@@ -221,7 +222,7 @@
                           {{ item.actions }}</b-button
                         >
 
-                        <b-button
+                        <!-- <b-button
                           variant="success"
                           size="sm"
                           v-b-tooltip.hover
@@ -230,7 +231,18 @@
                           @click="listUser(item.item.id)"
                           ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
-                        >
+                        > -->
+
+                        <router-link :to="'/data_peserta/' + item.item.id">
+                          <b-button
+                            variant="success"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Detail Peserta"
+                            ><b-icon icon="info-circle"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </router-link>
                       </template>
                     </b-table>
                   </b-col>
@@ -313,6 +325,16 @@
                     >
                       <template #cell(actions)="item">
                         <b-button
+                          variant="success"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Detail Peserta"
+                          v-b-modal.modal-peserta
+                          @click="listUser(item.item.id)"
+                          ><b-icon icon="info-circle"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <b-button
                           variant="warning"
                           size="sm"
                           class="mr-3"
@@ -323,7 +345,7 @@
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
-                        <b-button
+                        <!-- <b-button
                           variant="danger"
                           size="sm"
                           class="mr-3"
@@ -332,18 +354,18 @@
                           @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
-                        >
+                        > -->
 
-                        <b-button
-                          variant="success"
-                          size="sm"
-                          v-b-tooltip.hover
-                          title="Detail Peserta"
-                          v-b-modal.modal-peserta
-                          @click="listUser(item.item.id)"
-                          ><b-icon icon="info-circle"></b-icon>
-                          {{ item.actions }}</b-button
-                        >
+                        <router-link :to="'/data_peserta/' + item.item.id">
+                          <b-button
+                            variant="success"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Detail Peserta"
+                            ><b-icon icon="info-circle"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </router-link>
                       </template>
                     </b-table>
                   </b-col>
@@ -368,12 +390,13 @@
     </section>
 
     <!-- modal -->
-    <b-modal id="modal-lg" size="lg" title="Data Pelatihan" hide-footer>
+    <b-modal id="modal-lg" size="lg" title="Formulir Pelatihan" hide-footer>
       <b-row class="mb-3">
         <b-col md="12">
           <h2 class="text-left">
-            <span style="font-weight: 400">Informasi</span>
-            <strong>Pelatihan</strong>
+            <strong
+              ><span style="font-weight: 400">Informasi</span> Pelatihan</strong
+            >
           </h2>
         </b-col>
       </b-row>
@@ -427,7 +450,7 @@
         </div>
       </b-form-group>
 
-      <b-form-group label-cols="6" label-cols-lg="3" label="Kouta Peserta">
+      <b-form-group label-cols="6" label-cols-lg="3" label="Kuota Peserta">
         <b-form-input v-model="dataInput.kuotaPeserta"></b-form-input>
       </b-form-group>
 
@@ -450,11 +473,14 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Upload Banner">
+        <input type="file" id="file" ref="file" />
+      </b-form-group>
+
+      <b-form-group label-cols="6" label-cols-lg="3" label="">
         <img
           style="width: 100px"
           :src="ipbackend + '/' + dataInput.bannerPelatihan"
         />
-        <input type="file" id="file" ref="file" />
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Status Pelatihan">
@@ -467,8 +493,9 @@
       <b-row class="mt-5 mb-3">
         <b-col md="12">
           <h2 class="text-left">
-            <span style="font-weight: 400">Persyaratan</span>
-            <strong>Peserta</strong>
+            <strong
+              ><span style="font-weight: 400">Persyaratan</span> Peserta</strong
+            >
           </h2>
         </b-col>
       </b-row>
@@ -697,11 +724,11 @@ export default {
         },
         {
           key: "statusnya",
-          label: "Status",
+          label: "Status Pelatihan",
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "text-center" },
+        { key: "actions", label: "Actions", class: "table-width text-center" },
       ],
       items: [],
 
@@ -741,11 +768,11 @@ export default {
         },
         {
           key: "statusnya",
-          label: "Status",
+          label: "Status Pelatihan",
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "text-center" },
+        { key: "actions", label: "Actions", class: "table-width text-center" },
       ],
       items2: [
         {
@@ -794,11 +821,11 @@ export default {
         },
         {
           key: "statusnya",
-          label: "Status",
+          label: "Status Pelatihan",
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "text-center" },
+        { key: "actions", label: "Actions", class: "table-width text-center" },
       ],
       items3: [
         {
@@ -1064,7 +1091,7 @@ export default {
           },
         }
       );
-      console.log("abcde");
+      // console.log("listUser");
       itemnya.data.data.forEach((item, idx) => {
         this.dataPeserta.push({
           nonya: idx + 1,
@@ -1081,7 +1108,7 @@ export default {
           keteranganFile: item.keteranganFile,
         });
       });
-      // console.log(itemnya);
+      console.log("anjay");
     },
     async loadBelumDimulai() {
       let vm = this;

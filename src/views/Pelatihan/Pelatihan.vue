@@ -3,7 +3,7 @@
     <ThisIsHeader></ThisIsHeader>
     <section class="section-one">
       <b-container>
-        <b-row>
+        <b-row class="mb-1">
           <b-col md="12">
             <h2>
               <span>Pelatihan</span>
@@ -137,15 +137,15 @@ export default {
     };
   },
   watch: {
-    '$route.params': {
-        handler(newValue) {
-            // const { userName } = newValue
+    "$route.params": {
+      handler(newValue) {
+        // const { userName } = newValue
 
-             this.ambilPelatihan();
-        },
-        immediate: true,
-    }
-},
+        this.ambilPelatihan();
+      },
+      immediate: true,
+    },
+  },
 
   methods: {
     async ambilPelatihan() {

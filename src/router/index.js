@@ -176,6 +176,24 @@ const routes = [
   },
 
   {
+    path: '/alumni',
+    name: 'Alumni',
+    component: () => import('@/views/Alumni/Alumni'),
+    meta: {
+      requiresAuth: false
+    }
+  },
+
+  {
+    path: '/detail_alumni',
+    name: 'DetailAlumni',
+    component: () => import('@/views/Alumni/Detail'),
+    meta: {
+      requiresAuth: false
+    }
+  },
+
+  {
     path: '/statistik',
     name: 'Statistik',
     component: () => import('@/views/Statistik/Statistik'),

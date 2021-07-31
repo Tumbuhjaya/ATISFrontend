@@ -29,112 +29,116 @@
 
         <b-row class="mt-5">
           <b-col md="12">
-            <b-tabs content-class="mt-3" align="center">
-              <b-tab title="Daftar Pelatihan">
-                <b-row>
-                  <b-col md="2">
-                    <b-form-group
-                      label="Per page"
-                      label-for="per-page-select"
-                      label-cols-md="6"
-                      label-align-md="left"
-                      label-size="md"
-                      class="mb-0"
-                    >
-                      <b-form-select
-                        id="per-page-select"
-                        v-model="perPage"
-                        :options="pageOptions"
-                        size="md"
-                      ></b-form-select>
-                    </b-form-group>
-                  </b-col>
+            <b-row>
+              <b-col md="2">
+                <b-form-group
+                  label="Per page"
+                  label-for="per-page-select"
+                  label-cols-md="6"
+                  label-align-md="left"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-form-select
+                    id="per-page-select"
+                    v-model="perPage"
+                    :options="pageOptions"
+                    size="md"
+                  ></b-form-select>
+                </b-form-group>
+              </b-col>
 
-                  <b-col md="5" offset-md="5">
-                    <b-form-group
-                      label="Filter"
-                      label-for="filter-input"
-                      label-cols-md="3"
-                      label-align-md="right"
-                      label-size="md"
-                      class="mb-0"
-                    >
-                      <b-input-group size="md">
-                        <b-form-input
-                          id="filter-input"
-                          v-model="filter2"
-                          type="search"
-                          placeholder="Type to Search"
-                        ></b-form-input>
+              <b-col md="5" offset-md="5">
+                <b-form-group
+                  label="Filter"
+                  label-for="filter-input"
+                  label-cols-md="3"
+                  label-align-md="right"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-input-group size="md">
+                    <b-form-input
+                      id="filter-input"
+                      v-model="filter2"
+                      type="search"
+                      placeholder="Type to Search"
+                    ></b-form-input>
 
-                        <b-input-group-append>
-                          <b-button :disabled="!filter2" @click="filter2 = ''"
-                            >Clear</b-button
-                          >
-                        </b-input-group-append>
-                      </b-input-group>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
+                    <b-input-group-append>
+                      <b-button :disabled="!filter2" @click="filter2 = ''"
+                        >Clear</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-row>
 
-                <b-row>
-                  <b-col md="12">
-                    <b-table
-                      :items="items2"
-                      :fields="fields2"
-                      :current-page="currentPage"
-                      :per-page="perPage"
-                      :filter="filter2"
-                      :filter-included-fields="filterOn"
-                      stacked="md"
-                      show-empty
-                      bordered
-                      small
-                      @filtered="onFiltered"
-                      class="mt-3"
-                    >
-                      <template #cell(actions)="item">
-                        <b-button
-                          variant="warning"
-                          size="sm"
-                          class="mr-3"
-                          v-b-tooltip.hover
-                          title="Monitoring Evaluasi"
-                          v-b-modal.modal-monev
-                          @click="
-                            detailPel(item.item.pelatihanId, item.item.userId)
-                          "
-                          ><b-icon icon="file-ruled"></b-icon>
-                        </b-button>
-                      </template>
-
-                      <template #cell(status)="item">
-                        <span v-if="item.item.status == 0"
-                          >Belum Diverifikasi</span
-                        >
-                        <span v-else-if="item.item.status == 1">Disetujui</span>
-                        <span v-else-if="item.item.status == 2"
-                          >Syarat Belum Lengkap</span
-                        >
-                        <span v-else-if="item.item.status == 3">Ditolak</span>
-                      </template>
-                    </b-table>
-                  </b-col>
-                </b-row>
-
-                <b-row>
-                  <b-col md="5" offset-md="7">
-                    <b-pagination
-                      v-model="currentPage"
-                      :total-rows="totalRows"
-                      :per-page="perPage"
-                      align="fill"
+            <b-row>
+              <b-col md="12">
+                <b-table
+                  :items="items2"
+                  :fields="fields2"
+                  :current-page="currentPage"
+                  :per-page="perPage"
+                  :filter="filter2"
+                  :filter-included-fields="filterOn"
+                  stacked="md"
+                  show-empty
+                  bordered
+                  small
+                  @filtered="onFiltered"
+                  class="mt-3"
+                >
+                  <template #cell(actions)="item">
+                    <b-button
+                      variant="warning"
                       size="sm"
-                    ></b-pagination>
-                  </b-col>
-                </b-row>
-              </b-tab>
-            </b-tabs>
+                      class="mr-3"
+                      v-b-tooltip.hover
+                      title="Monitoring Evaluasi"
+                      v-b-modal.modal-monev
+                      @click="
+                        detailPel(item.item.pelatihanId, item.item.userId)
+                      "
+                      ><b-icon icon="file-ruled"></b-icon>
+                    </b-button>
+                  </template>
+
+                  <template #cell(statusnya)="item">
+                    <b-badge variant="dark" v-if="item.item.statusnya == 0"
+                      >Belum Diverifikasi</b-badge
+                    >
+                    <b-badge
+                      variant="success"
+                      v-else-if="item.item.statusnya == 1"
+                      >Disetujui</b-badge
+                    >
+                    <b-badge variant="info" v-else-if="item.item.statusnya == 2"
+                      >Syarat Belum Lengkap</b-badge
+                    >
+                    <b-badge
+                      variant="danger"
+                      v-else-if="item.item.statusnya == 3"
+                      >Ditolak</b-badge
+                    >
+                  </template>
+                </b-table>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="5" offset-md="7">
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="totalRows"
+                  :per-page="perPage"
+                  align="fill"
+                  size="sm"
+                ></b-pagination>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
       </b-container>
@@ -201,58 +205,97 @@
     </b-modal>
 
     <!-- modal 2-->
-    <b-modal id="modal-monev" size="lg" title="Monitoring Evaluasi" hide-footer>
-      <b-form-group label-cols="4" label-cols-lg="8" label="Keterangan">
-        {{ detail.keterangan }}
-      </b-form-group>
+    <b-modal
+      id="modal-monev"
+      size="lg"
+      title="Revisi Berkas & Monitoring Evaluasi"
+      hide-footer
+    >
+      <b-tabs align="center">
+        <b-tab title="Revisi Berkas" active>
+          <b-card-text>
+            <b-row class="mt-3">
+              <b-col md="12">
+                <b-table-simple borderless small>
+                  <b-tbody>
+                    <b-tr>
+                      <b-td style="width: 160px">Catatan</b-td>
+                      <b-td>{{ detail.keterangan }}</b-td>
+                    </b-tr>
 
-      <b-form-group label-cols="4" label-cols-lg="8" label="Keterangan File">
-        <a
-          :href="ipbackend + '/' + detail.file"
-          target="_blank"
-          v-if="detail.file"
-          >[DOWNLOAD]</a
-        >
-        <b-form-input v-model="detail.keteranganFile"></b-form-input>
-      </b-form-group>
+                    <b-tr>
+                      <b-td>Keterangan File</b-td>
+                      <b-td
+                        ><b-form-input
+                          v-model="detail.keteranganFile"
+                        ></b-form-input
+                        ><a
+                          :href="ipbackend + '/' + detail.file"
+                          target="_blank"
+                          v-if="detail.file"
+                          >[Download]</a
+                        ></b-td
+                      >
+                    </b-tr>
+                    <b-tr>
+                      <b-td>Upload File Revisi</b-td>
+                      <b-td
+                        ><b-form-file
+                          refs="file"
+                          v-model="fileUpload"
+                        ></b-form-file
+                      ></b-td>
+                    </b-tr>
+                  </b-tbody>
+                </b-table-simple>
+              </b-col>
+            </b-row>
+          </b-card-text>
+        </b-tab>
 
-      <b-form-group label-cols="4" label-cols-lg="8" label="File">
-        <b-form-file refs="file" v-model="fileUpload"></b-form-file>
-      </b-form-group>
+        <b-tab title="Monitoring Evaluasi">
+          <b-card-text>
+            <b-row class="mt-3">
+              <b-col md="12">
+                <b-form-group
+                  label-cols="4"
+                  label-cols-lg="8"
+                  label="Apakah anda mendapatkan pekerjaan yang sesuai pelatihan?"
+                >
+                  <b-form-select
+                    :options="usaha_sendiri"
+                    v-model="detail.kesesuaianDenganPekerjaan"
+                  ></b-form-select>
+                </b-form-group>
 
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="8"
-        label="Apakah anda mendapatkan pekerjaan yang sesuai pelatihan?"
-      >
-        <b-form-select
-          :options="usaha_sendiri"
-          v-model="detail.kesesuaianDenganPekerjaan"
-        ></b-form-select>
-      </b-form-group>
+                <b-form-group
+                  label-cols="4"
+                  label-cols-lg="8"
+                  label="Apakah Pendapatan anda bertambah setelah mengikuti pelatihan?"
+                >
+                  <b-form-select
+                    :options="usaha_sendiri"
+                    v-model="detail.perubahanPendapatan"
+                  ></b-form-select>
+                </b-form-group>
+                <b-form-group
+                  label-cols="4"
+                  label-cols-lg="8"
+                  label="Berapa pendapatan Anda saat ini dalam sebulan?"
+                >
+                  <b-form-select
+                    :options="pendapatan"
+                    v-model="detail.gajiSetelahPelatihan"
+                  ></b-form-select>
+                </b-form-group>
 
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="8"
-        label="Apakah Pendapatan anda bertambah setelah mengikuti pelatihan?"
-      >
-        <b-form-select
-          :options="usaha_sendiri"
-          v-model="detail.perubahanPendapatan"
-        ></b-form-select>
-      </b-form-group>
-      <b-form-group
-        label-cols="4"
-        label-cols-lg="8"
-        label="Berapa pendapatan Anda saat ini dalam sebulan?"
-      >
-        <b-form-select
-          :options="pendapatan"
-          v-model="detail.gajiSetelahPelatihan"
-        ></b-form-select>
-      </b-form-group>
+                <hr class="mb-0" />
+              </b-col>
+            </b-row>
+          </b-card-text>
+        </b-tab>
+      </b-tabs>
 
-      <hr class="mb-0" />
       <b-button variant="primary" class="mt-3" @click="update">Simpan</b-button>
     </b-modal>
     <ThisIsFooter></ThisIsFooter>
@@ -333,7 +376,7 @@ export default {
         },
         {
           key: "statusnya",
-          label: "Status",
+          label: "Status Pendaftaran",
           sortable: true,
           class: "text-left",
         },
