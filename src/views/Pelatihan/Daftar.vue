@@ -255,13 +255,13 @@
                             <b-tr>
                               <b-td style="width: 180px">Judul</b-td>
                               <b-td style="width: 5px">:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{pelatihanDipilih.judulPelatihan}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kategori</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{pelatihanDipilih.kejuruan}}</b-td>
                             </b-tr>
 
                             <b-tr>
@@ -403,6 +403,7 @@ export default {
   },
   data() {
     return {
+      pelatihanDipilih:{},
       pelatihan: [],
       ipbackend,
       moment,
@@ -418,6 +419,7 @@ export default {
   },
   methods: {
     async loadProfil() {
+      let vm = this;
       let profil = await axios.get(ipbackend + "users/listById/" + ret.id, {
         headers: {
           token: ret.token,
@@ -447,7 +449,7 @@ export default {
       this.riwayatPekerjaan = riwayatPekerjaan.data.data;
 
       let pelatihan = await axios.get(
-        ipbackend + "pelatihan/listPelatihanByUsersId/" + ret.id,
+        ipbackend + "pelatihan/listPelatihanById/" + ret.id,
         {
           headers: {
             token: ret.token,
@@ -455,6 +457,17 @@ export default {
         }
       );
       this.pelatihan = pelatihan.data.data;
+
+
+       let pelatihanDipilih = await axios.get(
+        ipbackend + "pelatihan/listPelatihanById/" + vm.$route.params.id,
+        {
+          headers: {
+            token: ret.token,
+          },
+        }
+      );
+      this.pelatihanDipilih = pelatihanDipilih.data.data[0];
     },
     async daftar() {
       var formData = new FormData();
