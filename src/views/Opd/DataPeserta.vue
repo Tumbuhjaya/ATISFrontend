@@ -10,8 +10,8 @@
                 >Data Peserta</span></strong
               >
             </h2>
-
-            <h2 class="text-center">{{ dataPeserta[0].judulPelatihan }}</h2>
+            
+            <h2 v-if="dataPeserta.length" class="text-center">{{ dataPeserta[0].judulPelatihan }}</h2>
           </b-col>
         </b-row>
 
