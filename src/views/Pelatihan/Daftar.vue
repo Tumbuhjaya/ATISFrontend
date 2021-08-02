@@ -255,61 +255,81 @@
                             <b-tr>
                               <b-td style="width: 180px">Judul</b-td>
                               <b-td style="width: 5px">:</b-td>
-                              <b-td>{{pelatihanDipilih.judulPelatihan}}</b-td>
+                              <b-td>{{ pelatihanDipilih.judulPelatihan }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kategori</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{pelatihanDipilih.kejuruan}}</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td>Pelatihan</b-td>
-                              <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{ pelatihanDipilih.kejuruan }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Tanggal Pelatihan</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td
+                                >{{
+                                  moment(
+                                    pelatihanDipilih.tanggalMulaiPelatihan
+                                  ).format("LL")
+                                }}
+                                s/d
+                                {{
+                                  moment(
+                                    pelatihanDipilih.tanggalSelesaiPelatihan
+                                  ).format("LL")
+                                }}</b-td
+                              >
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kuota Peserta</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{ pelatihanDipilih.kuotaPeserta }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Lokasi</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{ pelatihanDipilih.lokasi }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Penyelenggara</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{ pelatihanDipilih.namaOPD }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Jenjang Pelatihan</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{ pelatihanDipilih.jenjang }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Syarat Umum</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>
+                                <div class="ql-container">
+                                  <div
+                                    class="ql-editor"
+                                    v-html="pelatihanDipilih.syaratUmum"
+                                  ></div>
+                                </div>
+                              </b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Syarat Khusus</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>
+                                <div class="ql-container">
+                                  <div
+                                    class="ql-editor"
+                                    v-html="pelatihanDipilih.syaratUmum"
+                                  ></div>
+                                </div>
+                              </b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -403,7 +423,7 @@ export default {
   },
   data() {
     return {
-      pelatihanDipilih:{},
+      pelatihanDipilih: {},
       pelatihan: [],
       ipbackend,
       moment,
@@ -458,8 +478,7 @@ export default {
       );
       this.pelatihan = pelatihan.data.data;
 
-
-       let pelatihanDipilih = await axios.get(
+      let pelatihanDipilih = await axios.get(
         ipbackend + "pelatihan/listPelatihanById/" + vm.$route.params.id,
         {
           headers: {
