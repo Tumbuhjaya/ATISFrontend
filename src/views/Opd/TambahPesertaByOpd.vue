@@ -6,15 +6,14 @@
         <b-row>
           <b-col md="12">
             <h2 class="text-center">
-              <strong
-                >Tambah Peserta</span></strong
-              >
+              <strong><span>Tambah Peserta</span></strong>
             </h2>
-            
-            <h2 v-if="dataPeserta.length" class="text-center">{{ dataPeserta[0].judulPelatihan }}</h2>
+
+            <h2 v-if="dataPeserta.length" class="text-center">
+              {{ dataPeserta[0].judulPelatihan }}
+            </h2>
           </b-col>
         </b-row>
-
 
         <b-row class="mt-3">
           <b-col md="4" offset-md="4">
@@ -48,18 +47,33 @@
                 <!-- <h5 class="alert-heading"><strong>Jumlah Peserta Yang Telah Anda Tambahkan :</strong></h5>
                 <h1><strong>00</strong></h1> -->
                 <b-row>
-                  <b-col md="6"><h5 class="alert-heading">
-                    <strong>Jumlah peserta yang telah anda pilih :</strong></h5>
-                      <h1><strong>00</strong></h1>
+                  <b-col md="6"
+                    ><h5 class="alert-heading">
+                      <strong>Jumlah peserta yang telah anda pilih :</strong>
+                    </h5>
+                    <h1 v-if="this.bulk.length == 0"><strong>0</strong></h1>
+                    <h1 v-if="this.bulk.length != 0">
+                      <strong>{{ bulk.length }}</strong>
+                    </h1>
                   </b-col>
                   <b-col md="6">
-                    <h5 class="alert-heading"><strong>Kuota peserta yang dibutuhkan :</strong></h5>
-                      <h1><strong>00</strong></h1>
+                    <h5 class="alert-heading">
+                      <strong>Kuota peserta yang dibutuhkan :</strong>
+                    </h5>
+                    <h1>
+                      <strong>{{ kuota }}</strong>
+                    </h1>
                   </b-col>
                 </b-row>
-                <hr>
-                <p>Apabila anda telah yakin dengan data peserta yang anda pilih, silahkan tekan tombol "Tambahkan" untuk menyimpan data peserta yang sudah ada pilih</p>
-                <b-button variant="primary">Tambahkan</b-button>
+                <hr />
+                <p>
+                  Apabila anda telah yakin dengan data peserta yang anda pilih,
+                  silahkan tekan tombol "Tambahkan" untuk menyimpan data peserta
+                  yang sudah ada pilih
+                </p>
+                <b-button variant="primary" @click="regisBulk()"
+                  >Tambahkan</b-button
+                >
               </b-alert>
             </div>
           </b-col>
@@ -126,7 +140,6 @@
               @filtered="onFiltered"
               class="mt-3"
             >
-              
               <template #cell(actions)="item">
                 <center>
                   <b-button
@@ -146,11 +159,13 @@
               <template #cell(ikutsertanya)="item">
                 <center>
                   <b-form-checkbox
+                    :disabled="kuota == bulk.length && item.item.ditambahkan == 0"
                     class="checkbox"
-                    v-model="status"
+                    @input="bulks()"
+                    v-model="item.item.ditambahkan"
                     value="1"
                     unchecked-value="0"
-                  >{{ item.ikutsertanya}}
+                  >
                   </b-form-checkbox>
                 </center>
               </template>
@@ -386,6 +401,9 @@
         </b-col>
       </b-row>
     </b-modal>
+    <b-modal id="maksimum" hide-footer>
+      <p>Kuota sudah terpenuhi</p>
+    </b-modal>
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -406,7 +424,9 @@ export default {
       user: {},
       pelatihan: [],
       user: {},
+      kuota: 0,
       ipbackend,
+      bulk: [],
       moment,
       dataPeserta: [],
       profil: [],
@@ -506,8 +526,34 @@ export default {
     this.listUser();
     this.totalRows = this.items.length;
     // this.loadProfil();
+    this.propel();
   },
   methods: {
+    async bulks() {
+      this.bulk = await this.dataPeserta.filter((item) => {
+        return item.ditambahkan == 1;
+      });
+      if (this.bulk.length >= this.kuota) {
+        this.$bvModal.show("maksimum");
+      }
+    },
+    propel() {
+      axios
+        .get(
+          ipbackend + "pelatihan/listPelatihanById/" + this.$route.params.id,
+          {
+            headers: {
+              token: this.user.token,
+            },
+          }
+        )
+        .then((res) => {
+          this.kuota = res.data.sisaKuota;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     async update() {
       // console.log(item);
       let vm = this;
@@ -606,9 +652,7 @@ export default {
       let vm = this;
       this.dataPeserta = [];
       let itemnya = await axios.get(
-        ipbackend +
-          "poolpelatihan/listPesertaByPelatihan/" +
-          this.$route.params.id,
+        ipbackend + "users/usersNotInPelatihan/" + this.$route.params.id,
         {
           headers: {
             token: vm.user.token,
@@ -630,18 +674,47 @@ export default {
           kelurahannya: item.kelurahan,
           // hpnya: item.noHp,
           // emailnya: item.email,
+          ditambahkan: 0,
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
           statusnya: item.status,
         });
       });
       console.log(itemnya, "anjay");
-      console.log(dataPeserta, "ihir");
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
+    },
+    regisBulk() {
+      let vm = this;
+      let x = this.bulk.map((item) => {
+        return {
+          userId: item.idnya,
+          pelatihanId: this.$route.params.id,
+          status: 1,
+        };
+      });
+      axios
+        .post(
+          ipbackend + "poolPelatihan/inviteUsers",
+          {
+            bulk: x,
+          },
+          {
+            headers: {
+              token: vm.user.token,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          this.listUser();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
