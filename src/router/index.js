@@ -13,6 +13,7 @@ import Publikasi from '../views/Publikasi/Publikasi.vue'
 import DashboardOpd from '../views/Opd/Dashboard.vue'
 import TambahPelatihanOpd from '../views/Opd/TambahPelatihan.vue'
 import EditPelatihanOpd from '../views/Opd/EditPelatihan.vue'
+import TambahPesertaByOpd from '../views/Opd/TambahPesertaByOpd.vue'
 // masyarakat
 import DashboardMasyarakat from '../views/Masyarakat/Dashboard.vue'
 import ProfilMasyarakat from '../views/Masyarakat/Profil.vue'
@@ -139,6 +140,16 @@ const routes = [
     path: '/edit_pelatihan_opd',
     name: 'EditPelatihanOpd',
     component: () => import('@/views/Opd/EditPelatihan'),
+    meta: {
+      requiresAuth: true,
+      role: 'Opd'
+    }
+  },
+
+  {
+    path: '/tambah_peserta_by_opd/:id',
+    name: 'TambahPesertaByOPD',
+    component: () => import('@/views/Opd/TambahPesertaByOpd'),
     meta: {
       requiresAuth: true,
       role: 'Opd'

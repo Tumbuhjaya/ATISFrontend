@@ -114,7 +114,7 @@
                             variant="success"
                             size="sm"
                             v-b-tooltip.hover
-                            title="Detail Peserta"
+                            title="Verifikasi Peserta"
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
                           >
@@ -238,7 +238,7 @@
                             variant="success"
                             size="sm"
                             v-b-tooltip.hover
-                            title="Detail Peserta"
+                            title="Verifikasi Peserta"
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
                           >
@@ -324,7 +324,7 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <b-button
+                        <!-- <b-button
                           variant="success"
                           size="sm"
                           v-b-tooltip.hover
@@ -333,7 +333,7 @@
                           @click="listUser(item.item.id)"
                           ><b-icon icon="info-circle"></b-icon>
                           {{ item.actions }}</b-button
-                        >
+                        > -->
                         <b-button
                           variant="warning"
                           size="sm"
@@ -360,9 +360,22 @@
                           <b-button
                             variant="success"
                             size="sm"
+                            class="mr-3"
                             v-b-tooltip.hover
-                            title="Detail Peserta"
+                            title="Verifikasi Peserta"
                             ><b-icon icon="info-circle"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </router-link>
+
+                        <router-link :to="'/tambah_peserta_by_opd/'+ item.item.id">
+                          <b-button
+                            variant="info"
+                            size="sm"
+                            class="mr-3"
+                            v-b-tooltip.hover
+                            title="Tambah Peserta"
+                            ><b-icon icon="file-plus"></b-icon>
                             {{ item.actions }}</b-button
                           >
                         </router-link>
@@ -825,7 +838,11 @@ export default {
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "table-width text-center" },
+        {
+          key: "actions",
+          label: "Actions",
+          class: "table-width-3 text-center",
+        },
       ],
       items3: [
         {

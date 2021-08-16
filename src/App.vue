@@ -123,4 +123,8 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 .table-width {
   width: 160px !important;
 }
+
+.table-width-3 {
+  width: 180px !important;
+}
 </style>
