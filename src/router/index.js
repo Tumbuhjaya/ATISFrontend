@@ -90,12 +90,20 @@ const routes = [
   },
 
   {
-    path: '/detail_galeri',
+    path: '/detail_galeri/:id',
     name: 'DetailGaleri',
     component: () => import('@/views/Galeri/Detail'),
     meta: {
       requiresAuth: false
-    }
+    },
+    beforeRouteUpdate(to, from, next) {
+      console.log(to);
+      if (to.path == "/detail_galeri/:id") {
+        next({
+          path: "/detail_galeri",
+        });
+      }
+    },
   },
   {
     path: '/publikasi',

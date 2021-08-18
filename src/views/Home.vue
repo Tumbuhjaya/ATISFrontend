@@ -98,18 +98,18 @@
             </h2>
           </b-col>
           <b-col md="12" class="mt-5">
-            <VueSlickCarousel v-bind="terbaru">
-              <div>
+            <VueSlickCarousel v-bind="terbaru" v-if="terbaruu.length > 0">
+              <div v-for="item in terbaruu" :key="item.id">
                 <div class="box-kegiatan">
-                  <img src="../assets/agenda2.jpg" alt="" />
+                  <img :src="setSrc(item.bannerPelatihan)" alt="" />
                   <div class="content">
                     <b-row>
                       <b-col md="12">
-                        <h4 class="title">Judul Pelatihan</h4>
+                        <h4 class="title">{{item.judulPelatihan}}</h4>
                         <b-row>
                           <b-col md="12">
                             <b-badge variant="success" style="padding: 5px"
-                              >OPD Terkait</b-badge
+                              >{{item.namaOPD}}</b-badge
                             >
                           </b-col>
                         </b-row>
@@ -124,7 +124,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td>00 Juli 2021 s/d 00 Agustus 2021</b-td>
+                              <b-td>{{getDate(item.tanggalMulaiPelatihan)}} s/d {{getDate(item.tanggalSelesaiPelatihan)}}</b-td>
                             </b-tr>
 
                             <b-tr>
@@ -134,7 +134,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td>100 Peserta</b-td>
+                              <b-td>{{item.kuotaPeserta}} Peserta</b-td>
                             </b-tr>
 
                             <b-tr>
@@ -144,7 +144,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td>Pelatihan Salatiga</b-td>
+                              <b-td>{{item.lokasi}}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -154,199 +154,7 @@
                         <hr class="mt-10" />
                       </b-col>
                       <b-col md="12">
-                        <router-link :to="'/detail_pelatihan/35'">
-                          <b-button variant="primary">Selengkapnya</b-button>
-                        </router-link>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="box-kegiatan">
-                  <img src="../assets/agenda2.jpg" alt="" />
-                  <div class="content">
-                    <b-row>
-                      <b-col md="12">
-                        <h4 class="title">Judul Pelatihan</h4>
-                        <b-row>
-                          <b-col md="12">
-                            <b-badge variant="success" style="padding: 5px"
-                              >OPD Terkait</b-badge
-                            >
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col md="12" class="mt-3 icon">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/pelaksanaan.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>00 Juli 2021 s/d 00 Agustus 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/peserta.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>100 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/lokasi.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>Pelatihan Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-
-                      <b-col md="12">
-                        <hr class="mt-10" />
-                      </b-col>
-                      <b-col md="12">
-                        <router-link :to="'/detail_pelatihan/35'">
-                          <b-button variant="primary">Selengkapnya</b-button>
-                        </router-link>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="box-kegiatan">
-                  <img src="../assets/agenda2.jpg" alt="" />
-                  <div class="content">
-                    <b-row>
-                      <b-col md="12">
-                        <h4 class="title">Judul Pelatihan</h4>
-                        <b-row>
-                          <b-col md="12">
-                            <b-badge variant="success" style="padding: 5px"
-                              >OPD Terkait</b-badge
-                            >
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col md="12" class="mt-3 icon">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/pelaksanaan.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>00 Juli 2021 s/d 00 Agustus 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/peserta.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>100 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/lokasi.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>Pelatihan Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-
-                      <b-col md="12">
-                        <hr class="mt-10" />
-                      </b-col>
-                      <b-col md="12">
-                        <router-link :to="'/detail_pelatihan/35'">
-                          <b-button variant="primary">Selengkapnya</b-button>
-                        </router-link>
-                      </b-col>
-                    </b-row>
-                  </div>
-                </div>
-              </div>
-
-              <div>
-                <div class="box-kegiatan">
-                  <img src="../assets/agenda2.jpg" alt="" />
-                  <div class="content">
-                    <b-row>
-                      <b-col md="12">
-                        <h4 class="title">Judul Pelatihan</h4>
-                        <b-row>
-                          <b-col md="12">
-                            <b-badge variant="success" style="padding: 5px"
-                              >OPD Terkait</b-badge
-                            >
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col md="12" class="mt-3 icon">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/pelaksanaan.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>00 Juli 2021 s/d 00 Agustus 2021</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/peserta.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>100 Peserta</b-td>
-                            </b-tr>
-
-                            <b-tr>
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/lokasi.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td>Pelatihan Salatiga</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-
-                      <b-col md="12">
-                        <hr class="mt-10" />
-                      </b-col>
-                      <b-col md="12">
-                        <router-link :to="'/detail_pelatihan/35'">
+                        <router-link :to="'/detail_pelatihan/' + item.id">
                           <b-button variant="primary">Selengkapnya</b-button>
                         </router-link>
                       </b-col>
@@ -375,109 +183,17 @@
 
         <b-row class="mt-5">
           <b-col md="12">
-            <VueSlickCarousel v-bind="kategori">
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
+            <VueSlickCarousel v-bind="kategori" v-if="kejuruan.length > 0">
+              <div v-for="item in kejuruan" :key='item.namaKejuruan'>
+                <!-- <router-link :to="'/pelatihan/' + item.namaKejuruan" > -->
                   <div class="box-kategori">
                     <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
+                    <h6 class="text-center mt-3" @click="goKejuruan(item.namaKejuruan)">
+                      <strong>{{item.namaKejuruan}} </strong>
                     </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
+                    <h6 class="mt-2"><strong>( {{item.count}} )</strong></h6>
                   </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
-              </div>
-
-              <div>
-                <router-link :to="'/pelatihan/Garment Apparel'">
-                  <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>Teknologi Informasi dan Komunikasi </strong>
-                    </h6>
-
-                    <h6 class="mt-2"><strong>( 0 )</strong></h6>
-                  </div>
-                </router-link>
+                <!-- </router-link> -->
               </div>
             </VueSlickCarousel>
           </b-col>
@@ -490,16 +206,23 @@
 </template>
 
 <script>
+import axios from 'axios'
+import ipbackend from "../ipbackend";
 // @ is an alias to /src
 import ThisIsHeader from "../components/ThisIsHeader";
 import ThisIsFooter from "../components/ThisIsFooter";
 import AnimatedNumber from "animated-number-vue";
 import VueSlickCarousel from "vue-slick-carousel";
+import moment from 'moment'
+moment.locale("id");
 
 export default {
   name: "Home",
   data() {
     return {
+      kejuruan:"",
+      terbaruu:"",
+      counts:"",
       kategori: {
         autoplay: true,
         dots: false,
@@ -531,10 +254,42 @@ export default {
     AnimatedNumber,
     VueSlickCarousel,
   },
-
+  created(){
+    this.ambilKejuruan()
+  },
   methods: {
     formatToPrice(value) {
       return `${value.toFixed(0)}`;
+    },
+    goKejuruan(x){
+      this.$router.push({path:'/pelatihan/' + x})
+    },
+    getDate(x){
+      return moment(x).format('LL')
+    },
+    setSrc(x){
+      return ipbackend + x
+    },  
+    async ambilKejuruan() {
+      let kejuruan = await axios.get(
+        ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
+      );
+      // console.log(kejuruan, 'ini keju');
+      this.kejuruan = kejuruan.data.data;
+
+      let terbaru = await axios.get( ipbackend + 'pelatihan/pelatihanTerbaru')
+      // console.log(terbaru,' terbaru')
+      this.terbaruu = terbaru.data.data
+
+      let count = await axios.get(ipbackend + "pelatihan/jumlahPelatihanByPelaksanaan")
+      // console.log(count, 'ini count')
+      this.akan= count.data.belumDimulai
+      this.sedang = count.data.sedangDimulai
+      this.telah = count.data.sudahSelesai
+
+      let peserta = await axios.get(ipbackend + 'users/jumlahPeserta')
+      // console.log(peserta, 'peserta')
+      this.peserta = peserta.data.jumlahPeserta
     },
   },
 };
