@@ -136,7 +136,7 @@
         <b-row>
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan1"
               alt=""
               style="width: 100%"
             />
@@ -144,7 +144,7 @@
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan2"
               alt=""
               style="width: 100%"
             />
@@ -152,7 +152,7 @@
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan3"
               alt=""
               style="width: 100%"
             />
@@ -160,7 +160,7 @@
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan4"
               alt=""
               style="width: 100%"
             />
@@ -168,7 +168,7 @@
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan5"
               alt=""
               style="width: 100%"
             />
@@ -200,7 +200,8 @@ export default {
   },
   data(){
     return{
-      details:""
+      details:"",
+      ipbackend,
     }
   },
   created(){
