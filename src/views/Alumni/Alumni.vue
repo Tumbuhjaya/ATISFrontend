@@ -73,6 +73,9 @@
                   @filtered="onFiltered"
                   class="mt-3"
                 >
+                <template #cell(No)="item">
+                  {{item.index + 1}}
+                </template>
                   <!-- <template #cell(actions)="item">
                     <b-button
                       variant="warning"
@@ -300,40 +303,40 @@ export default {
     return {
       fields: [
         {
-          key: "nonya",
+          key: "No",
           label: "No",
           sortable: true,
           class: "text-center",
         },
 
         {
-          key: "namanya",
+          key: "nama",
           label: "Nama",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "kelaminnya",
+          key: "jenisKelamin",
           label: "Jenis Kelamin",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "alamatnya",
+          key: "alamat",
           label: "Alamat",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "kecamatannya",
+          key: "kecamatan",
           label: "Kecamatan",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "kelurahannya",
+          key: "kelurahan",
           label: "Kelurahan",
           sortable: true,
           class: "text-left",
@@ -386,8 +389,8 @@ export default {
   },
   methods:{
     async getPeserta(){
-      let peserta = axios.get(ipbackend + 'users/listPesertaTanpaLogin')
-
+      let peserta = await axios.get(ipbackend + 'users/listPesertaTanpaLogin')
+      console.log(peserta, 'peserta')
       this.items = peserta.data.data
     },
      onFiltered(filteredItems) {
