@@ -18,12 +18,13 @@
           <b-col md="12">
             <h2 class="text-center">Tentang</h2>
             <h2 class="text-center">
-              <strong>Aplikasi Training Integration System</strong>
+              <strong>Sistem Informasi Pelatihan</strong>
             </h2>
+            <h2 class="text-center"><strong>(S I M P E L)</strong></h2>
           </b-col>
           <b-col md="8" offset-md="2" class="mt-5 text-center">
             <h6>
-              A.T.I.S merupakan sistem informasi yang menjadi wadah yang
+              SIMPEL merupakan sistem informasi yang menjadi wadah yang
               mengintegrasikan database program pelatihan, peserta, dan output
               pelatihan dari setiap instansi penyelenggara. Sistem ini juga
               berfungsi memudahkan peserta pelatihan untuk mendapat informasi
@@ -193,20 +194,20 @@
           <b-col md="12">
             <VueSlickCarousel v-bind="kategori" v-if="kejuruan.length > 0">
               <div v-for="item in kejuruan" :key="item.namaKejuruan">
-                <!-- <router-link :to="'/pelatihan/' + item.namaKejuruan" > -->
-                <div class="box-kategori">
-                  <img src="../assets/bg-pelatihan.png" alt="" />
-                  <h6
-                    class="text-center mt-3"
-                    @click="goKejuruan(item.namaKejuruan)"
-                  >
-                    <strong>{{ item.namaKejuruan }} </strong>
-                  </h6>
-                  <h6 class="mt-2">
-                    <strong>( {{ item.count }} )</strong>
-                  </h6>
-                </div>
-                <!-- </router-link> -->
+                <span
+                  @click="goKejuruan(item.namaKejuruan)"
+                  style="cursor: pointer"
+                >
+                  <div class="box-kategori">
+                    <img src="../assets/bg-pelatihan.png" alt="" />
+                    <h6 class="text-center mt-3">
+                      <strong>{{ item.namaKejuruan }} </strong>
+                    </h6>
+                    <h6 class="mt-2">
+                      <strong>( {{ item.count }} )</strong>
+                    </h6>
+                  </div>
+                </span>
               </div>
             </VueSlickCarousel>
           </b-col>

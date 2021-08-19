@@ -20,8 +20,10 @@
       >
         <img src="./assets/icon-usulan.png" alt="" style="width: 100px" />
 
-        <h6 class="mt-2 mb-0"><strong>Usulan</strong></h6>
-        <h6 class="mt-0 mb-0"><strong>Pelatihan</strong></h6>
+        <h6 class="mt-2 mb-0" style="color: black">Usul</h6>
+        <h6 class="mt-0 mb-0" style="color: black">
+          <strong>Pelatihan</strong>
+        </h6>
       </div>
     </router-link>
   </div>

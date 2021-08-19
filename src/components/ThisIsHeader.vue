@@ -7,10 +7,12 @@
             <div class="indentity">
               <img src="../assets/logo kota salatiga.png" alt="width:80px" />
               <div class="indentity-name">
-                <h3 class="mt-0 mb-0"><strong>A T I S</strong></h3>
+                <h3 class="mt-0 mb-0"><strong>S I M P E L</strong></h3>
                 <h6 style="font-size: 16px; font-weight: 400">
-                  Aplikasi Training Integartion System
+                  Sistem Informasi Pelatihan
                 </h6>
+
+                <h6 style="font-size: 16px; font-weight: 400">Kota Salatiga</h6>
               </div>
             </div>
           </b-col>
@@ -55,7 +57,7 @@
             </div>
 
             <div class="menu">
-              <router-link :to="'/'">
+              <router-link :to="'/'" style="color: black">
                 <h6 class="mt-0 mb-0">Beranda</h6>
               </router-link>
               <b-dropdown
@@ -65,10 +67,13 @@
                 variant="link"
                 toggle-class="text-decoration-none"
                 no-caret
+                style="color: black"
               >
                 <div style="height: 160px; overflow-y: auto">
                   <b-dropdown-item v-for="(item, idx) in kejuruan" :key="idx">
-                    <router-link :to="'/pelatihan/' + item.namaKejuruan"
+                    <router-link
+                      :to="'/pelatihan/' + item.namaKejuruan"
+                      style="color: black"
                       >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
                         variant="primary"
                         >{{ item.count }}</b-badge
@@ -77,17 +82,17 @@
                   >
                 </div>
               </b-dropdown>
-              <router-link :to="'/galeri'">
+              <router-link :to="'/galeri'" style="color: black">
                 <h6 class="mt-0 mb-0">Galeri</h6>
               </router-link>
-              <router-link :to="'/alumni'">
+              <router-link :to="'/alumni'" style="color: black">
                 <h6 class="mt-0 mb-0">Database Peserta</h6>
               </router-link>
               <!-- <router-link :to="'/publikasi'">
                 <h6 class="mt-0 mb-0">Publikasi</h6>
               </router-link> -->
 
-              <router-link :to="'/statistik'">
+              <router-link :to="'/statistik'" style="color: black">
                 <h6 class="mt-0 mb-0">Statistik</h6>
               </router-link>
             </div>

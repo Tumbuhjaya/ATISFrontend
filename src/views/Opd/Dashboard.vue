@@ -623,12 +623,68 @@
     <!-- modal dokumentasi -->
     <b-modal
       id="modal-dokumentasi"
-      size="xl"
+      size="lg"
       title="Upload Dokumentasi Pelatihan"
       hide-footer
     >
       <b-row>
-        <b-col md="12"> </b-col>
+        <b-col md="12">
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+
+          <b-form-group
+            label-cols="6"
+            label-cols-lg="3"
+            label="Upload Foto Kegiatan"
+          >
+            <input type="file" id="file" ref="file" />
+          </b-form-group>
+        </b-col>
+
+        <b-col md="12">
+          <hr />
+        </b-col>
+
+        <b-col md="12">
+          <b-button variant="primary">Simpan</b-button>
+        </b-col>
       </b-row>
     </b-modal>
     <ThisIsFooter></ThisIsFooter>
