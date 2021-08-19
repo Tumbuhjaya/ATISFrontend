@@ -531,7 +531,7 @@ export default {
 
       totalRows: 1,
       currentPage: 1,
-      perPage: 10,
+      perPage: 2,
       pageOptions: [
         10,
         25,
@@ -678,6 +678,8 @@ export default {
         }
       );
       // console.log("abcde");
+      let x = itemnya.data.data;
+      this.totalRows = x.length;
       itemnya.data.data.forEach((item, idx) => {
         this.dataPeserta.push({
           nonya: idx + 1,

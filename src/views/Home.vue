@@ -37,7 +37,7 @@
 
         <b-row class="mt-5">
           <b-col md="3">
-            <h1 class="text-center title">
+            <h1 class="text-center title" style="font-size: 72px">
               <animated-number
                 :value="peserta"
                 :formatValue="formatToPrice"
@@ -45,12 +45,12 @@
                 :delay="2500"
               />
             </h1>
-            <h5 class="text-center">PESERTA</h5>
-            <h5 class="text-center">PELATIHAN</h5>
+            <h4 class="text-center mt-3">DATA</h4>
+            <h4 class="text-center">PESERTA</h4>
           </b-col>
 
           <b-col md="3">
-            <h1 class="text-center title">
+            <h1 class="text-center title" style="font-size: 72px">
               <animated-number
                 :value="akan"
                 :formatValue="formatToPrice"
@@ -58,11 +58,14 @@
                 :delay="2500"
               />
             </h1>
-            <h5 class="text-center">PELATIHAN<br />AKAN TERLAKSANA</h5>
+            <h4 class="text-center mt-3">
+              PELATIHAN<br />
+              RENCANA
+            </h4>
           </b-col>
 
           <b-col md="3">
-            <h1 class="text-center title">
+            <h1 class="text-center title" style="font-size: 72px">
               <animated-number
                 :value="sedang"
                 :formatValue="formatToPrice"
@@ -70,11 +73,11 @@
                 :delay="2500"
               />
             </h1>
-            <h5 class="text-center">PELATIHAN<br />SEDANG TERLAKSANA</h5>
+            <h4 class="text-center mt-3">PELATIHAN<br />BERLANGSUNG</h4>
           </b-col>
 
           <b-col md="3">
-            <h1 class="text-center title">
+            <h1 class="text-center title" style="font-size: 72px">
               <animated-number
                 :value="telah"
                 :formatValue="formatToPrice"
@@ -82,7 +85,7 @@
                 :delay="2500"
               />
             </h1>
-            <h5 class="text-center">PELATHAN<br />TELAH TERLAKSANA</h5>
+            <h4 class="text-center mt-3">PELATHAN<br />SELESAI</h4>
           </b-col>
         </b-row>
       </b-container>
@@ -128,7 +131,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td
+                              <b-td class="fs"
                                 >{{ getDate(item.tanggalMulaiPelatihan) }} s/d
                                 {{
                                   getDate(item.tanggalSelesaiPelatihan)
@@ -143,7 +146,9 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td>{{ item.kuotaPeserta }} Peserta</b-td>
+                              <b-td class="fs"
+                                >{{ item.kuotaPeserta }} Peserta</b-td
+                              >
                             </b-tr>
 
                             <b-tr>
@@ -153,7 +158,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td>{{ item.lokasi }}</b-td>
+                              <b-td class="fs">{{ item.lokasi }}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -183,8 +188,8 @@
           <b-col md="12">
             <h2 class="text-center">
               <strong
-                ><span style="font-weight: 400">Kategori</span>
-                Pelatihan</strong
+                ><span style="font-weight: 400">LOWONGAN</span>
+                PEKERJAAN</strong
               >
             </h2>
           </b-col>
@@ -192,22 +197,25 @@
 
         <b-row class="mt-5">
           <b-col md="12">
-            <VueSlickCarousel v-bind="kategori" v-if="kejuruan.length > 0">
-              <div v-for="item in kejuruan" :key="item.namaKejuruan">
-                <span
-                  @click="goKejuruan(item.namaKejuruan)"
-                  style="cursor: pointer"
-                >
-                  <div class="box-kategori">
-                    <img src="../assets/bg-pelatihan.png" alt="" />
-                    <h6 class="text-center mt-3">
-                      <strong>{{ item.namaKejuruan }} </strong>
-                    </h6>
-                    <h6 class="mt-2">
-                      <strong>( {{ item.count }} )</strong>
-                    </h6>
-                  </div>
-                </span>
+            <VueSlickCarousel v-bind="kategori">
+              <div class="box-lowongan">
+                <img src="https://via.placeholder.com/262x150" alt="" />
+              </div>
+
+              <div class="box-lowongan">
+                <img src="https://via.placeholder.com/262x150" alt="" />
+              </div>
+
+              <div class="box-lowongan">
+                <img src="https://via.placeholder.com/262x150" alt="" />
+              </div>
+
+              <div class="box-lowongan">
+                <img src="https://via.placeholder.com/262x150" alt="" />
+              </div>
+
+              <div class="box-lowongan">
+                <img src="https://via.placeholder.com/262x150" alt="" />
               </div>
             </VueSlickCarousel>
           </b-col>
@@ -406,5 +414,16 @@ export default {
 
 .slick-slider {
   margin: 0 15px;
+}
+
+#home .fs {
+  /* color: red; */
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+#home .box-lowongan img {
+  width: 200px;
+  height: 100px;
 }
 </style>

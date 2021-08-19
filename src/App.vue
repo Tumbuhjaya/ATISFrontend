@@ -151,7 +151,7 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 }
 
 .table-width-3 {
-  width: 180px !important;
+  width: 220px !important;
 }
 
 .btn-link {

@@ -113,6 +113,7 @@
                           <b-button
                             variant="success"
                             size="sm"
+                            class="mr-3"
                             v-b-tooltip.hover
                             title="Verifikasi Peserta"
                             ><b-icon icon="info-circle"></b-icon>
@@ -630,7 +631,11 @@
       <b-row>
         <b-col md="12">
           <b-form>
-            <b-img :src="src1" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src1"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -642,7 +647,11 @@
                 @input="handleFile('file1')"
               />
             </b-form-group>
-            <b-img :src="src2" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src2"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -655,7 +664,11 @@
                 @input="handleFile('file2')"
               />
             </b-form-group>
-            <b-img :src="src3" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src3"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -668,7 +681,11 @@
                 @input="handleFile('file3')"
               />
             </b-form-group>
-            <b-img :src="src4" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src4"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -681,7 +698,11 @@
                 @input="handleFile('file4')"
               />
             </b-form-group>
-            <b-img :src="src5" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src5"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -694,7 +715,11 @@
                 @input="handleFile('file5')"
               />
             </b-form-group>
-            <b-img :src="src6" style="height:100px;width:100px" alt=""></b-img>
+            <b-img
+              :src="src6"
+              style="height: 100px; width: 100px"
+              alt=""
+            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -823,7 +848,11 @@ export default {
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "table-width text-center" },
+        {
+          key: "actions",
+          label: "Actions",
+          class: "table-width-3 text-center",
+        },
       ],
       items: [],
 
@@ -867,7 +896,11 @@ export default {
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "table-width text-center" },
+        {
+          key: "actions",
+          label: "Actions",
+          class: "table-width-3 text-center",
+        },
       ],
       items2: [
         {
@@ -1278,6 +1311,8 @@ export default {
         }
       );
       this.items = [];
+      let x = itemnya.data.data;
+      this.totalRows = x.length;
       itemnya.data.data.forEach((item, idx) => {
         this.items.push({
           id: item.id,
@@ -1302,6 +1337,8 @@ export default {
         }
       );
       this.items2 = [];
+      let x = itemnya.data.data;
+      this.totalRows = x.length;
       itemnya.data.data.forEach((item, idx) => {
         this.items2.push({
           id: item.id,
@@ -1326,6 +1363,8 @@ export default {
         }
       );
       this.items3 = [];
+      let x = itemnya.data.data;
+      this.totalRows = x.length;
       itemnya.data.data.forEach((item, idx) => {
         this.items3.push({
           id: item.id,

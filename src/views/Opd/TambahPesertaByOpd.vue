@@ -17,7 +17,9 @@
 
         <b-row class="mt-3">
           <b-col md="4" offset-md="4">
-            <div style="width:100%;display:flex;justify-content:space-evenly">
+            <div
+              style="width: 100%; display: flex; justify-content: space-evenly"
+            >
               <router-link :to="'/dashboard_opd'">
                 <h6>Dashboard</h6>
               </router-link>
@@ -159,7 +161,9 @@
               <template #cell(ikutsertanya)="item">
                 <center>
                   <b-form-checkbox
-                    :disabled="kuota == bulk.length && item.item.ditambahkan == 0"
+                    :disabled="
+                      kuota == bulk.length && item.item.ditambahkan == 0
+                    "
                     class="checkbox"
                     @input="bulks()"
                     v-model="item.item.ditambahkan"
@@ -660,6 +664,9 @@ export default {
         }
       );
       // console.log("abcde");
+      let x = itemnya.data.data;
+      this.totalRows = x.length;
+
       itemnya.data.data.forEach((item, idx) => {
         this.dataPeserta.push({
           nonya: idx + 1,

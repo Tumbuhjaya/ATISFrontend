@@ -382,20 +382,19 @@ export default {
         },
         { key: "actions", label: "Actions", class: "text-center" },
       ],
-      items2: [
-        {
-          nonya: 1,
-          judulnya: "dul",
-          kategorinya: "kat",
-          tglnya: "tgl",
-          lokasinya: "lok",
-        },
-      ],
+      items2: [],
 
       totalRows: 1,
       currentPage: 1,
-      perPage: 50,
-      pageOptions: [50, 100, { value: 100, text: "Tampilkan Banyak" }],
+      perPage: 2,
+      pageOptions: [
+        10,
+        25,
+        50,
+        75,
+        100,
+        { value: 100, text: "Tampilkan Banyak" },
+      ],
       filter: null,
       filter2: null,
       filterOn: [],
@@ -505,6 +504,8 @@ export default {
       console.log(pelatihan);
       // this.pelatihan = pelatihan.data.data
       this.items2 = [];
+      let x = pelatihan.data.data;
+      this.totalRows = x.length;
 
       pelatihan.data.data.forEach((item, idx) => {
         this.items2.push({

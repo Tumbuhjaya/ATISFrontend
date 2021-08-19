@@ -5,7 +5,7 @@
       <b-container>
         <b-row>
           <b-col md="12">
-            <h2><span>Data Peserta</span> <strong>ATIS</strong></h2>
+            <h2><span>Data Peserta</span> <strong>SIMPEL</strong></h2>
           </b-col>
         </b-row>
 
@@ -343,16 +343,7 @@ export default {
         },
         // { key: "actions", label: "Actions", class: "text-center" },
       ],
-      items: [
-        {
-          nonya: "1",
-          namanya: "-",
-          kelaminnya: "-",
-          alamatnya: "-",
-          kecamatannya: "-",
-          kelurahannya: "-",
-        },
-      ],
+      items: [],
 
       totalRows: 1,
       currentPage: 1,
@@ -387,11 +378,17 @@ export default {
   created() {
     this.getPeserta();
   },
+  mounted() {
+    this.totalRows = this.items.length;
+  },
   methods: {
     async getPeserta() {
       let peserta = await axios.get(ipbackend + "users/listPesertaTanpaLogin");
       console.log(peserta, "peserta");
       this.items = peserta.data.data;
+
+      let x = peserta.data.data;
+      this.totalRows = x.length;
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
