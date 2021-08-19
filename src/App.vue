@@ -1,6 +1,29 @@
 <template>
   <div id="app">
     <router-view />
+
+    <router-link :to="'/survey_pelatihan'">
+      <div
+        style="
+          background-color: whitesmoke;
+          position: fixed;
+          right: 30px;
+          bottom: 30px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          padding: 15px;
+          border-radius: 6px;
+          z-index: 2;
+        "
+      >
+        <img src="./assets/icon-usulan.png" alt="" style="width: 100px" />
+
+        <h6 class="mt-2 mb-0"><strong>Usulan</strong></h6>
+        <h6 class="mt-0 mb-0"><strong>Pelatihan</strong></h6>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -13,6 +36,7 @@
   /* text-align: center;
   color: #2c3e50; */
   font-weight: 300;
+  position: relative;
 }
 
 h1,

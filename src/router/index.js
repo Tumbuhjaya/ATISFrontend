@@ -1,25 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Daftar from '../views/Daftar.vue'
-import Login from '../views/Login.vue'
-import Pelatihan from '../views/Pelatihan/Pelatihan.vue'
-import DetailPelatihan from '../views/Pelatihan/Detail.vue'
-import DaftarPelatihan from '../views/Pelatihan/Daftar.vue'
-import Galeri from '../views/Galeri/Galeri.vue'
-import DetailGaleri from '../views/Galeri/Detail.vue'
-import Publikasi from '../views/Publikasi/Publikasi.vue'
-// opd
-import DashboardOpd from '../views/Opd/Dashboard.vue'
-import TambahPelatihanOpd from '../views/Opd/TambahPelatihan.vue'
-import EditPelatihanOpd from '../views/Opd/EditPelatihan.vue'
-import TambahPesertaByOpd from '../views/Opd/TambahPesertaByOpd.vue'
-// masyarakat
-import DashboardMasyarakat from '../views/Masyarakat/Dashboard.vue'
-import ProfilMasyarakat from '../views/Masyarakat/Profil.vue'
-import RiwayatPelatihan from '../views/Masyarakat/RiwayatPelatihan.vue'
-// statistik
-import Statistik from '../views/Statistik/Statistik.vue'
 
 
 
@@ -61,6 +41,16 @@ const routes = [
       requiresAuth: false
     }
   },
+
+  {
+    path: '/survey_pelatihan',
+    name: 'SurveyPelatihan',
+    component: () => import('@/views/Survey/SurveyPelatihan'),
+    meta: {
+      requiresAuth: false
+    }
+  },
+  
 
   {
     path: '/detail_pelatihan/:id',

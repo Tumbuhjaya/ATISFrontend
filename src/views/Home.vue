@@ -379,7 +379,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -392,7 +392,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -405,7 +405,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -418,7 +418,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -431,7 +431,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -444,7 +444,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -457,7 +457,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -470,7 +470,7 @@
               <div>
                 <router-link :to="'/pelatihan/Garment Apparel'">
                   <div class="box-kategori">
-                    <img src="https://via.placeholder.com/80" alt="" />
+                    <img src="../assets/bg-pelatihan.png" alt="" />
                     <h6 class="text-center mt-3">
                       <strong>Teknologi Informasi dan Komunikasi </strong>
                     </h6>
@@ -607,7 +607,7 @@ export default {
   height: 220px;
   padding: 30px;
   border-radius: 6px;
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -629,8 +629,8 @@ export default {
 }
 
 #home .box-kategori img {
-  width: 80px;
-  height: 80px;
+  width: 130px;
+  height: 130px;
 }
 
 .slick-slider {

@@ -119,6 +119,20 @@
                             {{ item.actions }}</b-button
                           >
                         </router-link>
+
+                        <router-link
+                          :to="'/tambah_peserta_by_opd/' + item.item.id"
+                        >
+                          <b-button
+                            variant="info"
+                            size="sm"
+                            class="mr-3"
+                            v-b-tooltip.hover
+                            title="Tambah Peserta"
+                            ><b-icon icon="file-plus"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </router-link>
                       </template>
                     </b-table>
                   </b-col>
@@ -222,17 +236,6 @@
                           {{ item.actions }}</b-button
                         >
 
-                        <!-- <b-button
-                          variant="success"
-                          size="sm"
-                          v-b-tooltip.hover
-                          title="Detail Peserta"
-                          v-b-modal.modal-peserta
-                          @click="listUser(item.item.id)"
-                          ><b-icon icon="info-circle"></b-icon>
-                          {{ item.actions }}</b-button
-                        > -->
-
                         <router-link :to="'/data_peserta/' + item.item.id">
                           <b-button
                             variant="success"
@@ -324,16 +327,6 @@
                       class="mt-3"
                     >
                       <template #cell(actions)="item">
-                        <!-- <b-button
-                          variant="success"
-                          size="sm"
-                          v-b-tooltip.hover
-                          title="Detail Peserta"
-                          v-b-modal.modal-peserta
-                          @click="listUser(item.item.id)"
-                          ><b-icon icon="info-circle"></b-icon>
-                          {{ item.actions }}</b-button
-                        > -->
                         <b-button
                           variant="warning"
                           size="sm"
@@ -345,16 +338,6 @@
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
-                        <!-- <b-button
-                          variant="danger"
-                          size="sm"
-                          class="mr-3"
-                          v-b-tooltip.hover
-                          title="Hapus Data"
-                          @click="hapus(item.item.id)"
-                          ><b-icon icon="trash"></b-icon>
-                          {{ item.actions }}</b-button
-                        > -->
 
                         <router-link :to="'/data_peserta/' + item.item.id">
                           <b-button
@@ -368,17 +351,17 @@
                           >
                         </router-link>
 
-                        <router-link :to="'/tambah_peserta_by_opd/'+ item.item.id">
-                          <b-button
-                            variant="info"
-                            size="sm"
-                            class="mr-3"
-                            v-b-tooltip.hover
-                            title="Tambah Peserta"
-                            ><b-icon icon="file-plus"></b-icon>
-                            {{ item.actions }}</b-button
-                          >
-                        </router-link>
+                        <b-button
+                          variant="info"
+                          size="sm"
+                          class="mr-3"
+                          v-b-tooltip.hover
+                          title="Upload Dokumentasi Pelatihan"
+                          v-b-modal.modal-dokumentasi
+                          @click="edit(item.item.id)"
+                          ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
                       </template>
                     </b-table>
                   </b-col>
@@ -634,6 +617,18 @@
             </b-col>
           </b-row>
         </b-col>
+      </b-row>
+    </b-modal>
+
+    <!-- modal dokumentasi -->
+    <b-modal
+      id="modal-dokumentasi"
+      size="xl"
+      title="Upload Dokumentasi Pelatihan"
+      hide-footer
+    >
+      <b-row>
+        <b-col md="12"> </b-col>
       </b-row>
     </b-modal>
     <ThisIsFooter></ThisIsFooter>
