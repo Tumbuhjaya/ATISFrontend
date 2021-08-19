@@ -42,13 +42,13 @@
                   <b-input-group size="md">
                     <b-form-input
                       id="filter-input"
-                      v-model="filter2"
+                      v-model="filter"
                       type="search"
                       placeholder="Type to Search"
                     ></b-form-input>
 
                     <b-input-group-append>
-                      <b-button :disabled="!filter2" @click="filter2 = ''"
+                      <b-button :disabled="!filter" @click="filter = ''"
                         >Clear</b-button
                       >
                     </b-input-group-append>
@@ -73,17 +73,21 @@
                   @filtered="onFiltered"
                   class="mt-3"
                 >
-                  <template #cell(actions)="item">
+                  <template #cell(No)="item">
+                    {{ item.index + 1 }}
+                  </template>
+                  <!-- <template #cell(actions)="item">
                     <b-button
                       variant="warning"
                       size="sm"
                       class="mr-3"
                       v-b-tooltip.hover
                       title="Detail Profil"
+                      @click="item"
                       v-b-modal.modal-lg
                       ><b-icon icon="info-circle"></b-icon>
                     </b-button>
-                  </template>
+                  </template> -->
                 </b-table>
               </b-col>
             </b-row>
@@ -105,7 +109,7 @@
     </section>
 
     <!-- modal -->
-    <b-modal id="modal-lg" size="xl" title="Detail Peserta" hide-footer>
+    <!-- <b-modal id="modal-lg" size="xl" title="Detail Peserta" hide-footer>
       <b-row>
         <b-col md="12">
           <b-tabs align="center">
@@ -281,12 +285,14 @@
           </b-tabs>
         </b-col>
       </b-row>
-    </b-modal>
+    </b-modal> -->
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import ipbackend from "../../ipbackend";
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
@@ -297,47 +303,46 @@ export default {
     return {
       fields: [
         {
-          key: "nonya",
+          key: "No",
           label: "No",
           sortable: true,
           class: "text-center",
         },
 
         {
-          key: "namanya",
+          key: "nama",
           label: "Nama",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "kelaminnya",
+          key: "jenisKelamin",
           label: "Jenis Kelamin",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "alamatnya",
+          key: "alamat",
           label: "Alamat",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "kecamatannya",
+          key: "kecamatan",
           label: "Kecamatan",
           sortable: true,
           class: "text-left",
         },
         {
-          key: "kelurahannya",
+          key: "kelurahan",
           label: "Kelurahan",
           sortable: true,
           class: "text-left",
         },
-        { key: "actions", label: "Actions", class: "text-center" },
+        // { key: "actions", label: "Actions", class: "text-center" },
       ],
-
       items: [
         {
           nonya: "1",
@@ -378,6 +383,75 @@ export default {
           return { text: f.label, value: f.key };
         });
     },
+  },
+  created() {
+    this.getPeserta();
+  },
+  methods: {
+    async getPeserta() {
+      let peserta = await axios.get(ipbackend + "users/listPesertaTanpaLogin");
+      console.log(peserta, "peserta");
+      this.items = peserta.data.data;
+    },
+    onFiltered(filteredItems) {
+      // Trigger pagination to update the number of buttons/pages due to filtering
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
+    },
+    // async loadProfil(id, idPelatihan) {
+    //   let vm = this;
+    //   let profil = await axios.get(ipbackend + "users/listById/" + id, {
+    //     headers: {
+    //       token: vm.user.token,
+    //     },
+    //   });
+    //   //  console.log(profil.data.data[0],'-------');
+    //   this.profil = profil.data.data[0];
+
+    //   let pelatihanLain = await axios.get(
+    //     ipbackend + "pelatihanlain/listByUsersId/" + id,
+    //     {
+    //       headers: {
+    //         token: vm.user.token,
+    //       },
+    //     }
+    //   );
+    //   this.pelatihanLain = pelatihanLain.data.data;
+
+    //   let riwayatPekerjaan = await axios.get(
+    //     ipbackend + "riwayatpekerjaan/listByUsersId/" + id,
+    //     {
+    //       headers: {
+    //         token: vm.user.token,
+    //       },
+    //     }
+    //   );
+    //   this.riwayatPekerjaan = riwayatPekerjaan.data.data;
+
+    //   let pelatihan = await axios.get(
+    //     ipbackend + "pelatihan/listPelatihanByUsersId/" + id,
+    //     {
+    //       headers: {
+    //         token: vm.user.token,
+    //       },
+    //     }
+    //   );
+    //   this.pelatihan = pelatihan.data.data;
+
+    //   let detailUser = await axios.get(
+    //     ipbackend +
+    //       "poolPelatihan/listByPelatihanIdUserId/" +
+    //       idPelatihan +
+    //       "/" +
+    //       id,
+    //     {
+    //       headers: {
+    //         token: vm.user.token,
+    //       },
+    //     }
+    //   );
+    //   this.detailUser = detailUser.data.data[0];
+    // },
   },
 };
 </script>

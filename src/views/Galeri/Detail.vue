@@ -5,36 +5,24 @@
       <b-container>
         <b-row>
           <b-col md="12">
-            <h5>Menjahit</h5>
-            <h2><strong>Judul Pelatihannya</strong></h2>
+            <h5>{{ details.kejuruan }}</h5>
+            <h2>
+              <strong>{{ details.judulPelatihan }}</strong>
+            </h2>
           </b-col>
         </b-row>
 
         <b-row class="mt-5">
           <b-col md="6">
             <img
-              src="https://via.placeholder.com/1140x600"
+              :src="setSrc(details.bannerPelatihan)"
               alt=""
               style="width: 100%"
             />
           </b-col>
 
           <b-col md="6">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-              eum assumenda quaerat laudantium, fugit accusantium in perferendis
-              ab earum provident, dolores eveniet cumque! Provident commodi
-              numquam expedita recusandae modi officia quas. Deserunt temporibus
-              odio quaerat similique quis fuga laboriosam consequatur quos
-              voluptatem laudantium ut, doloremque, veritatis aspernatur
-              adipisci nihil saepe facilis! Alias hic ut fuga odit optio
-              inventore accusantium ducimus, magni quibusdam voluptatem magnam
-              accusamus vitae autem odio? Sequi esse consequuntur sed, natus
-              eveniet labore laboriosam! Veniam aperiam dolorum earum obcaecati
-              iste. Necessitatibus aliquid repudiandae facilis, a modi, ipsam
-              quia commodi impedit, quam dolorem deleniti veritatis pariatur
-              sint consequatur amet!
-            </p>
+            <p class="ql-editor" v-html="details.deskripsiPelatihan"></p>
           </b-col>
         </b-row>
 
@@ -64,7 +52,10 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>21 Juli 2021 s/d 25 Juli 2021</h6>
+                <h6>
+                  {{ setDate(details.tanggalMulaiPelatihan) }} s/d
+                  {{ setDate(details.tanggalSelesaiPelatihan) }}
+                </h6>
               </b-col>
             </b-row>
 
@@ -78,7 +69,7 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>20 Peserta</h6>
+                <h6>{{ details.kuotaPeserta }} Peserta</h6>
               </b-col>
             </b-row>
 
@@ -93,7 +84,7 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <h6>Balai Pelatihan Kerja</h6>
+                <h6>{{ details.lokasi }}</h6>
               </b-col>
             </b-row>
           </b-col>
@@ -110,7 +101,7 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>OPD Terkait</h6>
+                <h6>{{ details.namaOPD }}</h6>
               </b-col>
             </b-row>
 
@@ -125,7 +116,7 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>Dasar/Pemula</h6>
+                <h6>{{ details.jenjang }}</h6>
               </b-col>
             </b-row>
           </b-col>
@@ -149,41 +140,41 @@
         <b-row>
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan1"
               alt=""
-              style="width: 100%"
+              style="width: 100%; height: 300px"
             />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan2"
               alt=""
-              style="width: 100%"
+              style="width: 100%; height: 300px"
             />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan3"
               alt=""
-              style="width: 100%"
+              style="width: 100%; height: 300px"
             />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan4"
               alt=""
-              style="width: 100%"
+              style="width: 100%; height: 300px"
             />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
-              src="https://via.placeholder.com/360x300"
+              :src="ipbackend + details.fotoPelatihan5"
               alt=""
-              style="width: 100%"
+              style="width: 100%; height: 300px"
             />
           </b-col>
         </b-row>
@@ -194,6 +185,13 @@
 </template>
 
 <script>
+import axios from "axios";
+import ipbackend from "../../ipbackend";
+import moment from "moment";
+moment.locale("id");
+import "quill/dist/quill.core.css";
+import "quill/dist/quill.snow.css";
+import "quill/dist/quill.bubble.css";
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
@@ -203,6 +201,31 @@ export default {
   components: {
     ThisIsHeader,
     ThisIsFooter,
+  },
+  data() {
+    return {
+      details: "",
+      ipbackend,
+    };
+  },
+  created() {
+    this.getdetail();
+  },
+  methods: {
+    setDate(x) {
+      return moment(x).format("LL");
+    },
+    setSrc(x) {
+      return ipbackend + x;
+    },
+    async getdetail() {
+      let detail = await axios.get(
+        ipbackend + "pelatihan/listPelatihanById/" + this.$route.params.id
+      );
+
+      console.log(detail.data.data, "detail");
+      this.details = detail.data.data[0];
+    },
   },
 };
 </script>
