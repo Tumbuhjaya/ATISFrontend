@@ -15,6 +15,7 @@
           <b-col md="8" offset-md="2">
             <b-form-group label="Nama">
               <b-form-input v-model="namaPengusul"></b-form-input>
+
             </b-form-group>
 
             <b-form-group label="NIK">
@@ -64,7 +65,7 @@ export default {
       axios
         .post(ipbackend + "usulanPelatihan/register", {
           namaUsulan: this.namaUsulan,
-          namaPenngusul: this.namaPengusul,
+          namaPengusul: this.namaPengusul,
           NIKUsulan: this.NIKUsulan,
           noHpUsulan: this.noHpUsulan,
         })
