@@ -8,7 +8,7 @@
             <div class="box">
               <b-row>
                 <b-col md="12">
-                  <h2><span>Masuk</span> <strong>Akun ATIS</strong></h2>
+                  <h2><span>Masuk</span> <strong>Akun SIMPEL</strong></h2>
                   <h4>{{ pesan }}</h4>
                   <hr />
                 </b-col>

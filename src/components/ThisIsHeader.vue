@@ -57,7 +57,10 @@
             </div>
 
             <div class="menu">
-              <router-link :to="'/'" style="color: black">
+              <router-link
+                :to="'/'"
+                style="color: black; text-decoration: none"
+              >
                 <h6 class="mt-0 mb-0">Beranda</h6>
               </router-link>
               <b-dropdown
@@ -82,17 +85,26 @@
                   >
                 </div>
               </b-dropdown>
-              <router-link :to="'/galeri'" style="color: black">
+              <router-link
+                :to="'/galeri'"
+                style="color: black; text-decoration: none"
+              >
                 <h6 class="mt-0 mb-0">Galeri</h6>
               </router-link>
-              <router-link :to="'/alumni'" style="color: black">
+              <router-link
+                :to="'/alumni'"
+                style="color: black; text-decoration: none"
+              >
                 <h6 class="mt-0 mb-0">Database Peserta</h6>
               </router-link>
               <!-- <router-link :to="'/publikasi'">
                 <h6 class="mt-0 mb-0">Publikasi</h6>
               </router-link> -->
 
-              <router-link :to="'/statistik'" style="color: black">
+              <router-link
+                :to="'/statistik'"
+                style="color: black; text-decoration: none"
+              >
                 <h6 class="mt-0 mb-0">Statistik</h6>
               </router-link>
             </div>

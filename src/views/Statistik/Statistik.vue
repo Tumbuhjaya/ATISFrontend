@@ -7,8 +7,8 @@
           <b-col md="12">
             <h2>
               <strong
-                ><span style="font-weight: 400">Statistik</span> Salatiga
-                Tranning Integration System</strong
+                ><span style="font-weight: 400">Statistik</span> Pelatihan Kota
+                Salatiga</strong
               >
             </h2>
           </b-col>

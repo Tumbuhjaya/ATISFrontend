@@ -128,7 +128,7 @@
                                   alt=""
                                   style="width: 25px"
                               /></b-td>
-                              <b-td style="font-size: 12px"
+                              <b-td
                                 >{{ getDate(item.tanggalMulaiPelatihan) }} s/d
                                 {{
                                   getDate(item.tanggalSelesaiPelatihan)

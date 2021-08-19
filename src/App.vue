@@ -153,4 +153,8 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 .table-width-3 {
   width: 180px !important;
 }
+
+.btn-link {
+  color: #000 !important;
+}
 </style>
