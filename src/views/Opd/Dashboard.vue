@@ -358,7 +358,7 @@
                           v-b-tooltip.hover
                           title="Upload Dokumentasi Pelatihan"
                           v-b-modal.modal-dokumentasi
-                          @click="edit(item.item.id)"
+                          @click="uploadId = item.item.id"
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
@@ -629,61 +629,92 @@
     >
       <b-row>
         <b-col md="12">
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
-
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
-
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
-
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
-
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
-
-          <b-form-group
-            label-cols="6"
-            label-cols-lg="3"
-            label="Upload Foto Kegiatan"
-          >
-            <input type="file" id="file" ref="file" />
-          </b-form-group>
+          <b-form>
+            <b-img :src="src1" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                id="file1"
+                ref="file1"
+                @input="handleFile('file1')"
+              />
+            </b-form-group>
+            <b-img :src="src2" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                type="file"
+                id="file2"
+                ref="file2"
+                @input="handleFile('file2')"
+              />
+            </b-form-group>
+            <b-img :src="src3" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                type="file"
+                id="file3"
+                ref="file3"
+                @input="handleFile('file3')"
+              />
+            </b-form-group>
+            <b-img :src="src4" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                type="file"
+                id="file4"
+                ref="file4"
+                @input="handleFile('file4')"
+              />
+            </b-form-group>
+            <b-img :src="src5" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                type="file"
+                id="file5"
+                ref="file5"
+                @input="handleFile('file5')"
+              />
+            </b-form-group>
+            <b-img :src="src6" style="height:100px;width:100px" alt=""></b-img>
+            <b-form-group
+              label-cols="6"
+              label-cols-lg="3"
+              label="Upload Foto Kegiatan"
+            >
+              <b-form-file
+                type="file"
+                id="file6"
+                ref="file6"
+                @input="handleFile('file6')"
+              />
+            </b-form-group>
+          </b-form>
         </b-col>
 
         <b-col md="12">
           <hr />
         </b-col>
-
         <b-col md="12">
-          <b-button variant="primary">Simpan</b-button>
+          <b-button variant="primary" @click="uploadDok()">Simpan</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -1000,7 +1031,19 @@ export default {
       filter3: null,
       filter4: null,
       filterOn: [],
-
+      file1: "",
+      file2: "",
+      file3: "",
+      file4: "",
+      file5: "",
+      file6: "",
+      src1: "",
+      src2: "",
+      src3: "",
+      src4: "",
+      src5: "",
+      src6: "",
+      uploadId: "",
       editorOption: {
         // some quill options
       },
@@ -1119,6 +1162,52 @@ export default {
     this.loadTerlaksana();
   },
   methods: {
+    handleFile(x) {
+      if (x == "file1") {
+        this.file1 = this.$refs.file1.files[0];
+        this.src1 = URL.createObjectURL(this.file1);
+      } else if (x == "file2") {
+        this.file2 = this.$refs.file2.files[0];
+        this.src2 = URL.createObjectURL(this.file2);
+      } else if (x == "file3") {
+        this.file3 = this.$refs.file3.files[0];
+        this.src3 = URL.createObjectURL(this.file3);
+      } else if (x == "file4") {
+        this.file4 = this.$refs.file4.files[0];
+        this.src4 = URL.createObjectURL(this.file4);
+      } else if (x == "file5") {
+        this.file5 = this.$refs.file5.files[0];
+        this.src5 = URL.createObjectURL(this.file5);
+      } else if (x == "file6") {
+        this.file6 = this.$refs.file6.files[0];
+        this.src6 = URL.createObjectURL(this.file6);
+      }
+    },
+    uploadDok() {
+      let vm = this;
+      let formData = new FormData();
+      formData.append("file1", vm.file1);
+      formData.append("file2", vm.file2);
+      formData.append("file3", vm.file3);
+      formData.append("file4", vm.file4);
+      formData.append("file5", vm.file5);
+      formData.append("file6", vm.file6);
+      formData.append("pelatihanId", vm.uploadId);
+      axios
+        .post(ipbackend + "pelatihan/changeFotoPelatihan", formData, {
+          headers: {
+            token: vm.user.token,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.uploadId = "";
+          this.$bvModal.hide("modal-dokumentasi");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     async edit(id) {
       let vm = this;
       let itemnya = await axios.get(
