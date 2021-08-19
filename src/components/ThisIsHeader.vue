@@ -71,7 +71,19 @@
               >
                 <div style="height: 160px; overflow-y: auto">
                   <b-dropdown-item v-for="(item, idx) in kejuruan" :key="idx">
+
+                     <router-link
+                     v-if="item.namaKejuruan=='Semua'"
+                      :to="'/pelatihan/all'"
+                      style="color: black"
+                      >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
+                        variant="primary"
+                        >{{ item.count }}</b-badge
+                      ></router-link
+                    >
+
                     <router-link
+                    v-else
                       :to="'/pelatihan/' + item.namaKejuruan"
                       style="color: black"
                       >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
@@ -142,7 +154,14 @@ export default {
       let kejuruan = await axios.get(
         ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
       );
-      console.log(kejuruan);
+      // console.log(kejuruan);
+      let jml =0;
+      for (let i = 0; i < kejuruan.data.data.length; i++) {
+        jml+=Number(kejuruan.data.data[i].count);
+        
+      }
+
+      kejuruan.data.data.unshift({namaKejuruan:'Semua', count:jml})
       this.kejuruan = kejuruan.data.data;
     },
   },
