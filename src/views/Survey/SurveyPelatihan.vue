@@ -14,22 +14,23 @@
         <b-row class="mt-5">
           <b-col md="8" offset-md="2">
             <b-form-group label="Nama">
-              <b-form-input></b-form-input>
+              <b-form-input v-model="namaPengusul"></b-form-input>
+
             </b-form-group>
 
             <b-form-group label="NIK">
-              <b-form-input></b-form-input>
+              <b-form-input v-model="NIKUsulan"></b-form-input>
             </b-form-group>
 
             <b-form-group label="No. Telepon">
-              <b-form-input></b-form-input>
+              <b-form-input v-model="noHpUsulan"></b-form-input>
             </b-form-group>
 
             <b-form-group label="Usulan Pelatihan">
-              <b-form-input></b-form-input>
+              <b-form-input v-model="namaUsulan"></b-form-input>
             </b-form-group>
 
-            <b-button variant="primary">Kirim</b-button>
+            <b-button variant="primary" @click="regisUsulan()">Kirim</b-button>
           </b-col>
         </b-row>
       </b-container>
@@ -39,6 +40,8 @@
 </template>
 
 <script>
+import ipbackend from "../../ipbackend";
+import axios from "axios";
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
@@ -46,11 +49,34 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 export default {
   name: "SurveyPelatihan",
   data() {
-    return {};
+    return {
+        namaUsulan: "",
+        namaPengusul: "",
+        NIKUsulan: "",
+        noHpUsulan: "",
+    };
   },
   components: {
     ThisIsHeader,
     ThisIsFooter,
+  },
+  methods: {
+    regisUsulan() {
+      axios
+        .post(ipbackend + "usulanPelatihan/register", {
+          namaUsulan: this.namaUsulan,
+          namaPengusul: this.namaPengusul,
+          NIKUsulan: this.NIKUsulan,
+          noHpUsulan: this.noHpUsulan,
+        })
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ path: "/" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>
