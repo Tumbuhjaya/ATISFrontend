@@ -180,29 +180,27 @@
                       <input type="file" id="file" ref="file" />
                     </b-form-group>
 
-                    <b-form-group label-cols="6" label-cols-lg="3" label="Foto">
+                    <b-form-group label-cols="6" label-cols-lg="3">
                       <img
                         style="width: 100px"
                         :src="ipbackend + '/' + dataUser.foto"
                       />
                     </b-form-group>
-                    <b-row>
-                      <b-col md="12" class="mb-3"
-                        ><h4>
-                          <span style="font-weight: 400">Data</span
-                          >&nbsp;<strong>Sosial Ekonomi</strong>
-                        </h4></b-col
+                  </b-col>
+                </b-row>
+
+                <b-row>
+                  <b-col md="12">
+                    <h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Sosial Ekonomi</strong
                       >
-                    </b-row>
+                    </h4>
+                  </b-col>
+                </b-row>
 
-                    <!-- <b-form-group
-                      label-cols="6"
-                      label-cols-lg="3"
-                      label="Pendapatan"
-                    >
-                      <b-form-select :options="pendapatan" v-model="dataUser.pendapatan"></b-form-select>
-                    </b-form-group> -->
-
+                <b-row class="mt-3">
+                  <b-col md="12">
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
@@ -234,6 +232,104 @@
                         :options="keluarga"
                         v-model="dataUser.statusDalamKeluarga"
                       ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+
+                <b-row>
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Kepemilikan Usaha</strong
+                      >
+                    </h4></b-col
+                  >
+                </b-row>
+
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Memiliki Usaha"
+                    >
+                      <b-form-select
+                        :options="kepemilikanUsaha"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nama UMKM"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Tanggal Mulai Usaha"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nomor Surat Ijin Usaha"
+                    >
+                      <b-form-input
+                        placeholder="NIB, IUMK, PIRT, Lainnya"
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Alamat Usaha"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kecamatan"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kelurahan"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kode Pos"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nama Pemilik"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Tlpn/No. Hp"
+                    >
+                      <b-form-input></b-form-input>
                     </b-form-group>
                   </b-col>
                 </b-row>
@@ -511,6 +607,13 @@ export default {
         { value: null, text: "-- Pilih --" },
         { value: "Ya", text: "Ya" },
         { value: "Tidak", text: "Tidak" },
+      ],
+
+      kepemilikanUsaha: [
+        { value: null, text: "-- Pilih --" },
+        { value: "", text: "Ya, Sebagai Pemilik" },
+        { value: "", text: "Ya, Sebagai Karyawan" },
+        { value: "", text: "Tidak Memiliki usaha" },
       ],
 
       keluarga: [

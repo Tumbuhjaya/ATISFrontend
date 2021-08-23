@@ -56,14 +56,14 @@
                   <b-col md="12">
                     <b-table-simple small borderless class="mb-0">
                       <b-tbody>
-                        <b-tr>
+                        <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/pelaksanaan.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td
+                          <b-td class="fs"
                             >{{
                               moment(item.tanggalMulaiPelatihan).format("LL")
                             }}
@@ -74,24 +74,27 @@
                           >
                         </b-tr>
 
-                        <b-tr>
+                        <b-tr v-b-tooltip.hover title="Kuota Peserta">
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/peserta.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td>{{ item.kuotaPeserta }} Peserta</b-td>
+                          <b-td class="fs"
+                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota : 00
+                            Peserta</b-td
+                          >
                         </b-tr>
 
-                        <b-tr>
+                        <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td>{{ item.lokasi }}</b-td>
+                          <b-td class="fs">{{ item.lokasi }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -180,5 +183,11 @@ export default {
 .section-one .box .content {
   width: 100%;
   padding: 15px;
+}
+
+#pelatihan .fs {
+  /* color: red; */
+  font-size: 14px;
+  vertical-align: middle;
 }
 </style>

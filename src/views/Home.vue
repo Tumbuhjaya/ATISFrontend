@@ -124,7 +124,7 @@
                       <b-col md="12" class="mt-3 icon">
                         <b-table-simple small borderless class="mb-0">
                           <b-tbody>
-                            <b-tr>
+                            <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
                               <b-td style="width: 35px"
                                 ><img
                                   src="../assets/pelaksanaan.png"
@@ -139,7 +139,7 @@
                               >
                             </b-tr>
 
-                            <b-tr>
+                            <b-tr v-b-tooltip.hover title="Kuota Peserta">
                               <b-td style="width: 35px"
                                 ><img
                                   src="../assets/peserta.png"
@@ -147,11 +147,12 @@
                                   style="width: 25px"
                               /></b-td>
                               <b-td class="fs"
-                                >{{ item.kuotaPeserta }} Peserta</b-td
+                                >{{ item.kuotaPeserta }} Peserta , Sisa Kuota :
+                                00 Peserta</b-td
                               >
                             </b-tr>
 
-                            <b-tr>
+                            <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
                               <b-td style="width: 35px"
                                 ><img
                                   src="../assets/lokasi.png"

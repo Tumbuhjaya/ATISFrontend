@@ -82,7 +82,9 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>{{ pelatihan.kuotaPeserta }} Peserta</h6>
+                <h6>
+                  {{ pelatihan.kuotaPeserta }} Peserta, Sisa Kuota : 00 Peserta
+                </h6>
               </b-col>
             </b-row>
 
@@ -91,13 +93,20 @@
                 <h4>
                   <strong
                     ><span style="font-weight: 400">Lokasi</span>
-                    Pelatihan</strong
+                    Pendaftaran</strong
                   >
                 </h4>
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <h6>{{ pelatihan.lokasi }}</h6>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4050.860110010008!2d110.49856856371225!3d-7.3319508571359275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a7836e1ffaac3%3A0x245363b38d0a6761!2sBappeda%20Salatiga!5e0!3m2!1sid!2sid!4v1627193634401!5m2!1sid!2sid"
+                  width="70%"
+                  height="300"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                ></iframe>
               </b-col>
             </b-row>
           </b-col>
@@ -130,6 +139,20 @@
 
               <b-col md="12" class="mt-2">
                 <h6>{{ pelatihan.jenjang }}</h6>
+              </b-col>
+            </b-row>
+
+            <b-row class="mt-4">
+              <b-col md="12">
+                <h4>
+                  <strong
+                    ><span style="font-weight: 400">Kontak</span> Person</strong
+                  >
+                </h4>
+              </b-col>
+
+              <b-col md="12" class="mt-2">
+                <h6></h6>
               </b-col>
             </b-row>
           </b-col>

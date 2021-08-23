@@ -451,8 +451,19 @@
         <b-form-input v-model="dataInput.kuotaPeserta"></b-form-input>
       </b-form-group>
 
-      <b-form-group label-cols="6" label-cols-lg="3" label="Lokasi">
-        <b-form-input v-model="dataInput.lokasi"></b-form-input>
+      <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
+        <b-form-input></b-form-input>
+      </b-form-group>
+
+      <b-form-group label-cols="6" label-cols-lg="3" label="Sasaran Peserta">
+        <b-form-input></b-form-input>
+      </b-form-group>
+
+      <b-form-group label-cols="6" label-cols-lg="3" label="Lokasi Pendaftaran">
+        <b-form-input
+          v-model="dataInput.lokasi"
+          placeholder="URL google map"
+        ></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Kecamatan">

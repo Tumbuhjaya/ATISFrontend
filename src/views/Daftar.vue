@@ -8,39 +8,87 @@
             <div class="box">
               <b-row>
                 <b-col md="12">
-                  <h2><span>Daftar</span> <strong>Akun SIMPEL</strong></h2>
+                  <h2><span>Daftar</span> <strong>Peserta SIMPEL</strong></h2>
                   <hr />
                 </b-col>
               </b-row>
 
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="NIK">
+                  <b-form-group label-cols="6" label-cols-lg="3" label="NIK">
                     <b-form-input v-model="data.NIK"></b-form-input>
                   </b-form-group>
 
-                  <b-form-group label="Password">
+                  <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
+                    <b-form-input></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group label-cols="6" label-cols-lg="3" label="Alamat">
+                    <b-form-input></b-form-input>
+                  </b-form-group>
+
+                  <b-form-group
+                    label-cols="6"
+                    label-cols-lg="3"
+                    label="Password"
+                  >
                     <b-form-input
                       v-model="data.password"
                       type="password"
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-form-group label="No. Telepon">
+                  <b-form-group
+                    label-cols="6"
+                    label-cols-lg="3"
+                    label="No. Telepon"
+                  >
                     <b-form-input v-model="data.noHp"></b-form-input>
                   </b-form-group>
 
-                  <b-form-group label="Email">
+                  <b-form-group label-cols="6" label-cols-lg="3" label="Email">
                     <b-form-input v-model="data.email"></b-form-input>
                   </b-form-group>
+                  <hr />
+                  <div
+                    style="
+                      background-color: whitesmoke;
+                      padding: 15px;
+                      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+                      border-radius: 10px;
+                    "
+                  >
+                    <b-form-group
+                      label="Peminatan 1"
+                      description="Isi sesuai dengan minat anda"
+                    >
+                      <b-form-select :options="kategori1"></b-form-select>
+                    </b-form-group>
 
+                    <b-form-group
+                      label="Peminatan 2"
+                      description="Isi sesuai dengan minat anda"
+                    >
+                      <b-form-select :options="kategori2"></b-form-select>
+                    </b-form-group>
+                  </div>
+                  <hr />
                   <b-button variant="primary" @click="simpan">Daftar</b-button>
                 </b-col>
               </b-row>
             </div>
           </b-col>
           <b-col md="7">
-            <img src="../assets/bg.jpg" alt="" style="width: 100%" />
+            <div
+              style="
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 800px;
+              "
+            >
+              <img src="../assets/bg.jpg" alt="" style="width: 100%" />
+            </div>
           </b-col>
         </b-row>
       </b-container>
@@ -71,6 +119,9 @@ export default {
         noHp: "",
         email: "",
       },
+
+      kategori1: [{ value: null, text: "-- Pilih --" }],
+      kategori2: [{ value: null, text: "-- Pilih --" }],
     };
   },
   methods: {

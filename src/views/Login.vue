@@ -8,7 +8,7 @@
             <div class="box">
               <b-row>
                 <b-col md="12">
-                  <h2><span>Masuk</span> <strong>Akun SIMPEL</strong></h2>
+                  <h2><span>Masuk</span> <strong>SIMPEL</strong></h2>
                   <h4>{{ pesan }}</h4>
                   <hr />
                 </b-col>
@@ -16,7 +16,10 @@
 
               <b-row>
                 <b-col md="12">
-                  <b-form-group label="NIK">
+                  <b-form-group
+                    label="NIK/NIP"
+                    description="Apabila anda sebagai peserta silahkan login menggunakan NIK anda, sedangkan apabila anda sebagai OPD silahkan login menggunakan NIP"
+                  >
                     <b-form-input v-model="data.NIK"></b-form-input>
                   </b-form-group>
 
