@@ -17,110 +17,222 @@
               <b-tab title="Profil Peserta" active>
                 <b-card-text>
                   <b-row class="mt-3">
-                    <b-col md="12"
-                      ><h4>
-                        <strong
-                          ><span style="font-weight: 400">Data</span>
-                          Identitas</strong
-                        >
-                      </h4></b-col
-                    >
-                  </b-row>
-
-                  <b-row class="mt-3">
-                    <b-col md="12">
-                      <b-table-simple small borderless class="mb-0">
-                        <b-tbody>
-                          <b-tr>
-                            <b-td style="width: 180px">Nama</b-td>
-                            <b-td style="width: 5px">:</b-td>
-                            <b-td>{{ profil.nama }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Jenis Kelamin</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.jenisKelamin }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Tanggal Lahir</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{
-                              moment(profil.tanggalLahir).format("LL")
-                            }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>NIK</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.NIK }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Alamat</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.alamat }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Kelurahan</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.kelurahan }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Kecamatan</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.kecamatan }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>No. HP</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.noHp }}</b-td>
-                          </b-tr>
-
-                          <b-tr>
-                            <b-td>Email</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.email }}</b-td>
-                          </b-tr>
-                        </b-tbody>
-                      </b-table-simple>
-                    </b-col>
-                  </b-row>
-
-                  <b-row class="mt-5">
-                    <b-col md="12"
-                      ><h4>
-                        <strong
-                          ><span style="font-weight: 400">Data</span> Sosial
-                          Ekonomi</strong
-                        >
-                      </h4></b-col
-                    >
-                  </b-row>
-
-                  <b-row class="mt-3">
-                    <b-col md="12">
-                      <b-table-simple small borderless class="mb-0">
-                        <b-tbody>
-                          <b-tr>
-                            <b-td style="width: 180px"
-                              >Pendidikan Terakhir</b-td
+                    <b-col md="6">
+                      <b-row>
+                        <b-col md="12"
+                          ><h4>
+                            <strong
+                              ><span style="font-weight: 400">Data</span>
+                              Identitas</strong
                             >
-                            <b-td style="width: 5px">:</b-td>
-                            <b-td>{{ profil.pendidikanTerakhir }}</b-td>
-                          </b-tr>
+                          </h4></b-col
+                        >
+                      </b-row>
 
-                          <b-tr>
-                            <b-td>Status Dalam Keluarga</b-td>
-                            <b-td>:</b-td>
-                            <b-td>{{ profil.statusDalamKeluarga }}</b-td>
-                          </b-tr>
-                        </b-tbody>
-                      </b-table-simple>
+                      <b-row class="mt-3">
+                        <b-col md="12">
+                          <b-table-simple small borderless class="mb-0">
+                            <b-tbody>
+                              <b-tr>
+                                <b-td style="width: 180px">Nama</b-td>
+                                <b-td style="width: 5px">:</b-td>
+                                <b-td>{{ profil.nama }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Jenis Kelamin</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.jenisKelamin }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Tanggal Lahir</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{
+                                  moment(profil.tanggalLahir).format("LL")
+                                }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>NIK</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.NIK }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Alamat</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.alamat }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Kelurahan</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.kelurahan }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Kecamatan</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.kecamatan }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>No. HP</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.noHp }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Email</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.email }}</b-td>
+                              </b-tr>
+                            </b-tbody>
+                          </b-table-simple>
+                        </b-col>
+                      </b-row>
+
+                      <b-row class="mt-5">
+                        <b-col md="12"
+                          ><h4>
+                            <strong
+                              ><span style="font-weight: 400">Data</span> Sosial
+                              Ekonomi</strong
+                            >
+                          </h4></b-col
+                        >
+                      </b-row>
+
+                      <b-row class="mt-3">
+                        <b-col md="12">
+                          <b-table-simple small borderless class="mb-0">
+                            <b-tbody>
+                              <b-tr>
+                                <b-td style="width: 180px"
+                                  >Penerima Bantuan Pemerintah</b-td
+                                >
+                                <b-td style="width: 5px">:</b-td>
+                                <b-td>{{
+                                  profil.penerimaBantuanPemerintah
+                                }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Pendidikan Terakhir</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.pendidikanTerakhir }}</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Status Dalam Keluarga</b-td>
+                                <b-td>:</b-td>
+                                <b-td>{{ profil.statusDalamKeluarga }}</b-td>
+                              </b-tr>
+                            </b-tbody>
+                          </b-table-simple>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                    <b-col md="6">
+                      <b-row>
+                        <b-col md="12"
+                          ><h4>
+                            <strong
+                              ><span style="font-weight: 400">Data</span>
+                              Kepemilikan Usaha</strong
+                            >
+                          </h4></b-col
+                        >
+                      </b-row>
+
+                      <b-row class="mt-3">
+                        <b-col md="12">
+                          <b-table-simple small borderless class="mb-0">
+                            <b-tbody>
+                              <b-tr>
+                                <b-td style="width: 180px"
+                                  >Memiliki Usaha ?</b-td
+                                >
+                                <b-td style="width: 5px">:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nama UMKM</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Tanggal Mulai Usaha</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nomor Ijin Usaha (NIB)</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nomor Ijin Usaha (IUMK)</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nomor Ijin Usaha (PIRT)</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nomor Ijin Usaha (Lainnya)</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Alamat Usaha</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Kecamatan</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Kelurahan</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Kode Pos</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Nama Pemilik</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+
+                              <b-tr>
+                                <b-td>Telepon/No. Hp</b-td>
+                                <b-td>:</b-td>
+                                <b-td>-</b-td>
+                              </b-tr>
+                            </b-tbody>
+                          </b-table-simple>
+                        </b-col>
+                      </b-row>
                     </b-col>
                   </b-row>
 
@@ -129,7 +241,7 @@
                       ><h4>
                         <strong
                           ><span style="font-weight: 400">Data</span> Riwayat
-                          Pelatihan ATIS</strong
+                          Pelatihan SIMPEL</strong
                         >
                       </h4></b-col
                     >
@@ -188,6 +300,7 @@
                           <b-tr>
                             <b-th>Nama</b-th>
                             <b-th>Tahun</b-th>
+                            <b-th>Penyelenggara</b-th>
 
                             <b-th>No. Sertifikat</b-th>
                           </b-tr>
@@ -196,6 +309,7 @@
                           <b-tr v-for="(item, idx) in pelatihanLain" :key="idx">
                             <b-td>{{ item.namaPelatihanLain }}</b-td>
                             <b-td>{{ item.tahunPelatihanLain }}</b-td>
+                            <b-td>lorem</b-td>
 
                             <b-td>{{ item.noSertifikat }}</b-td>
                           </b-tr>

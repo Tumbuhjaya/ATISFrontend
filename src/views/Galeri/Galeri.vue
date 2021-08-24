@@ -37,27 +37,27 @@
                   <b-col md="12">
                     <b-table-simple small borderless class="mb-0">
                       <b-tbody>
-                        <b-tr>
+                        <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/pelaksanaan.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td
+                          <b-td class="fs"
                             >{{ setDate(item.tanggalMulaiPelatihan) }} s/d
                             {{ setDate(item.tanggalSelesaiPelatihan) }}</b-td
                           >
                         </b-tr>
 
-                        <b-tr>
+                        <b-tr v-b-tooltip.hover title="Lokasi Pedaftaran">
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td>{{ item.lokasi }}</b-td>
+                          <b-td class="fs">{{ item.lokasi }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -136,5 +136,11 @@ export default {
 #galeri .section-one .box .content {
   width: 100%;
   padding: 15px;
+}
+
+#galeri .fs {
+  /* color: red; */
+  font-size: 14px;
+  vertical-align: middle;
 }
 </style>

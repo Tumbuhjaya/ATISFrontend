@@ -348,14 +348,7 @@ export default {
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
-      pageOptions: [
-        10,
-        25,
-        50,
-        75,
-        100,
-        { value: 100, text: "Tampilkan Banyak" },
-      ],
+      pageOptions: [10, 50, 100],
       filter: null,
       filterOn: [],
     };

@@ -30,10 +30,14 @@
                 "
                 v-b-modal.modal-lg
               >
-                <img src="https://via.placeholder.com/260" alt="" />
-                <h3 class="mt-3 text-center"><strong>Profil</strong></h3>
+                <img
+                  src="../../assets/set_profil.png"
+                  alt=""
+                  style="height: 260px"
+                />
+                <h4 class="mt-3 text-center"><strong>Profil</strong></h4>
 
-                <div
+                <!-- <div
                   style="
                     width: 50px;
                     height: 50px;
@@ -52,7 +56,7 @@
                     alt=""
                     style="width: 50px"
                   />
-                </div>
+                </div> -->
               </div>
 
               <div
@@ -64,11 +68,18 @@
                   align-items: center;
                 "
               >
-                <router-link :to="'/riwayat_pelatihan'">
-                  <img src="https://via.placeholder.com/260" alt="" />
-                  <h3 class="mt-3 text-center">
+                <router-link
+                  :to="'/riwayat_pelatihan'"
+                  style="text-decoration: none; color: #000"
+                >
+                  <img
+                    src="../../assets/history.png"
+                    alt=""
+                    style="height: 260px"
+                  />
+                  <h4 class="mt-3 text-center">
                     <strong>Riwayat Pelatihan</strong>
-                  </h3>
+                  </h4>
                 </router-link>
               </div>
             </div>
@@ -271,17 +282,43 @@
                       label-cols-lg="3"
                       label="Tanggal Mulai Usaha"
                     >
+                      <date-picker
+                        valueType="format"
+                        style="width: 100%"
+                        placeholder="Tanggal Mulai Usaha"
+                      ></date-picker>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nomor Surat Ijin Usaha (NIB)"
+                    >
                       <b-form-input></b-form-input>
                     </b-form-group>
 
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
-                      label="Nomor Surat Ijin Usaha"
+                      label="Nomor Surat Ijin Usaha (IUMK)"
                     >
-                      <b-form-input
-                        placeholder="NIB, IUMK, PIRT, Lainnya"
-                      ></b-form-input>
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nomor Surat Ijin Usaha (PIRT)"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Nomor Surat Ijin Usaha (Lainnya)"
+                    >
+                      <b-form-input></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -327,7 +364,7 @@
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
-                      label="Tlpn/No. Hp"
+                      label="Telepon/No. Hp"
                     >
                       <b-form-input></b-form-input>
                     </b-form-group>
@@ -345,6 +382,7 @@
                         <b-tr>
                           <b-th>Pelatihan</b-th>
                           <b-th>Tahun</b-th>
+                          <b-th>Penyelenggara</b-th>
                           <b-th>No. Sertifikat</b-th>
                         </b-tr>
                       </b-thead>
@@ -360,6 +398,7 @@
                               v-model="inputRiwayatPelatihan.tahunPelatihanLain"
                             ></b-form-input
                           ></b-td>
+                          <b-td><b-form-input></b-form-input></b-td>
 
                           <b-td>
                             <b-form-input

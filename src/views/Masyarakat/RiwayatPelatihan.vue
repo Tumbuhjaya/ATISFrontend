@@ -370,15 +370,23 @@ export default {
         },
         {
           key: "lokasinya",
-          label: "Lokasi",
+          label: "Lokasi Pendaftaran",
           sortable: true,
           class: "text-left",
         },
+
+        {
+          key: "namaOPD",
+          label: "Penyelenggara",
+          sortable: true,
+          class: "text-left",
+        },
+
         {
           key: "statusnya",
           label: "Status Pendaftaran",
           sortable: true,
-          class: "text-left",
+          class: "text-center",
         },
         { key: "actions", label: "Actions", class: "text-center" },
       ],
@@ -386,15 +394,8 @@ export default {
 
       totalRows: 1,
       currentPage: 1,
-      perPage: 2,
-      pageOptions: [
-        10,
-        25,
-        50,
-        75,
-        100,
-        { value: 100, text: "Tampilkan Banyak" },
-      ],
+      perPage: 10,
+      pageOptions: [10, 50, 100],
       filter: null,
       filter2: null,
       filterOn: [],
@@ -515,6 +516,7 @@ export default {
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
+          namaOPD: item.namaOPD,
           statusnya: item.status,
           poolPelatihanId: item.poolPelatihanId,
           pelatihanId: item.pelatihanId,

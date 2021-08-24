@@ -12,6 +12,38 @@
           </b-col>
         </b-row>
 
+        <b-row class="mt-4">
+          <b-col md="12">
+            <b-alert show variant="primary">
+              <h5 class="alert-heading">Filter Berdasarkan Kategori :</h5>
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+                >Kategori <b-badge variant="warning">4</b-badge></b-button
+              >
+            </b-alert>
+            <h4></h4>
+          </b-col>
+          <b-col md="12"> </b-col>
+        </b-row>
         <b-row>
           <b-col
             md="4"

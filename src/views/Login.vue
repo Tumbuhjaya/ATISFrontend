@@ -32,6 +32,17 @@
 
                   <b-button variant="primary" @click="login">Login</b-button>
                 </b-col>
+
+                <b-col md="12">
+                  <hr />
+                </b-col>
+
+                <b-col md="12">
+                  Belum terdaftar? Silahkan daftar
+                  <router-link :to="'/daftar'"
+                    ><strong>disini</strong></router-link
+                  >
+                </b-col>
               </b-row>
             </div>
           </b-col>

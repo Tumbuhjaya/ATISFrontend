@@ -157,4 +157,9 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 .btn-link {
   color: #000 !important;
 }
+
+.section-one .lowongan .slick-slide {
+  margin: -0.5px 0 1px 0 !important;
+  padding: 0 !important;
+}
 </style>

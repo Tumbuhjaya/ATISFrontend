@@ -1,229 +1,188 @@
 <template>
   <div id="home">
     <ThisIsHeader></ThisIsHeader>
-
-    <section>
-      <b-container fluid>
-        <b-row>
-          <b-col md="12" style="padding-left: 0; padding-right: 0">
-            <img src="../assets/banner.png" alt="" style="width: 100%" />
-          </b-col>
-        </b-row>
-      </b-container>
-    </section>
-
     <section class="section-one">
       <b-container>
         <b-row>
-          <b-col md="12">
-            <h2 class="text-center">Tentang</h2>
-            <h2 class="text-center">
-              <strong>Sistem Informasi Pelatihan</strong>
-            </h2>
-            <h2 class="text-center"><strong>(S I M P E L)</strong></h2>
+          <b-col md="8">
+            <img
+              src="https://via.placeholder.com/700x460?text=1"
+              alt=""
+              style="width: 100%"
+            />
           </b-col>
-          <b-col md="8" offset-md="2" class="mt-5 text-center">
-            <h6>
-              SIMPEL merupakan sistem informasi yang menjadi wadah yang
-              mengintegrasikan database program pelatihan, peserta, dan output
-              pelatihan dari setiap instansi penyelenggara. Sistem ini juga
-              berfungsi memudahkan peserta pelatihan untuk mendapat informasi
-              yang relevan dengan bidang pelatihan yang pernah diikutinya,
-              seperti misalnya event untuk memasarkan produk usahanya atau
-              lowongan kerja.
-            </h6>
-          </b-col>
-        </b-row>
+          <b-col md="4" class="lowongan">
+            <b-row>
+              <b-col md="12">
+                <h3 class="text-center mt-0 mb-0">
+                  <strong
+                    ><span style="font-weight: 400">LOWONGAN</span>
+                    PEKERJAAN</strong
+                  >
+                </h3>
+              </b-col>
+            </b-row>
 
-        <b-row class="mt-5">
-          <b-col md="3">
-            <h1 class="text-center title" style="font-size: 72px">
-              <animated-number
-                :value="peserta"
-                :formatValue="formatToPrice"
-                :duration="2500"
-                :delay="2500"
-              />
-            </h1>
-            <h4 class="text-center mt-3">DATA</h4>
-            <h4 class="text-center">PESERTA</h4>
-          </b-col>
-
-          <b-col md="3">
-            <h1 class="text-center title" style="font-size: 72px">
-              <animated-number
-                :value="akan"
-                :formatValue="formatToPrice"
-                :duration="2500"
-                :delay="2500"
-              />
-            </h1>
-            <h4 class="text-center mt-3">
-              PELATIHAN<br />
-              RENCANA
-            </h4>
-          </b-col>
-
-          <b-col md="3">
-            <h1 class="text-center title" style="font-size: 72px">
-              <animated-number
-                :value="sedang"
-                :formatValue="formatToPrice"
-                :duration="2500"
-                :delay="2500"
-              />
-            </h1>
-            <h4 class="text-center mt-3">PELATIHAN<br />BERLANGSUNG</h4>
-          </b-col>
-
-          <b-col md="3">
-            <h1 class="text-center title" style="font-size: 72px">
-              <animated-number
-                :value="telah"
-                :formatValue="formatToPrice"
-                :duration="2500"
-                :delay="2500"
-              />
-            </h1>
-            <h4 class="text-center mt-3">PELATHAN<br />SELESAI</h4>
-          </b-col>
-        </b-row>
-      </b-container>
-    </section>
-
-    <section class="section-two">
-      <b-container>
-        <b-row>
-          <b-col md="12">
-            <h2 class="text-center">
-              <strong
-                ><span style="font-weight: 400">Pelatihan</span> Terbaru</strong
-              >
-            </h2>
-          </b-col>
-          <b-col md="12" class="mt-5">
-            <VueSlickCarousel v-bind="terbaru" v-if="terbaruu.length > 0">
-              <div v-for="item in terbaruu" :key="item.id">
-                <div class="box-kegiatan">
-                  <div class="banner">
-                    <img :src="setSrc(item.bannerPelatihan)" alt="" />
+            <b-row class="mt-3">
+              <b-col md="12">
+                <VueSlickCarousel v-bind="lowongan">
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=11"
+                      alt=""
+                      style="width: 100%"
+                    />
                   </div>
 
-                  <div class="content">
-                    <b-row>
-                      <b-col md="12">
-                        <h4 class="title">{{ item.judulPelatihan }}</h4>
-                        <b-row>
-                          <b-col md="12">
-                            <b-badge variant="success" style="padding: 5px">{{
-                              item.namaOPD
-                            }}</b-badge>
-                          </b-col>
-                        </b-row>
-                      </b-col>
-                      <b-col md="12" class="mt-3 icon">
-                        <b-table-simple small borderless class="mb-0">
-                          <b-tbody>
-                            <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/pelaksanaan.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td class="fs"
-                                >{{ getDate(item.tanggalMulaiPelatihan) }} s/d
-                                {{
-                                  getDate(item.tanggalSelesaiPelatihan)
-                                }}</b-td
-                              >
-                            </b-tr>
-
-                            <b-tr v-b-tooltip.hover title="Kuota Peserta">
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/peserta.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td class="fs"
-                                >{{ item.kuotaPeserta }} Peserta , Sisa Kuota :
-                                00 Peserta</b-td
-                              >
-                            </b-tr>
-
-                            <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
-                              <b-td style="width: 35px"
-                                ><img
-                                  src="../assets/lokasi.png"
-                                  alt=""
-                                  style="width: 25px"
-                              /></b-td>
-                              <b-td class="fs">{{ item.lokasi }}</b-td>
-                            </b-tr>
-                          </b-tbody>
-                        </b-table-simple>
-                      </b-col>
-
-                      <b-col md="12">
-                        <hr class="mt-10" />
-                      </b-col>
-                      <b-col md="12">
-                        <router-link :to="'/detail_pelatihan/' + item.id">
-                          <b-button variant="primary">Selengkapnya</b-button>
-                        </router-link>
-                      </b-col>
-                    </b-row>
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=22"
+                      alt=""
+                      style="width: 100%"
+                    />
                   </div>
-                </div>
-              </div>
-            </VueSlickCarousel>
-          </b-col>
-        </b-row>
-      </b-container>
-    </section>
 
-    <section class="section-three">
-      <b-container>
-        <b-row>
-          <b-col md="12">
-            <h2 class="text-center">
-              <strong
-                ><span style="font-weight: 400">LOWONGAN</span>
-                PEKERJAAN</strong
-              >
-            </h2>
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=33"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=44"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=55"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src="https://via.placeholder.com/300x100?text=66"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+                </VueSlickCarousel>
+              </b-col>
+            </b-row>
           </b-col>
         </b-row>
 
         <b-row class="mt-5">
           <b-col md="12">
-            <VueSlickCarousel v-bind="kategori">
-              <div class="box-lowongan">
-                <img src="https://via.placeholder.com/262x150" alt="" />
-              </div>
+            <h2 class="text-center">
+              <strong
+                ><span style="font-weight: 400">PELATIHAN </span>
+                TERBARU</strong
+              >
+            </h2>
+          </b-col>
+        </b-row>
+        <b-row class="mt-3">
+          <b-col md="12">
+            <b-card-group columns v-bind="terbaru" v-if="terbaruu.length > 0">
+              <b-card
+                :img-src="setSrc(item.bannerPelatihan)"
+                img-alt="Image"
+                img-top
+                v-for="item in terbaruu"
+                :key="item.id"
+              >
+                <b-card-text
+                  ><b-row>
+                    <b-col md="12">
+                      <h4 class="title">{{ item.judulPelatihan }}</h4>
+                      <b-row>
+                        <b-col md="12">
+                          <b-badge variant="success" style="padding: 5px">{{
+                            item.namaOPD
+                          }}</b-badge>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                    <b-col md="12" class="mt-3 icon">
+                      <b-table-simple small borderless class="mb-0">
+                        <b-tbody>
+                          <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
+                            <b-td style="width: 35px"
+                              ><img
+                                src="../assets/pelaksanaan.png"
+                                alt=""
+                                style="width: 25px"
+                            /></b-td>
+                            <b-td class="fs"
+                              >{{ getDate(item.tanggalMulaiPelatihan) }} s/d
+                              {{ getDate(item.tanggalSelesaiPelatihan) }}</b-td
+                            >
+                          </b-tr>
 
-              <div class="box-lowongan">
-                <img src="https://via.placeholder.com/262x150" alt="" />
-              </div>
+                          <b-tr v-b-tooltip.hover title="Kuota Peserta">
+                            <b-td style="width: 35px"
+                              ><img
+                                src="../assets/peserta.png"
+                                alt=""
+                                style="width: 25px"
+                            /></b-td>
+                            <b-td class="fs"
+                              >{{ item.kuotaPeserta }} Peserta , Sisa Kuota : 00
+                              Peserta</b-td
+                            >
+                          </b-tr>
 
-              <div class="box-lowongan">
-                <img src="https://via.placeholder.com/262x150" alt="" />
-              </div>
+                          <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
+                            <b-td style="width: 35px"
+                              ><img
+                                src="../assets/lokasi.png"
+                                alt=""
+                                style="width: 25px"
+                            /></b-td>
+                            <b-td class="fs">{{ item.lokasi }}</b-td>
+                          </b-tr>
+                        </b-tbody>
+                      </b-table-simple>
+                    </b-col>
 
-              <div class="box-lowongan">
-                <img src="https://via.placeholder.com/262x150" alt="" />
-              </div>
+                    <b-col md="12">
+                      <hr class="mt-10" />
+                    </b-col>
+                    <b-col md="12">
+                      <router-link :to="'/detail_pelatihan/' + item.id">
+                        <b-button variant="primary">Detail</b-button>
+                      </router-link>
+                    </b-col>
+                  </b-row>
+                </b-card-text>
+              </b-card>
+            </b-card-group>
+          </b-col>
+        </b-row>
 
-              <div class="box-lowongan">
-                <img src="https://via.placeholder.com/262x150" alt="" />
-              </div>
-            </VueSlickCarousel>
+        <b-row class="mt-5">
+          <b-col md="4" offset-md="4">
+            <router-link :to="'/pelatihan/all'" style="text-decoration: none">
+              <b-button variant="primary" size="lg" block
+                >Selengkapnya</b-button
+              >
+            </router-link>
           </b-col>
         </b-row>
       </b-container>
     </section>
 
+    <section>
+      <b-container> </b-container>
+    </section>
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -262,8 +221,20 @@ export default {
         focusOnSelect: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 3,
+        slidesToShow: 5,
         slidesToScroll: 1,
+        vertical: false,
+      },
+
+      lowongan: {
+        autoplay: true,
+        dots: false,
+        focusOnSelect: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        vertical: true,
       },
       peserta: 100,
       akan: 100,
@@ -413,10 +384,18 @@ export default {
   height: 120px;
 }
 
-.slick-slider {
+/* .slick-slider {
   margin: 0 15px;
-}
+} */
+/* .section-one .leftnya .slick-slide img {
+  width: 100%;
+  height: 500px;
+} */
 
+.section-one .lowongan .slick-slide img {
+  width: 100%;
+  height: 100px;
+}
 #home .fs {
   /* color: red; */
   font-size: 14px;

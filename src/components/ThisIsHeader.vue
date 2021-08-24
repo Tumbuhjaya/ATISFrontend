@@ -1,5 +1,19 @@
 <template>
   <div id="ThisIsHeader">
+    <header class="header-small">
+      <b-container>
+        <b-row>
+          <b-col md="12">
+            <div class="running-text">
+              <marquee-text>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
+                diam nonumy eirmod tempor invidunt ut labore et dolore magna.
+              </marquee-text>
+            </div>
+          </b-col>
+        </b-row>
+      </b-container>
+    </header>
     <header>
       <b-container>
         <b-row>
@@ -12,7 +26,7 @@
                   Sistem Informasi Pelatihan
                 </h6>
 
-                <h6 style="font-size: 16px; font-weight: 400">Kota Salatiga</h6>
+                <!-- <h6 style="font-size: 16px; font-weight: 400">Kota Salatiga</h6> -->
               </div>
             </div>
           </b-col>
@@ -63,7 +77,7 @@
               >
                 <h6 class="mt-0 mb-0">Beranda</h6>
               </router-link>
-              <b-dropdown
+              <!-- <b-dropdown
                 class="njim"
                 id="dropdown-1"
                 text="Pelatihan"
@@ -74,9 +88,8 @@
               >
                 <div style="height: 160px; overflow-y: auto">
                   <b-dropdown-item v-for="(item, idx) in kejuruan" :key="idx">
-
-                     <router-link
-                     v-if="item.namaKejuruan=='Semua'"
+                    <router-link
+                      v-if="item.namaKejuruan == 'Semua'"
                       :to="'/pelatihan/all'"
                       style="color: black"
                       >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
@@ -86,7 +99,7 @@
                     >
 
                     <router-link
-                    v-else
+                      v-else
                       :to="'/pelatihan/' + item.namaKejuruan"
                       style="color: black"
                       >{{ item.namaKejuruan }}&nbsp;&nbsp;<b-badge
@@ -96,7 +109,13 @@
                     ></b-dropdown-item
                   >
                 </div>
-              </b-dropdown>
+              </b-dropdown> -->
+              <router-link
+                :to="'/pelatihan/all'"
+                style="color: black; text-decoration: none"
+              >
+                <h6 class="mt-0 mb-0">Pelatihan</h6>
+              </router-link>
               <router-link
                 :to="'/galeri'"
                 style="color: black; text-decoration: none"
@@ -131,6 +150,8 @@
 import axios from "axios";
 import ipbackend from "../ipbackend";
 
+import MarqueeText from "vue-marquee-text-component";
+
 export default {
   name: "ThisIsHeader",
   data() {
@@ -139,6 +160,10 @@ export default {
       ret: "",
       user: [],
     };
+  },
+
+  components: {
+    MarqueeText,
   },
   async mounted() {
     this.ambilKejuruan();
@@ -167,13 +192,12 @@ export default {
         ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
       );
       // console.log(kejuruan);
-      let jml =0;
+      let jml = 0;
       for (let i = 0; i < kejuruan.data.data.length; i++) {
-        jml+=Number(kejuruan.data.data[i].count);
-        
+        jml += Number(kejuruan.data.data[i].count);
       }
 
-      kejuruan.data.data.unshift({namaKejuruan:'Semua', count:jml})
+      kejuruan.data.data.unshift({ namaKejuruan: "Semua", count: jml });
       this.kejuruan = kejuruan.data.data;
     },
   },
@@ -182,4 +206,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.header-small {
+  background-color: #e0e0e0;
+}
 </style>

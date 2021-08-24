@@ -86,6 +86,17 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
+                      <template #cell(lokasinya)="item">
+                        <center>
+                          <router-link
+                            :to="'https://www.google.com/maps/?hl=id'"
+                          >
+                            <b-button variant="dark" size="sm"
+                              >Lihat Lokasi {{ item.lokasinya }}</b-button
+                            ></router-link
+                          >
+                        </center>
+                      </template>
                       <template #cell(actions)="item">
                         <b-button
                           variant="warning"
@@ -214,6 +225,18 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
+                      <template #cell(lokasinya)="item">
+                        <center>
+                          <router-link
+                            :to="'https://www.google.com/maps/?hl=id'"
+                          >
+                            <b-button variant="dark" size="sm"
+                              >Lihat Lokasi {{ item.lokasinya }}</b-button
+                            ></router-link
+                          >
+                        </center>
+                      </template>
+
                       <template #cell(actions)="item">
                         <b-button
                           variant="warning"
@@ -327,6 +350,18 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
+                      <template #cell(lokasinya)="item">
+                        <center>
+                          <router-link
+                            :to="'https://www.google.com/maps/?hl=id'"
+                          >
+                            <b-button variant="dark" size="sm"
+                              >Lihat Lokasi {{ item.lokasinya }}</b-button
+                            ></router-link
+                          >
+                        </center>
+                      </template>
+
                       <template #cell(actions)="item">
                         <b-button
                           variant="warning"
@@ -387,7 +422,12 @@
     </section>
 
     <!-- modal -->
-    <b-modal id="modal-lg" size="lg" title="Formulir Pelatihan" hide-footer>
+    <b-modal
+      id="modal-lg"
+      size="lg"
+      title="Formulir Data Pelatihan"
+      hide-footer
+    >
       <b-row class="mb-3">
         <b-col md="12">
           <h2 class="text-left">
@@ -642,11 +682,6 @@
       <b-row>
         <b-col md="12">
           <b-form>
-            <b-img
-              :src="src1"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -658,11 +693,15 @@
                 @input="handleFile('file1')"
               />
             </b-form-group>
-            <b-img
-              :src="src2"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
+
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src1"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
+            </b-form-group>
+
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -675,11 +714,15 @@
                 @input="handleFile('file2')"
               />
             </b-form-group>
-            <b-img
-              :src="src3"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
+
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src2"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
+            </b-form-group>
+
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -692,11 +735,14 @@
                 @input="handleFile('file3')"
               />
             </b-form-group>
-            <b-img
-              :src="src4"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src3"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
+            </b-form-group>
+
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -709,11 +755,14 @@
                 @input="handleFile('file4')"
               />
             </b-form-group>
-            <b-img
-              :src="src5"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src4"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
+            </b-form-group>
+
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -726,11 +775,14 @@
                 @input="handleFile('file5')"
               />
             </b-form-group>
-            <b-img
-              :src="src6"
-              style="height: 100px; width: 100px"
-              alt=""
-            ></b-img>
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src5"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
+            </b-form-group>
+
             <b-form-group
               label-cols="6"
               label-cols-lg="3"
@@ -742,6 +794,13 @@
                 ref="file6"
                 @input="handleFile('file6')"
               />
+            </b-form-group>
+            <b-form-group label-cols="6" label-cols-lg="3">
+              <b-img
+                :src="src6"
+                style="height: 100px; width: 100px"
+                alt=""
+              ></b-img>
             </b-form-group>
           </b-form>
         </b-col>
@@ -849,7 +908,7 @@ export default {
         },
         {
           key: "lokasinya",
-          label: "Lokasi",
+          label: "Lokasi Pendaftaran",
           sortable: true,
           class: "text-left",
         },
@@ -897,7 +956,7 @@ export default {
         },
         {
           key: "lokasinya",
-          label: "Lokasi",
+          label: "Lokasi Pendaftaran",
           sortable: true,
           class: "text-left",
         },
@@ -954,7 +1013,7 @@ export default {
         },
         {
           key: "lokasinya",
-          label: "Lokasi",
+          label: "Lokasi Pendaftaran",
           sortable: true,
           class: "text-left",
         },
@@ -1062,14 +1121,7 @@ export default {
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
-      pageOptions: [
-        10,
-        25,
-        50,
-        75,
-        100,
-        { value: 100, text: "Tampilkan Banyak" },
-      ],
+      pageOptions: [10, 50, 100],
       filter: null,
       filter2: null,
       filter3: null,
