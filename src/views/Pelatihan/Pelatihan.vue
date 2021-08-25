@@ -16,7 +16,11 @@
           <b-col md="12">
             <b-alert show variant="primary">
               <h5 class="alert-heading">Filter Berdasarkan Kategori :</h5>
-              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
+              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3" v-for="item in kejuruan" :key="item.no" @click="filter(item)"
+                >{{item.namaKejuruan}} <b-badge variant="warning">{{item.count}}</b-badge></b-button
+              >
+
+              <!-- <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
                 >Kategori <b-badge variant="warning">4</b-badge></b-button
               >
 
@@ -34,11 +38,7 @@
 
               <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
                 >Kategori <b-badge variant="warning">4</b-badge></b-button
-              >
-
-              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
-                >Kategori <b-badge variant="warning">4</b-badge></b-button
-              >
+              > -->
             </b-alert>
             <h4></h4>
           </b-col>
@@ -114,7 +114,7 @@
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs"
-                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota : 00
+                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota : {{item.kuotaPeserta - item.jmlPeserta}}
                             Peserta</b-td
                           >
                         </b-tr>
@@ -167,6 +167,7 @@ export default {
   data() {
     return {
       pelatihan: [],
+      kejuruan:[],
       ipbackend,
       moment,
     };
@@ -177,6 +178,7 @@ export default {
         // const { userName } = newValue
 
         this.ambilPelatihan();
+        this.ambilKejuruan()
       },
       immediate: true,
     },
@@ -192,6 +194,31 @@ export default {
       console.log(pelatihan);
       this.pelatihan = pelatihan.data.data;
     },
+    async ambilKejuruan() {
+      this.kejuruan = []
+      let kejuruan = await axios.get(
+        ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
+      );
+      // console.log(kejuruan);
+      let jml = 0;
+      for (let i = 0; i < kejuruan.data.data.length; i++) {
+        let x = kejuruan.data.data[i]
+        if ( x.count == 1 ){
+          jml += Number(kejuruan.data.data[i].count);
+          this.kejuruan.push({no: i, namaKejuruan: x.namaKejuruan, count: x.count })
+        }
+      }
+      this.kejuruan.unshift({ namaKejuruan: "Semua", count: jml });
+      console.log(this.kejuruan)
+    },
+    filter(x){
+      if(x.namaKejuruan == "Semua"){
+        this.$router.push({path:"/pelatihan/all" })
+      } else {
+        this.$router.push({path:"/pelatihan/" + x.namaKejuruan})
+      }
+      
+    }
   },
 };
 </script>

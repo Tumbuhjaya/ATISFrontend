@@ -266,17 +266,18 @@
                     >
                       <b-form-select
                         :options="kepemilikanUsaha"
+                        v-model="dataUser.kepemilikanUMKM"
                       ></b-form-select>
                     </b-form-group>
-
+                    <div v-if="dataUser.kepemilikanUMKM == 'Ya, Sebagai Pemilik' || dataUser.kepemilikanUMKM == 'Ya, Sebagai Karyawan'">
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
                       label="Nama UMKM"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.namaUMKM"></b-form-input>
                     </b-form-group>
-
+                    
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
@@ -286,6 +287,7 @@
                         valueType="format"
                         style="width: 100%"
                         placeholder="Tanggal Mulai Usaha"
+                        v-model="dataUser.tanggalMulaiUsaha"
                       ></date-picker>
                     </b-form-group>
 
@@ -294,7 +296,7 @@
                       label-cols-lg="3"
                       label="Nomor Surat Ijin Usaha (NIB)"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.NIB"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -302,7 +304,7 @@
                       label-cols-lg="3"
                       label="Nomor Surat Ijin Usaha (IUMK)"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.IUMK"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -310,7 +312,7 @@
                       label-cols-lg="3"
                       label="Nomor Surat Ijin Usaha (PIRT)"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.PIRT"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -318,7 +320,7 @@
                       label-cols-lg="3"
                       label="Nomor Surat Ijin Usaha (Lainnya)"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.lainnya"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -326,7 +328,7 @@
                       label-cols-lg="3"
                       label="Alamat Usaha"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.alamatUMKM"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -334,7 +336,7 @@
                       label-cols-lg="3"
                       label="Kecamatan"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-select :options="kecamatan" v-model="dataUser.kecamatanUMKM"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -342,7 +344,7 @@
                       label-cols-lg="3"
                       label="Kelurahan"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-select :options="kelurahan" v-model="dataUser.kelurahanUMKM"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
@@ -350,7 +352,7 @@
                       label-cols-lg="3"
                       label="Kode Pos"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.kodePosUMKM"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -358,7 +360,7 @@
                       label-cols-lg="3"
                       label="Nama Pemilik"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.namaPemilikUMKM"></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -366,8 +368,9 @@
                       label-cols-lg="3"
                       label="Telepon/No. Hp"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input v-model="dataUser.noHpUMKM"></b-form-input>
                     </b-form-group>
+                    </div>
                   </b-col>
                 </b-row>
               </b-card-text>
@@ -398,7 +401,8 @@
                               v-model="inputRiwayatPelatihan.tahunPelatihanLain"
                             ></b-form-input
                           ></b-td>
-                          <b-td><b-form-input></b-form-input></b-td>
+                          <b-td><b-form-input
+                          v-model="inputRiwayatPelatihan.penyelenggaraPelatihanLain"></b-form-input></b-td>
 
                           <b-td>
                             <b-form-input
@@ -603,6 +607,7 @@ export default {
         namaPelatihanLain: "",
         tahunPelatihanLain: "",
         noSertifikat: "",
+        penyelenggaraPelatihanLain:""
       },
       inputRiwayatPekerjaan: {
         namaRiwayatPekerjaan: "",
@@ -628,6 +633,19 @@ export default {
         pendidikanTerakhir: "",
         statusDalamKeluarga: "",
         foto: "",
+        kepemilikanUMKM:"",
+        namaPemilikUMKM:"",
+        NIB:"",
+        PIRT:"",
+        tanggalMulaiUsaha:"",
+        IUMK:"",
+        alamatUMKM:"",
+        kecamatanUMKM:"",
+        kelurahanUMKM:"",
+        kodePosUMKM:"",
+        noHpUMKM:"",
+        lainnya:"",
+        namaUMKM:"",
       },
       tanggalLahir: null,
       jenisKelamin: [
@@ -650,9 +668,9 @@ export default {
 
       kepemilikanUsaha: [
         { value: null, text: "-- Pilih --" },
-        { value: "", text: "Ya, Sebagai Pemilik" },
-        { value: "", text: "Ya, Sebagai Karyawan" },
-        { value: "", text: "Tidak Memiliki usaha" },
+        { value: "Ya, Sebagai Pemilik", text: "Ya, Sebagai Pemilik" },
+        { value: "Ya, Sebagai Karyawan", text: "Ya, Sebagai Karyawan" },
+        { value: "Tidak Memiliki Usaha", text: "Tidak Memiliki Usaha" },
       ],
 
       keluarga: [
@@ -766,6 +784,7 @@ export default {
         namaPelatihanLain: "",
         tahunPelatihanLain: "",
         noSertifikat: "",
+        penyelenggaraPelatihanLain:"",
       };
       this.loadRiwayatPelatihan();
     },
@@ -861,7 +880,7 @@ export default {
       // console.log(dataUser.data.data[0]);
     },
     simpan() {
-      console.log(this.data);
+      console.log(this.dataUser);
       let vm = this;
 
       var formData = new FormData();
@@ -880,6 +899,19 @@ export default {
       );
       formData.append("statusDalamKeluarga", vm.dataUser.statusDalamKeluarga);
       formData.append("tanggalLahir", vm.dataUser.tanggalLahir);
+      formData.append('kepemilikanUMKM', vm.dataUser.kepemilikanUMKM)
+      formData.append('namaPemilikUMKM', vm.dataUser.namaPemilikUMKM)
+      formData.append('namaUMKM', vm.dataUser.namaUMKM)
+      formData.append('tanggalMulaiUsaha', vm.dataUser.tanggalMulaiUsaha)
+      formData.append('NIB', vm.dataUser.NIB)
+      formData.append('PIRT', vm.dataUser.PIRT)
+      formData.append('IUMK', vm.dataUser.IUMK)
+      formData.append('lainnya', vm.dataUser.lainnya)
+      formData.append('alamatUMKM', vm.dataUser.alamatUMKM)
+      formData.append('kecamatanUMKM', vm.dataUser.kecamatanUMKM)
+      formData.append('kelurahanUMKM', vm.dataUser.kelurahanUMKM)
+      formData.append('kodePosUMKM', vm.dataUser.kodePosUMKM)
+      formData.append('noHpUMKM', vm.dataUser.noHpUMKM)
       if (this.$refs.file.files[0]) {
         formData.append("file1", this.$refs.file.files[0]);
       }

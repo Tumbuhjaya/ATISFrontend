@@ -7,7 +7,7 @@
           <b-col md="12">
             <h2 class="text-center">
               <strong
-                >Data Peserta</span></strong
+                > <span>Data Peserta</span></strong
               >
             </h2>
             
@@ -296,79 +296,79 @@
                             <b-tr>
                               <b-td style="width:220px">Memiliki Usaha</b-td>
                               <b-td style="width: 5px">:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.kepemilikanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama UMKM</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.namaUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Tanggal Mulai Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.tanggalMulaiUsaha}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (NIB)</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.NIB}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (IUMK)</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.IUMK}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (PIRT)</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.PIRT}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (Lainnya)</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.lainnya}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Alamat Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.alamatUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kecamatan</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.kecamatanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kelurahan</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.kelurahanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kode Pos</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.kodePosUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama Pemilik</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.namaPemilikUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Telepon/No. Hp</b-td>
                               <b-td>:</b-td>
-                              <b-td></b-td>
+                              <b-td>{{profil.noHpUMKM}}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -383,7 +383,7 @@
                       >
                     </h4>
                     <img
-                      src="https://via.placeholder.com/360"
+                      :src="ipbackend + profil.foto"
                       alt=""
                       class="mt-3"
                       style="width: 100%"
@@ -449,7 +449,7 @@
                         <b-tr v-for="(item, idx) in pelatihanLain" :key="idx">
                           <b-td>{{ item.namaPelatihanLain }}</b-td>
                           <b-td>{{ item.tahunPelatihanLain }}</b-td>
-                          <b-td>lorem</b-td>
+                          <b-td>{{ item.penyelenggaraPelatihanLain}}</b-td>
 
                           <b-td>{{ item.noSertifikat }}</b-td>
                         </b-tr>
@@ -511,6 +511,7 @@
                       label-cols="6"
                       label-cols-lg="3"
                       label="Keterangan"
+                      v-if="detailUser.status == 2 || detailUser.status == 3"
                     >
                       <b-form-input
                         v-model="detailUser.keterangan"
@@ -644,10 +645,10 @@ export default {
           class: "text-left",
         },
         {
-          key: "jml_pelatihan",
+          key: "jmlPelatihanSelesai",
           label: "Jumlah Pelatihan SIMPEL yang telah diikuti",
           sortable: true,
-          class: "text-left",
+          class: "text-center",
         },
         { key: "actions", label: "Actions", class: "text-center" },
       ],
@@ -803,6 +804,7 @@ export default {
           nonya: idx + 1,
           idnya: item.id,
           judulPelatihan: item.judulPelatihan,
+          foto: item.foto,
           // niknya: item.NIK,
           namanya: item.nama,
           kelaminnya: item.jenisKelamin,
@@ -812,6 +814,7 @@ export default {
           kelurahannya: item.kelurahan,
           // hpnya: item.noHp,
           // emailnya: item.email,
+          jmlPelatihanSelesai: item.jmlPelatihanSelesai,
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
           statusnya: item.status,

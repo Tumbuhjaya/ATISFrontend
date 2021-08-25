@@ -155,37 +155,37 @@
                                   >Memiliki Usaha ?</b-td
                                 >
                                 <b-td style="width: 5px">:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.kepemilikanUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Nama UMKM</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.namaUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Tanggal Mulai Usaha</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.tanggalMulaiUsaha}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Nomor Ijin Usaha (NIB)</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.NIB}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Nomor Ijin Usaha (IUMK)</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.IMUK}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Nomor Ijin Usaha (PIRT)</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.PIRT}}</b-td>
                               </b-tr>
 
                               <b-tr>
@@ -197,37 +197,37 @@
                               <b-tr>
                                 <b-td>Alamat Usaha</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.alamatUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Kecamatan</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.kecamatanUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Kelurahan</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.KelurahanUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Kode Pos</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.kodePosUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Nama Pemilik</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.namaPemilikUMKM}}</b-td>
                               </b-tr>
 
                               <b-tr>
                                 <b-td>Telepon/No. Hp</b-td>
                                 <b-td>:</b-td>
-                                <b-td>-</b-td>
+                                <b-td>{{profil.noHpUMKM}}</b-td>
                               </b-tr>
                             </b-tbody>
                           </b-table-simple>
@@ -309,7 +309,7 @@
                           <b-tr v-for="(item, idx) in pelatihanLain" :key="idx">
                             <b-td>{{ item.namaPelatihanLain }}</b-td>
                             <b-td>{{ item.tahunPelatihanLain }}</b-td>
-                            <b-td>lorem</b-td>
+                            <b-td>{{ item.PenyelenggaraPelatihanLain}}</b-td>
 
                             <b-td>{{ item.noSertifikat }}</b-td>
                           </b-tr>
@@ -571,6 +571,7 @@ export default {
         }
       );
       this.pelatihanLain = pelatihanLain.data.data;
+      console.log(pelatihanLain)
 
       let riwayatPekerjaan = await axios.get(
         ipbackend + "riwayatpekerjaan/listByUsersId/" + ret.id,

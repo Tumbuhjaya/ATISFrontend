@@ -9,8 +9,8 @@
               <strong><span>Tambah Peserta</span></strong>
             </h2>
 
-            <h2 v-if="dataPeserta.length" class="text-center">
-              {{ dataPeserta[0].judulPelatihan }}
+            <h2 class="text-center">
+              {{ judul }}
             </h2>
           </b-col>
         </b-row>
@@ -334,79 +334,79 @@
                             <b-tr>
                               <b-td style="width: 180px">Memiliki Usaha </b-td>
                               <b-td style="width: 5px">:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.kepemilikanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama UMKM</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.namaUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Tanggal Mulai Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.tanggalMulaiUsaha}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (NIB)</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.NIB}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (IUMK)</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.IUMK}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (PIRT)</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.PIRT}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (Lainnya)</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.lainnya}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Alamat Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.alamatUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kecamatan</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.kecamatanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kelurahan</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.kelurahanUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kode Pos</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.kodePosUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama Pemilik</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.namaPemilikUMKM}}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Telepon/No. Hp</b-td>
                               <b-td>:</b-td>
-                              <b-td>-</b-td>
+                              <b-td>{{profil.noHpUMKM}}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -421,7 +421,7 @@
                       >
                     </h4>
                     <img
-                      src="https://via.placeholder.com/360"
+                      :src="ipbackend + profil.foto"
                       alt=""
                       class="mt-3"
                       style="width: 100%"
@@ -486,7 +486,7 @@
                         <b-tr v-for="(item, idx) in pelatihanLain" :key="idx">
                           <b-td>{{ item.namaPelatihanLain }}</b-td>
                           <b-td>{{ item.tahunPelatihanLain }}</b-td>
-                          <b-td>lorem</b-td>
+                          <b-td>{{ item.penyelenggaraPelatihanLain}}</b-td>
 
                           <b-td>{{ item.noSertifikat }}</b-td>
                         </b-tr>
@@ -622,9 +622,7 @@ export default {
         },
         { key: "actions", label: "Actions", class: "text-center" },
       ],
-
       items: [],
-
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
@@ -679,7 +677,9 @@ export default {
           }
         )
         .then((res) => {
+          console.log(res)
           this.kuota = res.data.sisaKuota;
+          this.judul = res.data.data[0].judulPelatihan
         })
         .catch((err) => {
           console.log(err);
@@ -706,7 +706,7 @@ export default {
         },
       })
         .then(async (data) => {
-          console.log(data);
+          // console.log(data);
           //  this.loadData();
           await axios.post(
             ipbackend + "poolpelatihan/changeStatus/",
@@ -799,6 +799,7 @@ export default {
           nonya: idx + 1,
           idnya: item.id,
           judulPelatihan: item.judulPelatihan,
+          foto: item.foto,
           // niknya: item.NIK,
           namanya: item.nama,
           kelaminnya: item.jenisKelamin,
@@ -812,9 +813,10 @@ export default {
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
           statusnya: item.status,
+
         });
       });
-      console.log(itemnya, "anjay");
+      // console.log(itemnya, "anjay");
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering

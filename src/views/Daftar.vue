@@ -62,14 +62,14 @@
                       label="Peminatan 1"
                       description="Isi sesuai dengan minat anda"
                     >
-                      <b-form-select :options="kategori1"></b-form-select>
+                      <b-form-select :options="kategori" v-model="data.minat1"></b-form-select>
                     </b-form-group>
 
                     <b-form-group
                       label="Peminatan 2"
                       description="Isi sesuai dengan minat anda"
                     >
-                      <b-form-select :options="kategori2"></b-form-select>
+                      <b-form-select :options="kategori" v-model="data.minat2"></b-form-select>
                     </b-form-group>
                   </div>
                   <hr />
@@ -118,11 +118,14 @@ export default {
         role: "peserta",
         noHp: "",
         email: "",
+        minat1:"",
+        minat2:"",
       },
-
-      kategori1: [{ value: null, text: "-- Pilih --" }],
-      kategori2: [{ value: null, text: "-- Pilih --" }],
+      kategori: [{ value: null, text: "-- Pilih --" }],
     };
+  },
+  created(){
+    this.getKategori()
   },
   methods: {
     simpan() {
@@ -133,9 +136,11 @@ export default {
         (vm.data = {
           NIK: "",
           password: "",
-          role: "peserta",
+          role: "Peserta",
           noHp: "",
           email: "",
+          minat1:"",
+          minat2:""
         }),
           alert(data.data.message);
         if (data.data.message == "sukses") {
@@ -143,6 +148,14 @@ export default {
         }
       });
     },
+    async getKategori(){
+    let kate = await  axios.get(ipbackend + 'kejuruan/listKejuruan')
+    console.log(kate)
+     for (let i = 0 ; i < kate.data.data.length; i ++){
+       let x = kate.data.data[i]
+       this.kategori.push({value: x.namaKejuruan, text: x.namaKejuruan})
+     }
+    }
   },
 };
 </script>

@@ -27,6 +27,7 @@
                     <b-form-input
                       v-model="data.password"
                       type="password"
+                       @keyup.enter="login"
                     ></b-form-input>
                   </b-form-group>
 

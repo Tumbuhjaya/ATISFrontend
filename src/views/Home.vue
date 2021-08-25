@@ -135,7 +135,7 @@
                                 style="width: 25px"
                             /></b-td>
                             <b-td class="fs"
-                              >{{ item.kuotaPeserta }} Peserta , Sisa Kuota : 00
+                              >{{ item.kuotaPeserta }} Peserta , Sisa Kuota : {{item.kuotaPeserta - item.jmlPeserta}}
                               Peserta</b-td
                             >
                           </b-tr>

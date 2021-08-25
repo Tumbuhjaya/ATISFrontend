@@ -492,11 +492,11 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
-        <b-form-input></b-form-input>
+        <b-form-input v-model="dataInput.anggaranPelatihan"></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Sasaran Peserta">
-        <b-form-input></b-form-input>
+        <b-form-input v-model="dataInput.sasaranPelatihan"></b-form-input>
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Lokasi Pendaftaran">
@@ -858,6 +858,8 @@ export default {
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
+        anggaranPelatihan:"",
+        pelatihanPelatihan:"",
       },
       time1: null,
       time2: null,
@@ -1464,6 +1466,8 @@ export default {
       formData.append("statusPelatihan", this.dataInput.statusPelatihan);
       formData.append("deskripsiPelatihan", this.dataInput.deskripsiPelatihan);
       formData.append("jenjang", this.dataInput.jenjang);
+      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan)
+      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan)
       formData.append(
         "tanggalMulaiPelatihan",
         this.dataInput.tanggalMulaiPelatihan
@@ -1524,6 +1528,8 @@ export default {
       formData.append("statusPelatihan", this.dataInput.statusPelatihan);
       formData.append("deskripsiPelatihan", this.dataInput.deskripsiPelatihan);
       formData.append("jenjang", this.dataInput.jenjang);
+      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan)
+      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan)
       formData.append(
         "tanggalMulaiPelatihan",
         this.dataInput.tanggalMulaiPelatihan
