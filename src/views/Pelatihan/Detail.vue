@@ -152,7 +152,7 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <h6></h6>
+                <h6>{{pelatihan.CPPelatihan}}</h6>
               </b-col>
             </b-row>
           </b-col>

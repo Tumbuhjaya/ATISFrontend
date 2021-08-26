@@ -106,7 +106,6 @@
             >
               <template #cell(statusnya)="item">
                 <center>
-                 
                     <b-badge variant="dark"  v-if="item.item.statusnya == 0">Belum Diverifikasi</b-badge>
                     <b-badge variant="success"  v-else-if="item.item.statusnya == 1">Disetujui</b-badge>
                     <b-badge variant="info"  v-else-if="item.item.statusnya == 2">Syarat Belum Lengkap</b-badge>
@@ -721,9 +720,11 @@ export default {
               },
             }
           );
-
+          this.$bvModal.hide("modal-lg")
           alert(data.data.message);
           vm.detailUser = {};
+          this.listUser();
+          
         })
         .catch((err) => {
           alert(err);

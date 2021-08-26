@@ -353,7 +353,7 @@
                       <template #cell(lokasinya)="item">
                         <center>
                           <router-link
-                            :to="'https://www.google.com/maps/?hl=id'"
+                            :to="'https://www.google.com/maps/?hl=id'" target="_blank"
                           >
                             <b-button variant="dark" size="sm"
                               >Lihat Lokasi {{ item.lokasinya }}</b-button
@@ -487,6 +487,10 @@
         </div>
       </b-form-group>
 
+      <b-form-group label-cols="6" label-cols-lg="3" label="Contact Person">
+        <b-form-input v-model="dataInput.CPPelatihan"></b-form-input>
+      </b-form-group>
+
       <b-form-group label-cols="6" label-cols-lg="3" label="Kuota Peserta">
         <b-form-input v-model="dataInput.kuotaPeserta"></b-form-input>
       </b-form-group>
@@ -498,14 +502,21 @@
       <b-form-group label-cols="6" label-cols-lg="3" label="Sasaran Peserta">
         <b-form-input v-model="dataInput.sasaranPelatihan"></b-form-input>
       </b-form-group>
-
-      <b-form-group label-cols="6" label-cols-lg="3" label="Lokasi Pendaftaran">
-        <b-form-input
-          v-model="dataInput.lokasi"
-          placeholder="URL google map"
-        ></b-form-input>
-      </b-form-group>
-
+      <b-row>
+        <b-col>
+          <b-form-group label="Lokasi Pendaftaran" label-cols="6" label-cols-lg="3">
+            <b-form-input
+              v-model="dataInput.koordinatXPelatihan"
+              placeholder="Koordinat X (Longitude)"
+            ></b-form-input>
+            <p></p>
+            <b-form-input
+              v-model="dataInput.koordinatYPelatihan"
+              placeholder="Koordinat Y (Langitude)"
+            ></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
       <b-form-group label-cols="6" label-cols-lg="3" label="Kecamatan">
         <b-form-select
           :options="kecamatan"
@@ -853,13 +864,15 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        lokasi: "",
+        koordinatXPelatihan: "",
+        koordinatYPelatihan: "",
         kecamatanPelatihan: "",
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
-        anggaranPelatihan:"",
-        pelatihanPelatihan:"",
+        anggaranPelatihan: "",
+        pelatihanPelatihan: "",
+        CPPelatihan: "",
       },
       time1: null,
       time2: null,
@@ -1389,7 +1402,7 @@ export default {
           statusnya: item.statusPelatihan,
         });
       });
-      // console.log(itemnya);
+      console.log(itemnya);
     },
     async loadSedangDimulai() {
       let vm = this;
@@ -1466,8 +1479,9 @@ export default {
       formData.append("statusPelatihan", this.dataInput.statusPelatihan);
       formData.append("deskripsiPelatihan", this.dataInput.deskripsiPelatihan);
       formData.append("jenjang", this.dataInput.jenjang);
-      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan)
-      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan)
+      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan);
+      formData.append("CPPelatihan", this.dataInput.CPPelatihan);
+      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
         this.dataInput.tanggalMulaiPelatihan
@@ -1477,7 +1491,14 @@ export default {
         this.dataInput.tanggalSelesaiPelatihan
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
-      formData.append("lokasi", this.dataInput.lokasi);
+      formData.append(
+        "koordinatXPelatihan",
+        this.dataInput.koordinatXPelatihan
+      );
+      formData.append(
+        "koordinatYPelatihan",
+        this.dataInput.koordinatYPelatihan
+      );
       formData.append("kecamatanPelatihan", this.dataInput.kecamatanPelatihan);
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
@@ -1510,12 +1531,15 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        lokasi: "",
+        koordinatXPelatihan: "",
+        koordinatYPelatihan: "",
         kecamatanPelatihan: "",
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
+        CPPelatihan: "",
       };
+      this.$bvModal.hide("modal-lg");
     },
 
     async update() {
@@ -1528,8 +1552,9 @@ export default {
       formData.append("statusPelatihan", this.dataInput.statusPelatihan);
       formData.append("deskripsiPelatihan", this.dataInput.deskripsiPelatihan);
       formData.append("jenjang", this.dataInput.jenjang);
-      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan)
-      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan)
+      formData.append("anggaranPelatihan", this.dataInput.anggaranPelatihan);
+      formData.append("CPPelatihan", this.dataInput.CPPelatihan);
+      formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
         this.dataInput.tanggalMulaiPelatihan
@@ -1539,7 +1564,14 @@ export default {
         this.dataInput.tanggalSelesaiPelatihan
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
-      formData.append("lokasi", this.dataInput.lokasi);
+      formData.append(
+        "koordinatXPelatihan",
+        this.dataInput.koordinatXPelatihan
+      );
+      formData.append(
+        "koordinatYPelatihan",
+        this.dataInput.koordinatYPelatihan
+      );
       formData.append("kecamatanPelatihan", this.dataInput.kecamatanPelatihan);
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
@@ -1573,12 +1605,14 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        lokasi: "",
+        koordinatXPelatihan: "",
+        koordinatYPelatihan: "",
         kecamatanPelatihan: "",
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
       };
+      this.$bvModal.hide("modal-lg");
     },
     reset() {
       this.dataInput = {
@@ -1592,6 +1626,8 @@ export default {
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
         lokasi: "",
+        koordinatXPelatihan: "",
+        koordinatYPelatihan: "",
         kecamatanPelatihan: "",
         kelurahanPelatihan: "",
         syaratUmum: "",

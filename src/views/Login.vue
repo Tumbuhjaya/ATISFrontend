@@ -27,7 +27,7 @@
                     <b-form-input
                       v-model="data.password"
                       type="password"
-                       @keyup.enter="login"
+                      @keyup.enter="login"
                     ></b-form-input>
                   </b-form-group>
 
@@ -70,7 +70,7 @@ export default {
     ThisIsHeader,
     ThisIsFooter,
   },
-  data: function () {
+  data: function() {
     return {
       data: {
         NIK: "",

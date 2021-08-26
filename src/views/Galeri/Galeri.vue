@@ -53,7 +53,7 @@
                         <b-tr v-b-tooltip.hover title="Lokasi Pedaftaran">
                           <b-td style="width: 35px"
                             ><img
-                              src="../../assets/lokasi.png"
+                              :src="pelatihans.urlPelatihan"
                               alt=""
                               style="width: 25px"
                           /></b-td>

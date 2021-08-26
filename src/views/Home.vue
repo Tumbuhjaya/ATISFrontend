@@ -6,9 +6,10 @@
         <b-row>
           <b-col md="8">
             <img
-              src="https://via.placeholder.com/700x460?text=1"
+              :src="setSrc(palingBaru.bannerPelatihan)"
               alt=""
               style="width: 100%"
+              @click="go()"
             />
           </b-col>
           <b-col md="4" class="lowongan">
@@ -203,6 +204,7 @@ export default {
   data() {
     return {
       kejuruan: "",
+      palingBaru:"",
       terbaruu: "",
       counts: "",
       kategori: {
@@ -273,7 +275,11 @@ export default {
 
       let terbaru = await axios.get(ipbackend + "pelatihan/pelatihanTerbaru");
       // console.log(terbaru,' terbaru')
+      this.palingBaru = terbaru.data.data[0]
+      terbaru.data.data.shift()
       this.terbaruu = terbaru.data.data;
+      
+
 
       let count = await axios.get(
         ipbackend + "pelatihan/jumlahPelatihanByPelaksanaan"
@@ -287,6 +293,9 @@ export default {
       // console.log(peserta, 'peserta')
       this.peserta = peserta.data.jumlahPeserta;
     },
+    go(){
+      this.$router.push({path:'/detail_pelatihan/' + this.palingBaru.id})
+    }
   },
 };
 </script>
