@@ -1377,6 +1377,8 @@ export default {
           emailnya: item.email,
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
+          koordinatXPelatihan: item.koordinatXPelatihan,
+          koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
       console.log("anjay");
@@ -1403,6 +1405,8 @@ export default {
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
           statusnya: item.statusPelatihan,
+          koordinatXPelatihan: item.koordinatXPelatihan,
+          koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
       console.log(itemnya);
@@ -1429,6 +1433,8 @@ export default {
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
           statusnya: item.statusPelatihan,
+          koordinatXPelatihan: item.koordinatXPelatihan,
+          koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
       // console.log(itemnya);
@@ -1455,6 +1461,8 @@ export default {
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
           statusnya: item.statusPelatihan,
+          koordinatXPelatihan: item.koordinatXPelatihan,
+          koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
       // console.log(itemnya);
@@ -1643,8 +1651,9 @@ export default {
       this.currentPage = 1;
     },
     go(x){
+      console.log(x)
       // window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
-      window.open('https://maps.google.com/maps?q='+ x.koordinatXPelatihan +','+ x.koordinatYPelatihan +'&hl=es&z=14&amp;output=embed', '_blank')
+      window.open('https://maps.google.com/maps?q='+ x.item.koordinatXPelatihan +','+ x.item.koordinatYPelatihan +'&hl=es&z=14&amp;output=embed', '_blank')
     }
   },
 };
