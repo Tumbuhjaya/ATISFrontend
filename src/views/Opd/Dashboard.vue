@@ -88,13 +88,14 @@
                     >
                       <template #cell(lokasinya)="item">
                         <center>
-                          <router-link
+                          <!-- <router-link
                             :to="'https://www.google.com/maps/?hl=id'"
-                          >
-                            <b-button variant="dark" size="sm"
+                          > -->
+                            <b-button variant="dark" size="sm"  @click="go(item)"
                               >Lihat Lokasi {{ item.lokasinya }}</b-button
-                            ></router-link
-                          >
+                            >
+                            <!-- </router-link
+                          > -->
                         </center>
                       </template>
                       <template #cell(actions)="item">
@@ -227,13 +228,14 @@
                     >
                       <template #cell(lokasinya)="item">
                         <center>
-                          <router-link
+                          <!-- <router-link
                             :to="'https://www.google.com/maps/?hl=id'"
-                          >
-                            <b-button variant="dark" size="sm"
+                          > -->
+                            <b-button variant="dark" size="sm"  @click="go(item)"
                               >Lihat Lokasi {{ item.lokasinya }}</b-button
-                            ></router-link
-                          >
+                            >
+                            <!-- </router-link
+                          > -->
                         </center>
                       </template>
 
@@ -352,13 +354,14 @@
                     >
                       <template #cell(lokasinya)="item">
                         <center>
-                          <router-link
-                            :to="'https://www.google.com/maps/?hl=id'" target="_blank"
-                          >
-                            <b-button variant="dark" size="sm"
-                              >Lihat Lokasi {{ item.lokasinya }}</b-button
-                            ></router-link
-                          >
+                          <!-- <a
+                            :href="item.lokasinya" target="_blank"
+                          > -->
+                            <b-button variant="dark" size="sm" @click="go(item)"
+                              >Lihat Lokasi</b-button
+                            >
+                            <!-- </a
+                          > -->
                         </center>
                       </template>
 
@@ -1639,6 +1642,10 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+    go(x){
+      // window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
+      window.open('https://maps.google.com/maps?q='+ x.koordinatXPelatihan +','+ x.koordinatYPelatihan +'&hl=es&z=14&amp;output=embed', '_blank')
+    }
   },
 };
 </script>

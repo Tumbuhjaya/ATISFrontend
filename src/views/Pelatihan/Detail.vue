@@ -100,7 +100,7 @@
 
               <b-col md="12" class="mt-2">
                 <iframe
-                  :src="pelatihan.urlPelatihan"
+                  :src="'https://maps.google.com/maps?q='+ pelatihan.koordinatXPelatihan +','+ pelatihan.koordinatYPelatihan +'&hl=es&z=14&amp;output=embed'"
                   width="70%"
                   height="300"
                   style="border: 0"
