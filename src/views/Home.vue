@@ -5,12 +5,67 @@
       <b-container>
         <b-row>
           <b-col md="8">
-            <img
-              :src="setSrc(palingBaru.bannerPelatihan)"
-              alt=""
-              style="width: 100%"
-              @click="go()"
-            />
+            <div class="paling-baru">
+              <img
+                :src="setSrc(palingBaru.bannerPelatihan)"
+                alt=""
+                style="width: 100%"
+              />
+
+              <div class="layer">
+                <span>
+                  <h4 class="title">{{ palingBaru.judulPelatihan }}</h4>
+                </span>
+                <b-badge variant="success" style="padding: 5px">{{
+                  palingBaru.namaOPD
+                }}</b-badge>
+
+                <b-table-simple small borderless class="mb-0 mt-3">
+                  <b-tbody>
+                    <b-tr>
+                      <b-td style="width: 35px"
+                        ><img
+                          src="../assets/pelaksanaan.png"
+                          alt=""
+                          style="width: 25px"
+                      /></b-td>
+                      <b-td class="fs"
+                        >{{ getDate(palingBaru.tanggalMulaiPelatihan) }} s/d
+                        {{ getDate(palingBaru.tanggalSelesaiPelatihan) }}</b-td
+                      >
+                    </b-tr>
+
+                    <b-tr>
+                      <b-td style="width: 35px"
+                        ><img
+                          src="../assets/peserta.png"
+                          alt=""
+                          style="width: 25px"
+                      /></b-td>
+                      <b-td class="fs"
+                        >{{ palingBaru.kuotaPeserta }} Peserta , Sisa Kuota :
+                        {{ palingBaru.kuotaPeserta - palingBaru.jmlPeserta }}
+                        Peserta</b-td
+                      >
+                    </b-tr>
+
+                    <b-tr>
+                      <b-td style="width: 35px"
+                        ><img
+                          src="../assets/lokasi.png"
+                          alt=""
+                          style="width: 25px"
+                      /></b-td>
+                      <b-td class="fs">{{ palingBaru.lokasi }}</b-td>
+                    </b-tr>
+                  </b-tbody>
+                </b-table-simple>
+
+                <b-button variant="primary" @click="go()" class="mt-3"
+                  >Detail</b-button
+                >
+              </div>
+            </div>
           </b-col>
           <b-col md="4" class="lowongan">
             <b-row>
@@ -29,7 +84,7 @@
                 <VueSlickCarousel v-bind="lowongan">
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=11"
+                      src="../assets/loker 1.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -37,7 +92,7 @@
 
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=22"
+                      src="../assets/loker 2.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -45,7 +100,7 @@
 
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=33"
+                      src="../assets/loker 3.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -53,7 +108,7 @@
 
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=44"
+                      src="../assets/loker 4.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -61,7 +116,7 @@
 
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=55"
+                      src="../assets/loker 1.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -69,7 +124,23 @@
 
                   <div>
                     <img
-                      src="https://via.placeholder.com/300x100?text=66"
+                      src="../assets/loker 2.jpg"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src="../assets/loker 3.jpg"
+                      alt=""
+                      style="width: 100%"
+                    />
+                  </div>
+
+                  <div>
+                    <img
+                      src="../assets/loker 4.jpg"
                       alt=""
                       style="width: 100%"
                     />
@@ -136,7 +207,8 @@
                                 style="width: 25px"
                             /></b-td>
                             <b-td class="fs"
-                              >{{ item.kuotaPeserta }} Peserta , Sisa Kuota : {{item.kuotaPeserta - item.jmlPeserta}}
+                              >{{ item.kuotaPeserta }} Peserta , Sisa Kuota :
+                              {{ item.kuotaPeserta - item.jmlPeserta }}
                               Peserta</b-td
                             >
                           </b-tr>
@@ -204,7 +276,7 @@ export default {
   data() {
     return {
       kejuruan: "",
-      palingBaru:"",
+      palingBaru: "",
       terbaruu: "",
       counts: "",
       kategori: {
@@ -274,12 +346,10 @@ export default {
       this.kejuruan = kejuruan.data.data;
 
       let terbaru = await axios.get(ipbackend + "pelatihan/pelatihanTerbaru");
-      // console.log(terbaru,' terbaru')
-      this.palingBaru = terbaru.data.data[0]
-      terbaru.data.data.shift()
+      console.log(terbaru, " terbaru");
+      this.palingBaru = terbaru.data.data[0];
+      terbaru.data.data.shift();
       this.terbaruu = terbaru.data.data;
-      
-
 
       let count = await axios.get(
         ipbackend + "pelatihan/jumlahPelatihanByPelaksanaan"
@@ -293,9 +363,9 @@ export default {
       // console.log(peserta, 'peserta')
       this.peserta = peserta.data.jumlahPeserta;
     },
-    go(){
-      this.$router.push({path:'/detail_pelatihan/' + this.palingBaru.id})
-    }
+    go() {
+      this.$router.push({ path: "/detail_pelatihan/" + this.palingBaru.id });
+    },
   },
 };
 </script>
@@ -414,5 +484,20 @@ export default {
 #home .box-lowongan img {
   width: 200px;
   height: 100px;
+}
+
+#home .paling-baru {
+  width: 100%;
+  position: relative;
+}
+
+#home .paling-baru .layer {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 </style>
