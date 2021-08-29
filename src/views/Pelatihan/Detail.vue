@@ -228,7 +228,7 @@
         <b-row class="mt-3" >
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"
-              ><b-button variant="primary" v-if="pelatihan.kejuruan == user.minat1 || pelatihan.kejuruan == user.minat2"
+              ><b-button variant="primary" :disabled="!sesuai"
                 >Daftar Pelatihan</b-button
               ></router-link
             >
@@ -268,6 +268,11 @@ export default {
   },
   mounted() {
     this.ambilPelatihan();
+  },
+  computed:{
+    sesuai(){
+      return this.pelatihan.kejuruan == this.user.minat1 || this.pelatihan.kejuruan == this.user.minat2
+    }
   },
   methods: {
     async ambilPelatihan() {
