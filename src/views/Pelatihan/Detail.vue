@@ -225,10 +225,10 @@
           </b-col>
         </b-row>
 
-        <b-row class="mt-3">
+        <b-row class="mt-3" >
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"
-              ><b-button variant="primary"
+              ><b-button variant="primary" v-if="pelatihan.kejuruan == user.minat1 || pelatihan.kejuruan == user.minat2"
                 >Daftar Pelatihan</b-button
               ></router-link
             >
@@ -250,6 +250,8 @@ import "quill/dist/quill.core.css";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
+let ret = localStorage.getItem("user");
+ret = JSON.parse(ret);
 export default {
   name: "DetailPelatihan",
   components: {
@@ -259,6 +261,7 @@ export default {
   data() {
     return {
       pelatihan: [],
+      user:[],
       ipbackend,
       moment,
     };
@@ -275,6 +278,15 @@ export default {
       console.log(pelatihan);
       this.pelatihan = pelatihan.data.data[0];
       this.pelatihan.sisa = pelatihan.data.sisaKuota
+
+      let datauser = await axios.get(
+        ipbackend + "users/listById/" + ret.id, {
+        headers: {
+          token: ret.token,
+        },
+      });
+      this.user = datauser.data.data[0];
+      console.log(this.pelatihan.kejuruan, this.user.minat2)
     },
   },
 };

@@ -571,7 +571,7 @@ export default {
         }
       );
       this.pelatihanLain = pelatihanLain.data.data;
-      console.log(pelatihanLain)
+      // console.log(pelatihanLain)
 
       let riwayatPekerjaan = await axios.get(
         ipbackend + "riwayatpekerjaan/listByUsersId/" + ret.id,
@@ -584,7 +584,7 @@ export default {
       this.riwayatPekerjaan = riwayatPekerjaan.data.data;
 
       let pelatihan = await axios.get(
-        ipbackend + "pelatihan/listPelatihanById/" + ret.id,
+        ipbackend + "pelatihan/listPelatihanByUsersId/" + ret.id,
         {
           headers: {
             token: ret.token,
@@ -602,6 +602,7 @@ export default {
         }
       );
       this.pelatihanDipilih = pelatihanDipilih.data.data[0];
+      console.log(this.pelatihanDipilih, 'dipilih')
     },
     async daftar() {
       var formData = new FormData();
