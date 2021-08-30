@@ -20,7 +20,8 @@
     "vue-quill-editor": "^3.0.6",
     "vue-router": "^3.2.0",
     "vue-slick-carousel": "^1.0.6",
-    "vue2-datepicker": "^3.9.1"
+    "vue2-datepicker": "^3.9.1",
+    "vuelidate": "^0.7.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

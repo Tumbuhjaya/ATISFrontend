@@ -85,7 +85,7 @@
 
               <b-col md="12" class="mt-2">
                 <iframe
-                  :src="'https://maps.google.com/maps?q='+ details.koordinatXPelatihan +','+ details.koordinatYPelatihan +'&hl=es&z=14&amp;output=embed'"
+                  :src="details.lokasi"
                   width="70%"
                   height="300"
                   style="border: 0"
