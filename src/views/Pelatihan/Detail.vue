@@ -83,7 +83,8 @@
 
               <b-col md="12" class="mt-3">
                 <h6>
-                  {{ pelatihan.kuotaPeserta }} Peserta, Sisa Kuota : {{pelatihan.sisa}} Peserta
+                  {{ pelatihan.kuotaPeserta }} Peserta, Sisa Kuota :
+                  {{ pelatihan.sisa }} Peserta
                 </h6>
               </b-col>
             </b-row>
@@ -99,14 +100,11 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <iframe
-                  :src="pelatihan.lokasi"
-                  width="70%"
-                  height="300"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                ></iframe>
+                <a :href="pelatihan.lokasi" target="_blank"
+                  ><b-badge variant="dark" style="padding: 5px; cursor: pointer"
+                    >Lihat Lokasi Pendaftaran</b-badge
+                  ></a
+                >
               </b-col>
             </b-row>
           </b-col>
@@ -152,7 +150,7 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <h6>{{pelatihan.CPPelatihan}}</h6>
+                <h6>{{ pelatihan.CPPelatihan }}</h6>
               </b-col>
             </b-row>
           </b-col>
@@ -225,7 +223,7 @@
           </b-col>
         </b-row>
 
-        <b-row class="mt-3" >
+        <b-row class="mt-3">
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"
               ><b-button variant="primary" :disabled="!sesuai"
@@ -261,7 +259,7 @@ export default {
   data() {
     return {
       pelatihan: [],
-      user:[],
+      user: [],
       ipbackend,
       moment,
     };
@@ -269,10 +267,13 @@ export default {
   mounted() {
     this.ambilPelatihan();
   },
-  computed:{
-    sesuai(){
-      return this.pelatihan.kejuruan == this.user.minat1 || this.pelatihan.kejuruan == this.user.minat2
-    }
+  computed: {
+    sesuai() {
+      return (
+        this.pelatihan.kejuruan == this.user.minat1 ||
+        this.pelatihan.kejuruan == this.user.minat2
+      );
+    },
   },
   methods: {
     async ambilPelatihan() {
@@ -282,16 +283,15 @@ export default {
       );
       console.log(pelatihan);
       this.pelatihan = pelatihan.data.data[0];
-      this.pelatihan.sisa = pelatihan.data.sisaKuota
+      this.pelatihan.sisa = pelatihan.data.sisaKuota;
 
-      let datauser = await axios.get(
-        ipbackend + "users/listById/" + ret.id, {
+      let datauser = await axios.get(ipbackend + "users/listById/" + ret.id, {
         headers: {
           token: ret.token,
         },
       });
       this.user = datauser.data.data[0];
-      console.log(this.pelatihan.kejuruan, this.user.minat2)
+      console.log(this.pelatihan.kejuruan, this.user.minat2);
     },
   },
 };

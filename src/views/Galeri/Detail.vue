@@ -69,7 +69,10 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>{{ details.kuotaPeserta }} Peserta, Sisa Kuota : {{sisa}} Peserta</h6>
+                <h6>
+                  {{ details.kuotaPeserta }} Peserta, Sisa Kuota :
+                  {{ sisa }} Peserta
+                </h6>
               </b-col>
             </b-row>
 
@@ -84,14 +87,11 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <iframe
-                  :src="details.lokasi"
-                  width="70%"
-                  height="300"
-                  style="border: 0"
-                  allowfullscreen=""
-                  loading="lazy"
-                ></iframe>
+                <a :href="details.lokasi" target="_blank"
+                  ><b-badge variant="dark" style="padding: 5px; cursor: pointer"
+                    >Lihat Lokasi Pendaftaran</b-badge
+                  ></a
+                >
               </b-col>
             </b-row>
           </b-col>
@@ -137,7 +137,7 @@
               </b-col>
 
               <b-col md="12" class="mt-3">
-                <h6>{{details.CPPelatihan}}</h6>
+                <h6>{{ details.CPPelatihan }}</h6>
               </b-col>
             </b-row>
           </b-col>
@@ -227,7 +227,7 @@ export default {
     return {
       details: "",
       ipbackend,
-      sisa:"",
+      sisa: "",
     };
   },
   created() {
@@ -246,7 +246,7 @@ export default {
       );
 
       console.log(detail.data, "detail");
-      this.sisa = detail.data.sisaKuota
+      this.sisa = detail.data.sisaKuota;
       this.details = detail.data.data[0];
     },
   },

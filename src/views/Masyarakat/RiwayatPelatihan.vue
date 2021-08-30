@@ -91,13 +91,23 @@
                   @filtered="onFiltered"
                   class="mt-3"
                 >
+                  <template #cell(lokasinya)="item">
+                    <center>
+                      <b-badge
+                        variant="dark"
+                        style="padding: 5px; cursor: pointer"
+                        @click="go(item)"
+                        >Lihat Lokasi</b-badge
+                      >
+                    </center>
+                  </template>
                   <template #cell(actions)="item">
                     <b-button
                       variant="warning"
                       size="sm"
                       class="mr-3"
                       v-b-tooltip.hover
-                      title="Monitoring Evaluasi"
+                      title="Revisi Berkas & Monitoring Evaluasi"
                       v-b-modal.modal-monev
                       @click="
                         detailPel(item.item.pelatihanId, item.item.userId)
@@ -219,7 +229,7 @@
                 <b-table-simple borderless small>
                   <b-tbody>
                     <b-tr>
-                      <b-td style="width: 160px">Catatan</b-td>
+                      <b-td style="width: 160px">Catatan Revisi</b-td>
                       <b-td>{{ detail.keterangan }}</b-td>
                     </b-tr>
 
@@ -237,10 +247,15 @@
                         ></b-td
                       >
                     </b-tr>
+
                     <b-tr>
-                      <b-td>Upload File Revisi</b-td>
                       <b-td
-                        ><b-form-file
+                        ><hr />
+                        Upload File Revisi</b-td
+                      >
+                      <b-td
+                        ><hr />
+                        <b-form-file
                           refs="file"
                           v-model="fileUpload"
                         ></b-form-file
@@ -248,6 +263,7 @@
                     </b-tr>
                   </b-tbody>
                 </b-table-simple>
+                <hr class="mb-0" />
               </b-col>
             </b-row>
           </b-card-text>
@@ -523,6 +539,12 @@ export default {
           userId: item.userId,
         });
       });
+    },
+
+    go(x) {
+      // console.log(x)
+      // window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
+      window.open(x.item.lokasinya, "_blank");
     },
   },
 };

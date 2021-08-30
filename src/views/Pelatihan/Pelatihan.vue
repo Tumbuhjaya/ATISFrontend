@@ -16,8 +16,15 @@
           <b-col md="12">
             <b-alert show variant="primary">
               <h5 class="alert-heading">Filter Berdasarkan Kategori :</h5>
-              <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3" v-for="item in kejuruan" :key="item.no" @click="filter(item)"
-                >{{item.namaKejuruan}} <b-badge variant="warning">{{item.count}}</b-badge></b-button
+              <b-button
+                variant="primary"
+                size="sm"
+                class="mr-1 ml-1 mt-3"
+                v-for="item in kejuruan"
+                :key="item.no"
+                @click="filter(item)"
+                >{{ item.namaKejuruan }}
+                <b-badge variant="warning">{{ item.count }}</b-badge></b-button
               >
 
               <!-- <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
@@ -114,19 +121,28 @@
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs"
-                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota : {{item.kuotaPeserta - item.jmlPeserta}}
+                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota :
+                            {{ item.kuotaPeserta - item.jmlPeserta }}
                             Peserta</b-td
                           >
                         </b-tr>
 
-                        <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
+                        <b-tr>
                           <b-td style="width: 35px"
                             ><img
                               src="../../assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td class="fs">{{ item.lokasi }}</b-td>
+                          <b-td class="fs"
+                            ><a :href="item.lokasi" target="_blank"
+                              ><b-badge
+                                variant="dark"
+                                style="padding: 5px; cursor: pointer"
+                                >Lihat Lokasi Pendaftaran</b-badge
+                              ></a
+                            ></b-td
+                          >
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -137,7 +153,7 @@
                 <b-button
                   variant="primary"
                   @click="$router.push('/detail_pelatihan/' + item.id)"
-                  >Selengkapnya</b-button
+                  >Detail</b-button
                 >
               </div>
             </div>
@@ -167,7 +183,7 @@ export default {
   data() {
     return {
       pelatihan: [],
-      kejuruan:[],
+      kejuruan: [],
       ipbackend,
       moment,
     };
@@ -178,7 +194,7 @@ export default {
         // const { userName } = newValue
 
         this.ambilPelatihan();
-        this.ambilKejuruan()
+        this.ambilKejuruan();
       },
       immediate: true,
     },
@@ -195,30 +211,33 @@ export default {
       this.pelatihan = pelatihan.data.data;
     },
     async ambilKejuruan() {
-      this.kejuruan = []
+      this.kejuruan = [];
       let kejuruan = await axios.get(
         ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
       );
       // console.log(kejuruan);
       let jml = 0;
       for (let i = 0; i < kejuruan.data.data.length; i++) {
-        let x = kejuruan.data.data[i]
-        if ( x.count == 1 ){
+        let x = kejuruan.data.data[i];
+        if (x.count == 1) {
           jml += Number(kejuruan.data.data[i].count);
-          this.kejuruan.push({no: i, namaKejuruan: x.namaKejuruan, count: x.count })
+          this.kejuruan.push({
+            no: i,
+            namaKejuruan: x.namaKejuruan,
+            count: x.count,
+          });
         }
       }
       this.kejuruan.unshift({ namaKejuruan: "Semua", count: jml });
-      console.log(this.kejuruan)
+      console.log(this.kejuruan);
     },
-    filter(x){
-      if(x.namaKejuruan == "Semua"){
-        this.$router.push({path:"/pelatihan/all" })
+    filter(x) {
+      if (x.namaKejuruan == "Semua") {
+        this.$router.push({ path: "/pelatihan/all" });
       } else {
-        this.$router.push({path:"/pelatihan/" + x.namaKejuruan})
+        this.$router.push({ path: "/pelatihan/" + x.namaKejuruan });
       }
-      
-    }
+    },
   },
 };
 </script>

@@ -9,7 +9,7 @@
               <img
                 :src="setSrc(palingBaru.bannerPelatihan)"
                 alt=""
-                style="width: 100%"
+                style="width: 100%; height: 485px"
               />
 
               <div class="layer">
@@ -56,14 +56,26 @@
                           alt=""
                           style="width: 25px"
                       /></b-td>
-                      <b-td class="fs">{{ palingBaru.lokasi }}</b-td>
+                      <b-td class="fs">
+                        <!-- <b-badge
+                          variant="dark"
+                          style="padding: 5px; cursor: pointer"
+                          @click="golokasi()"
+                          >Lihat Lokasi Pendaftaran</b-badge
+                        > -->
+                        <a :href="palingBaru.lokasi" target="_blank"
+                          ><b-badge
+                            variant="dark"
+                            style="padding: 5px; cursor: pointer"
+                            >Lihat Lokasi Pendaftaran</b-badge
+                          ></a
+                        >
+                      </b-td>
                     </b-tr>
                   </b-tbody>
                 </b-table-simple>
-
-                <b-button variant="primary" @click="go()" class="mt-3"
-                  >Detail</b-button
-                >
+                <hr />
+                <b-button variant="primary" @click="go()">Detail</b-button>
               </div>
             </div>
           </b-col>
@@ -213,14 +225,22 @@
                             >
                           </b-tr>
 
-                          <b-tr v-b-tooltip.hover title="Lokasi Pendaftaran">
+                          <b-tr>
                             <b-td style="width: 35px"
                               ><img
                                 src="../assets/lokasi.png"
                                 alt=""
                                 style="width: 25px"
                             /></b-td>
-                            <b-td class="fs">{{ item.lokasi }}</b-td>
+                            <b-td class="fs"
+                              ><a :href="item.lokasi" target="_blank"
+                                ><b-badge
+                                  variant="dark"
+                                  style="padding: 5px; cursor: pointer"
+                                  >Lihat Lokasi Pendaftaran</b-badge
+                                ></a
+                              ></b-td
+                            >
                           </b-tr>
                         </b-tbody>
                       </b-table-simple>
@@ -365,6 +385,12 @@ export default {
     },
     go() {
       this.$router.push({ path: "/detail_pelatihan/" + this.palingBaru.id });
+    },
+
+    golokasi() {
+      // console.log(x)
+      // window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
+      window.open(this.palingBaru.lokasi, "_blank");
     },
   },
 };

@@ -50,14 +50,22 @@
                           >
                         </b-tr>
 
-                        <b-tr v-b-tooltip.hover title="Lokasi Pedaftaran">
+                        <b-tr>
                           <b-td style="width: 35px"
                             ><img
-                              :src="pelatihans.urlPelatihan"
+                              src="../../assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td class="fs">{{ item.lokasi }}</b-td>
+                          <b-td class="fs"
+                            ><a :href="item.lokasi" target="_blank"
+                              ><b-badge
+                                variant="dark"
+                                style="padding: 5px; cursor: pointer"
+                                >Lihat Lokasi Pendaftaran</b-badge
+                              ></a
+                            ></b-td
+                          >
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -67,9 +75,7 @@
                 <hr class="mt-10" />
 
                 <router-link :to="'/detail_galeri/' + item.id"
-                  ><b-button variant="primary"
-                    >Selengkapnya</b-button
-                  ></router-link
+                  ><b-button variant="primary">Detail</b-button></router-link
                 >
               </div>
             </div>
