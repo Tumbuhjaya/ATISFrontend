@@ -1469,7 +1469,7 @@ export default {
     async ambilKejuruan() {
       let vm = this;
       let kategori = await axios.get(
-        ipbackend + "pelatihan/grafikPelatihanByKejuruan/"
+        ipbackend + "kejuruan/listKejuruan"
       );
       // console.log(kejuruan);
       // this.kejuruan = kejuruan.data.data

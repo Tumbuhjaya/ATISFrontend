@@ -615,7 +615,7 @@ export default {
         },
 
         {
-          key: "jmlpelatihan",
+          key: "jmlPelatihanSelesai",
           label: "Jumlah Pelatihan SIMPEL yang telah diikuti",
           sortable: true,
           class: "text-left table-width",
@@ -677,7 +677,7 @@ export default {
           }
         )
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           this.kuota = res.data.sisaKuota;
           this.judul = res.data.data[0].judulPelatihan
         })
@@ -790,7 +790,7 @@ export default {
           },
         }
       );
-      // console.log("abcde");
+      console.log(itemnya.data.data);
       let x = itemnya.data.data;
       this.totalRows = x.length;
 
@@ -800,6 +800,7 @@ export default {
           idnya: item.id,
           judulPelatihan: item.judulPelatihan,
           foto: item.foto,
+          jmlPelatihanSelesai: item.jmlPelatihanSelesai,
           // niknya: item.NIK,
           namanya: item.nama,
           kelaminnya: item.jenisKelamin,
