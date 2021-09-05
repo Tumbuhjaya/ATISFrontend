@@ -492,6 +492,10 @@
         <b-form-input v-model="dataInput.kuotaPeserta"></b-form-input>
       </b-form-group>
 
+      <b-form-group label-cols="6" label-cols-lg="3" label="Sumber Dana">
+        <b-form-select :options="sumberDana"></b-form-select>
+      </b-form-group>
+
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
         <b-form-input v-model="dataInput.anggaranPelatihan"></b-form-input>
       </b-form-group>
@@ -893,6 +897,13 @@ export default {
       status: [
         { value: "publish", text: "publish" },
         { value: "unpublish", text: "unpublish" },
+      ],
+
+      sumberDana: [
+        { value: "APBN", text: "APBN" },
+        { value: "APBD", text: "APBD" },
+        { value: "Dakel", text: "Dakel" },
+        { value: "DAK", text: "DAK" },
       ],
       fields: [
         {
@@ -1468,9 +1479,7 @@ export default {
     },
     async ambilKejuruan() {
       let vm = this;
-      let kategori = await axios.get(
-        ipbackend + "kejuruan/listKejuruan"
-      );
+      let kategori = await axios.get(ipbackend + "kejuruan/listKejuruan");
       // console.log(kejuruan);
       // this.kejuruan = kejuruan.data.data
       this.kategori = [];

@@ -75,21 +75,25 @@ header {
 header .indentity {
   width: 100%;
   display: flex;
-  height: 80px;
+  height: 70px;
+}
+
+header .indentity img {
+  height: 70px;
 }
 
 header .indentity .indentity-name {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 80px;
+  height: 70px;
   margin-left: 15px;
   flex-direction: column;
 }
 
 header .daftar-login {
   width: 100%;
-  height: 40px;
+  height: 70px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -98,7 +102,7 @@ header .daftar-login {
 
 header .menu {
   width: 100%;
-  height: 40px;
+  height: 70px;
   /* background-color: red; */
   display: flex;
   justify-content: space-between;

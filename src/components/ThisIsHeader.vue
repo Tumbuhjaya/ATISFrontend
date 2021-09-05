@@ -19,7 +19,7 @@
         <b-row>
           <b-col md="4">
             <div class="indentity">
-              <img src="../assets/logo kota salatiga.png" alt="width:80px" />
+              <img src="../assets/logo kota salatiga.png" />
               <div class="indentity-name">
                 <h3 class="mt-0 mb-0"><strong>S I M P E L</strong></h3>
                 <h6 style="font-size: 16px; font-weight: 400">
@@ -31,52 +31,14 @@
             </div>
           </b-col>
 
-          <b-col md="7" offset-md="1">
-            <div class="daftar-login">
-              <router-link v-if="user.length == 0" :to="'/login'">
-                <b-button
-                  variant="outline-primary"
-                  style="margin-right: 15px"
-                  size="sm"
-                  >Masuk</b-button
-                >
-              </router-link>
-              <router-link v-if="user.length == 0" :to="'/daftar'">
-                <b-button
-                  variant="outline-primary"
-                  size="sm"
-                  style="margin-right: 15px"
-                  >Daftar</b-button
-                >
-              </router-link>
-
-              <b-dropdown
-                v-if="user.length > 0"
-                id="dropdown-1"
-                :text="'Halo, ' + user[0].nama"
-                variant="outline-primary"
-                size="sm"
-                right
-              >
-                <b-dropdown-item
-                  v-if="user[0].role == 'peserta'"
-                  @click="$router.push('/dashboard_masyarakat')"
-                  >Dashboard</b-dropdown-item
-                >
-                <b-dropdown-item v-else @click="$router.push('/dashboard_opd')"
-                  >Dashboard</b-dropdown-item
-                >
-                <b-dropdown-item @click="logout">Logout</b-dropdown-item>
-              </b-dropdown>
-            </div>
-
+          <b-col md="5">
             <div class="menu">
-              <router-link
+              <!-- <router-link
                 :to="'/'"
                 style="color: black; text-decoration: none"
               >
                 <h6 class="mt-0 mb-0">Beranda</h6>
-              </router-link>
+              </router-link> -->
               <!-- <b-dropdown
                 class="njim"
                 id="dropdown-1"
@@ -126,7 +88,7 @@
                 :to="'/alumni'"
                 style="color: black; text-decoration: none"
               >
-                <h6 class="mt-0 mb-0">Database Peserta</h6>
+                <h6 class="mt-0 mb-0">Peserta</h6>
               </router-link>
               <!-- <router-link :to="'/publikasi'">
                 <h6 class="mt-0 mb-0">Publikasi</h6>
@@ -138,6 +100,47 @@
               >
                 <h6 class="mt-0 mb-0">Statistik</h6>
               </router-link>
+            </div>
+          </b-col>
+
+          <b-col md="3">
+            <div class="daftar-login">
+              <router-link v-if="user.length == 0" :to="'/login'">
+                <b-button
+                  variant="outline-primary"
+                  style="margin-right: 15px"
+                  size="sm"
+                  >Masuk</b-button
+                >
+              </router-link>
+              <router-link v-if="user.length == 0" :to="'/daftar'">
+                <b-button
+                  variant="outline-primary"
+                  size="sm"
+                  style="margin-right: 15px"
+                  >Daftar</b-button
+                >
+              </router-link>
+
+              <b-dropdown
+                v-if="user.length > 0"
+                id="dropdown-1"
+                :text="user[0].nama"
+                variant="outline-primary"
+                size="sm"
+                right
+                block
+              >
+                <b-dropdown-item
+                  v-if="user[0].role == 'peserta'"
+                  @click="$router.push('/dashboard_masyarakat')"
+                  >Dashboard</b-dropdown-item
+                >
+                <b-dropdown-item v-else @click="$router.push('/dashboard_opd')"
+                  >Dashboard</b-dropdown-item
+                >
+                <b-dropdown-item @click="logout">Logout</b-dropdown-item>
+              </b-dropdown>
             </div>
           </b-col>
         </b-row>
