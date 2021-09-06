@@ -120,12 +120,51 @@
                     </b-col>
                   </b-row>
                 </b-tab>
+
+                <b-tab title="Jumlah Pelatihan Berdasarkan Kecamatan ">
+                  <b-row>
+                    <b-col md="8">
+                      <div
+                        style="width: 100%; height: 800px; background-color: "
+                        id="chartContainer3"
+                      ></div>
+                    </b-col>
+                    <b-col md="4">
+                      <b-row>
+                        <b-col md="12">
+                          <b-table
+                            :items="chartOptions3.data[0].dataPoints"
+                            :fields="fields3"
+                            :current-page="currentPage"
+                            :per-page="perPage"
+                            stacked="md"
+                            show-empty
+                            bordered
+                            striped
+                          >
+                          </b-table>
+                        </b-col>
+                      </b-row>
+
+                      <b-row>
+                        <b-col md="12">
+                          <b-pagination
+                            v-model="currentPage"
+                            :total-rows="
+                              chartOptions3.data[0].dataPoints.length
+                            "
+                            :per-page="perPage"
+                            align="fill"
+                            size="sm"
+                          ></b-pagination>
+                        </b-col>
+                      </b-row>
+                    </b-col>
+                  </b-row>
+                </b-tab>
               </b-tabs>
             </div>
           </b-col>
-          <b-col md="8"> </b-col>
-
-          <b-col md="4"> </b-col>
         </b-row>
       </b-container>
     </section>
@@ -175,6 +214,22 @@ export default {
         {
           key: "label",
           label: "Kategori",
+          sortable: true,
+          class: "text-left",
+        },
+        {
+          key: "y",
+          label: "Jumlah",
+          sortable: true,
+          class: "text-left",
+        },
+      ],
+
+      // table3
+      fields3: [
+        {
+          key: "label",
+          label: "Kecamatan",
           sortable: true,
           class: "text-left",
         },
@@ -240,8 +295,35 @@ export default {
           },
         ],
       },
+
+      chartOptions3: {
+        width: "730",
+        height: "800",
+        axisX: {
+          labelFontSize: 14,
+          interval: 1,
+          labelAngle: 90,
+        },
+
+        axisY: {
+          labelFontSize: 14,
+          interval: 1,
+        },
+        data: [
+          {
+            type: "column",
+            dataPoints: [
+              { y: 10, label: "Menjahit" },
+              { y: 20, label: "Memasak" },
+              { y: 30, label: "Menari" },
+              { y: 40, label: "Menyanyi" },
+            ],
+          },
+        ],
+      },
       chart: null,
       chart2: null,
+      chart3: null,
     };
   },
 
@@ -273,8 +355,19 @@ export default {
 
     this.chartOptions2.data[0].dataPoints = items2;
     this.chart2 = new CanvasJS.Chart("chartContainer2", this.chartOptions2);
+
+    let items3 = [];
+
+    kejuruan.data.data.forEach((item, idx) => {
+      items3.push({ y: Number(item.count), label: item.namaKejuruan });
+    });
+
+    this.chartOptions3.data[0].dataPoints = items3;
+    this.chart3 = new CanvasJS.Chart("chartContainer3", this.chartOptions3);
+
     this.chart.render();
     this.chart2.render();
+    this.chart3.render();
   },
   components: {
     ThisIsHeader,

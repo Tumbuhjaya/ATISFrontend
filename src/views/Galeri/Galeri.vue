@@ -19,7 +19,7 @@
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
                   width: 100%;
-                  height: 200px;
+                  height: 240px;
                 "
               />
 
@@ -57,15 +57,16 @@
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td class="fs"
-                            ><a :href="item.lokasi" target="_blank"
-                              ><b-badge
-                                variant="dark"
-                                style="padding: 5px; cursor: pointer"
-                                >Lihat Lokasi Pendaftaran</b-badge
-                              ></a
-                            ></b-td
-                          >
+                          <b-td class="fs">
+                            <iframe
+                              :src="item.lokasi"
+                              width="100%"
+                              height="100"
+                              style="border: 0"
+                              allowfullscreen=""
+                              loading="lazy"
+                            ></iframe
+                          ></b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>

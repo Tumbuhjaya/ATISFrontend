@@ -83,8 +83,9 @@
 
               <b-col md="12" class="mt-3">
                 <h6>
-                  {{ pelatihan.kuotaPeserta }} Peserta, Sisa Kuota :
-                  {{ pelatihan.sisa }} Peserta
+                  Kuota Peserta : {{ pelatihan.kuotaPeserta }}<br />Sisa Kuota
+                  Peserta :
+                  {{ pelatihan.sisa }}
                 </h6>
               </b-col>
             </b-row>
@@ -100,11 +101,19 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <a :href="pelatihan.lokasi" target="_blank"
+                <!-- <a :href="pelatihan.lokasi" target="_blank"
                   ><b-badge variant="dark" style="padding: 5px; cursor: pointer"
                     >Lihat Lokasi Pendaftaran</b-badge
                   ></a
-                >
+                > -->
+                <iframe
+                  :src="pelatihan.lokasi"
+                  width="70%"
+                  height="260"
+                  style="border: 0"
+                  allowfullscreen=""
+                  loading="lazy"
+                ></iframe>
               </b-col>
             </b-row>
           </b-col>

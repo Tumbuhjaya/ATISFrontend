@@ -140,7 +140,10 @@ footer .indentity-footer .indentity-footer-name {
 footer .indentity-footer .indentity-footer-name .fw400 {
   font-weight: 400;
 }
-
+.ql-container {
+  font-family: "Poppins", sans-serif !important;
+  font-size: 16px !important;
+}
 .ql-editor {
   padding: 0 !important;
 }

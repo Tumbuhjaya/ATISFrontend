@@ -48,14 +48,15 @@
                       type="password"
                     ></b-form-input>
                     <b-form-invalid-feedback :state="checkIfValid('password')">
-                      Password minimal 8 digit mengandung 1 angka, 1 huruf capital dan tidak mengandung tanda baca.
+                      Password minimal 8 digit mengandung 1 angka, 1 huruf
+                      capital dan tidak mengandung tanda baca.
                     </b-form-invalid-feedback>
                   </b-form-group>
 
                   <b-form-group
                     label-cols="6"
                     label-cols-lg="3"
-                    label="No. Telepon"
+                    label="Telepon"
                   >
                     <b-form-input v-model="$v.data.noHp.$model"></b-form-input>
                     <b-form-invalid-feedback :state="checkIfValid('noHp')">
@@ -72,7 +73,7 @@
                   <hr />
                   <div
                     style="
-                      background-color: whitesmoke;
+                      background-color: #e0e0e0;
                       padding: 15px;
                       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
                       border-radius: 10px;
@@ -80,28 +81,28 @@
                   >
                     <b-form-group
                       label="Peminatan 1"
-                      description="Isi sesuai dengan minat anda"
+                      description="Pastikan isi sesuai dengan minat anda, karena peminatan ini akan menetukan kategori pelatihan yang bisa anda ikuti"
                     >
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat1.$model"
                       ></b-form-select>
                       <b-form-invalid-feedback :state="checkIfValid('minat1')">
-                      Peminatan Wajib diisi.
-                    </b-form-invalid-feedback>
+                        Peminatan Wajib diisi.
+                      </b-form-invalid-feedback>
                     </b-form-group>
 
                     <b-form-group
                       label="Peminatan 2"
-                      description="Isi sesuai dengan minat anda"
+                      description="Pastikan isi sesuai dengan minat anda, karena peminatan ini akan menetukan kategori pelatihan yang bisa anda ikuti"
                     >
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat2.$model"
                       ></b-form-select>
                       <b-form-invalid-feedback :state="checkIfValid('minat2')">
-                      Peminatan Wajib diisi.
-                    </b-form-invalid-feedback>
+                        Peminatan Wajib diisi.
+                      </b-form-invalid-feedback>
                     </b-form-group>
                   </div>
                   <hr />
@@ -159,7 +160,7 @@ export default {
     ThisIsHeader,
     ThisIsFooter,
   },
-  data: function() {
+  data: function () {
     return {
       data: {
         NIK: "",
