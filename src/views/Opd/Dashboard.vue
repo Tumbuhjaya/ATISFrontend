@@ -243,6 +243,14 @@
                       </template> -->
 
                       <template #cell(actions)="item">
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Cetak Absnsi"
+                          ><b-icon icon="printer-fill"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
                         <!-- <b-button
                           variant="warning"
                           size="sm"
@@ -265,7 +273,7 @@
                           {{ item.actions }}</b-button
                         > -->
 
-                        <router-link
+                        <!-- <router-link
                           :to="'/tambah_peserta_by_opd/' + item.item.id"
                         >
                           <b-button
@@ -288,7 +296,7 @@
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
                           >
-                        </router-link>
+                        </router-link> -->
                       </template>
                     </b-table>
                   </b-col>
@@ -414,6 +422,15 @@
                           v-b-modal.modal-dokumentasi
                           @click="uploadId = item.item.id"
                           ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Cetak Realisasi"
+                          ><b-icon icon="printer-fill"></b-icon>
                           {{ item.actions }}</b-button
                         >
                       </template>
