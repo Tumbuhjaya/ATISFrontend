@@ -43,26 +43,28 @@
           </b-col>
         </b-row> -->
         <b-row class="mt-5">
-          <b-col md="6">
+          <b-col md="8" lg="8" offset-md="2" offset-lg="2">
             <div>
               <b-alert show variant="success">
                 <!-- <h5 class="alert-heading"><strong>Jumlah Peserta Yang Telah Anda Tambahkan :</strong></h5>
                 <h1><strong>00</strong></h1> -->
                 <b-row>
                   <b-col md="6"
-                    ><h5 class="alert-heading">
-                      <strong>Jumlah peserta yang telah anda pilih :</strong>
+                    ><h5 class="alert-heading text-center">
+                      <strong>Jumlah peserta<br />yang telah anda pilih</strong>
                     </h5>
-                    <h1 v-if="this.bulk.length == 0"><strong>0</strong></h1>
-                    <h1 v-if="this.bulk.length != 0">
+                    <h1 v-if="this.bulk.length == 0" class="text-center">
+                      <strong>0</strong>
+                    </h1>
+                    <h1 v-if="this.bulk.length != 0" class="text-center">
                       <strong>{{ bulk.length }}</strong>
                     </h1>
                   </b-col>
                   <b-col md="6">
-                    <h5 class="alert-heading">
-                      <strong>Kuota peserta yang dibutuhkan :</strong>
+                    <h5 class="alert-heading text-center">
+                      <strong>Kuota peserta<br />yang dibutuhkan </strong>
                     </h5>
-                    <h1>
+                    <h1 class="text-center">
                       <strong>{{ kuota }}</strong>
                     </h1>
                   </b-col>
@@ -70,16 +72,51 @@
                 <hr />
                 <p>
                   Apabila anda telah yakin dengan data peserta yang anda pilih,
-                  silahkan tekan tombol "Tambahkan" untuk menyimpan data peserta
-                  yang sudah ada pilih
+                  silahkan tekan tombol
+                  <span style="color: red; font-weight: bold">"Tambahkan"</span>
+                  untuk menyimpan data peserta yang sudah ada pilih, sedangkan
+                  apabila peserta tidak ada didalam data peserta dibawah ini,
+                  silahkan anda melakukan pendaftaran peserta secara manual
+                  melalui tombol
+                  <span style="color: red; font-weight: bold"
+                    >"Daftar Peserta"</span
+                  >
                 </p>
-                <b-button variant="primary" @click="regisBulk()"
+                <hr />
+                <b-button variant="primary" class="mr-3" @click="regisBulk()"
                   >Tambahkan</b-button
                 >
+                <router-link :to="'/daftar'">
+                  <b-button variant="warning">Daftar Peserta</b-button>
+                </router-link>
               </b-alert>
             </div>
           </b-col>
         </b-row>
+
+        <b-row>
+          <b-col md="12" lg="12">
+            <hr />
+          </b-col>
+        </b-row>
+
+        <!-- <b-row>
+          <b-col md="12" lg="12">
+            <p>
+              <i>
+                Apabila data peserta yang anda pilih tidak ada didalam data
+                peserta dibawah ini, silahkan anda melakukan pendaftaran peserta
+                terlebih dahulu dengan menggunakan tombol "<span
+                  style="font-weight: bold"
+                  >Daftar Peserta</span
+                >" dibawah ini
+              </i>
+            </p>
+            <router-link :to="'/daftar'">
+              <b-button variant="primary">Daftar Peserta</b-button>
+            </router-link>
+          </b-col>
+        </b-row> -->
         <b-row class="mt-3">
           <b-col md="2">
             <b-form-group
@@ -334,79 +371,79 @@
                             <b-tr>
                               <b-td style="width: 180px">Memiliki Usaha </b-td>
                               <b-td style="width: 5px">:</b-td>
-                              <b-td>{{profil.kepemilikanUMKM}}</b-td>
+                              <b-td>{{ profil.kepemilikanUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama UMKM</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.namaUMKM}}</b-td>
+                              <b-td>{{ profil.namaUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Tanggal Mulai Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.tanggalMulaiUsaha}}</b-td>
+                              <b-td>{{ profil.tanggalMulaiUsaha }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (NIB)</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.NIB}}</b-td>
+                              <b-td>{{ profil.NIB }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (IUMK)</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.IUMK}}</b-td>
+                              <b-td>{{ profil.IUMK }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (PIRT)</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.PIRT}}</b-td>
+                              <b-td>{{ profil.PIRT }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nomor Ijin Usaha (Lainnya)</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.lainnya}}</b-td>
+                              <b-td>{{ profil.lainnya }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Alamat Usaha</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.alamatUMKM}}</b-td>
+                              <b-td>{{ profil.alamatUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kecamatan</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.kecamatanUMKM}}</b-td>
+                              <b-td>{{ profil.kecamatanUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kelurahan</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.kelurahanUMKM}}</b-td>
+                              <b-td>{{ profil.kelurahanUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Kode Pos</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.kodePosUMKM}}</b-td>
+                              <b-td>{{ profil.kodePosUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Nama Pemilik</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.namaPemilikUMKM}}</b-td>
+                              <b-td>{{ profil.namaPemilikUMKM }}</b-td>
                             </b-tr>
 
                             <b-tr>
                               <b-td>Telepon/No. Hp</b-td>
                               <b-td>:</b-td>
-                              <b-td>{{profil.noHpUMKM}}</b-td>
+                              <b-td>{{ profil.noHpUMKM }}</b-td>
                             </b-tr>
                           </b-tbody>
                         </b-table-simple>
@@ -486,7 +523,7 @@
                         <b-tr v-for="(item, idx) in pelatihanLain" :key="idx">
                           <b-td>{{ item.namaPelatihanLain }}</b-td>
                           <b-td>{{ item.tahunPelatihanLain }}</b-td>
-                          <b-td>{{ item.penyelenggaraPelatihanLain}}</b-td>
+                          <b-td>{{ item.penyelenggaraPelatihanLain }}</b-td>
 
                           <b-td>{{ item.noSertifikat }}</b-td>
                         </b-tr>
@@ -679,7 +716,7 @@ export default {
         .then((res) => {
           // console.log(res)
           this.kuota = res.data.sisaKuota;
-          this.judul = res.data.data[0].judulPelatihan
+          this.judul = res.data.data[0].judulPelatihan;
         })
         .catch((err) => {
           console.log(err);
@@ -814,7 +851,6 @@ export default {
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
           statusnya: item.status,
-
         });
       });
       // console.log(itemnya, "anjay");

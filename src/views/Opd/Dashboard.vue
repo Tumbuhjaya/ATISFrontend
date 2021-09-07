@@ -25,6 +25,13 @@
             <b-tabs content-class="mt-3" align="center">
               <b-tab title="Rencana" active>
                 <b-row>
+                  <b-col md="12" lg="12">
+                    <b-button variant="success" class="float-right"
+                      >Cetak Rencana Pelatihan</b-button
+                    >
+                  </b-col>
+                </b-row>
+                <b-row class="mt-3">
                   <b-col md="2">
                     <b-form-group
                       label="Per page"
@@ -86,7 +93,7 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <template #cell(lokasinya)="item">
+                      <!-- <template #cell(lokasinya)="item">
                         <center>
                           <b-badge
                             variant="dark"
@@ -95,7 +102,7 @@
                             >Lihat Lokasi</b-badge
                           >
                         </center>
-                      </template>
+                      </template> -->
                       <template #cell(actions)="item">
                         <b-button
                           variant="warning"
@@ -224,7 +231,7 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <template #cell(lokasinya)="item">
+                      <!-- <template #cell(lokasinya)="item">
                         <center>
                           <b-badge
                             variant="dark"
@@ -233,10 +240,18 @@
                             >Lihat Lokasi</b-badge
                           >
                         </center>
-                      </template>
+                      </template> -->
 
                       <template #cell(actions)="item">
                         <b-button
+                          variant="warning"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Cetak Absnsi"
+                          ><b-icon icon="printer-fill"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+                        <!-- <b-button
                           variant="warning"
                           size="sm"
                           class="mr-3"
@@ -256,7 +271,21 @@
                           @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
+                        > -->
+
+                        <!-- <router-link
+                          :to="'/tambah_peserta_by_opd/' + item.item.id"
                         >
+                          <b-button
+                            variant="info"
+                            size="sm"
+                            class="mr-3"
+                            v-b-tooltip.hover
+                            title="Tambah Peserta"
+                            ><b-icon icon="file-plus"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </router-link>
 
                         <router-link :to="'/data_peserta/' + item.item.id">
                           <b-button
@@ -267,7 +296,7 @@
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
                           >
-                        </router-link>
+                        </router-link> -->
                       </template>
                     </b-table>
                   </b-col>
@@ -348,7 +377,7 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <template #cell(lokasinya)="item">
+                      <!-- <template #cell(lokasinya)="item">
                         <center>
                           <b-badge
                             variant="dark"
@@ -357,10 +386,10 @@
                             >Lihat Lokasi</b-badge
                           >
                         </center>
-                      </template>
+                      </template> -->
 
                       <template #cell(actions)="item">
-                        <b-button
+                        <!-- <b-button
                           variant="warning"
                           size="sm"
                           class="mr-3"
@@ -382,7 +411,7 @@
                             ><b-icon icon="info-circle"></b-icon>
                             {{ item.actions }}</b-button
                           >
-                        </router-link>
+                        </router-link> -->
 
                         <b-button
                           variant="info"
@@ -393,6 +422,15 @@
                           v-b-modal.modal-dokumentasi
                           @click="uploadId = item.item.id"
                           ><b-icon icon="pencil-square"></b-icon>
+                          {{ item.actions }}</b-button
+                        >
+
+                        <b-button
+                          variant="warning"
+                          size="sm"
+                          v-b-tooltip.hover
+                          title="Cetak Realisasi"
+                          ><b-icon icon="printer-fill"></b-icon>
                           {{ item.actions }}</b-button
                         >
                       </template>
@@ -492,6 +530,10 @@
         <b-form-input v-model="dataInput.kuotaPeserta"></b-form-input>
       </b-form-group>
 
+      <b-form-group label-cols="6" label-cols-lg="3" label="Sumber Dana">
+        <b-form-select :options="sumberDana"></b-form-select>
+      </b-form-group>
+
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
         <b-form-input v-model="dataInput.anggaranPelatihan"></b-form-input>
       </b-form-group>
@@ -547,6 +589,14 @@
           :options="status"
           v-model="dataInput.statusPelatihan"
         ></b-form-select>
+      </b-form-group>
+
+      <b-form-group
+        label-cols="6"
+        label-cols-lg="3"
+        label="Keterangan Pembatalan"
+      >
+        <b-form-input></b-form-input>
       </b-form-group>
 
       <b-row class="mt-5 mb-3">
@@ -893,6 +943,14 @@ export default {
       status: [
         { value: "publish", text: "publish" },
         { value: "unpublish", text: "unpublish" },
+        { value: "Dibatalkan", text: "Dibatalkan" },
+      ],
+
+      sumberDana: [
+        { value: "APBN", text: "APBN" },
+        { value: "APBD", text: "APBD" },
+        { value: "Dakel", text: "Dakel" },
+        { value: "DAK", text: "DAK" },
       ],
       fields: [
         {
@@ -923,8 +981,8 @@ export default {
           class: "text-left",
         },
         {
-          key: "lokasinya",
-          label: "Lokasi Pendaftaran",
+          key: "kuotanya",
+          label: "Kuota / Sisa Peserta",
           sortable: true,
           class: "text-left",
         },
@@ -971,8 +1029,8 @@ export default {
           class: "text-left",
         },
         {
-          key: "lokasinya",
-          label: "Lokasi Pendaftaran",
+          key: "kuotanya",
+          label: "Kuota / Sisa Peserta",
           sortable: true,
           class: "text-left",
         },
@@ -1028,8 +1086,8 @@ export default {
           class: "text-left",
         },
         {
-          key: "lokasinya",
-          label: "Lokasi Pendaftaran",
+          key: "kuotanya",
+          label: "Kuota / Sisa Peserta",
           sortable: true,
           class: "text-left",
         },
@@ -1402,13 +1460,13 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          lokasinya: item.lokasi,
+          kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
-      // console.log(itemnya);
+      console.log(itemnya);
     },
     async loadSedangDimulai() {
       let vm = this;
@@ -1430,7 +1488,7 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          lokasinya: item.lokasi,
+          koutanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
@@ -1458,7 +1516,7 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          lokasinya: item.lokasi,
+          kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
@@ -1468,9 +1526,7 @@ export default {
     },
     async ambilKejuruan() {
       let vm = this;
-      let kategori = await axios.get(
-        ipbackend + "kejuruan/listKejuruan"
-      );
+      let kategori = await axios.get(ipbackend + "kejuruan/listKejuruan");
       // console.log(kejuruan);
       // this.kejuruan = kejuruan.data.data
       this.kategori = [];
@@ -1653,11 +1709,11 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
-    go(x) {
-      // console.log(x)
-      // window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
-      window.open(x.item.lokasinya, "_blank");
-    },
+    // go(x) {
+    //   console.log(x)
+    //   window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
+    //   window.open(x.item.lokasinya, "_blank");
+    // },
   },
 };
 </script>
