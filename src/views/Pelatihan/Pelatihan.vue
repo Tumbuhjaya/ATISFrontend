@@ -192,7 +192,6 @@ export default {
     "$route.params": {
       handler(newValue) {
         // const { userName } = newValue
-
         this.ambilPelatihan();
         this.ambilKejuruan();
       },
