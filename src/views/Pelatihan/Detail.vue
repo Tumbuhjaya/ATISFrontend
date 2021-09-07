@@ -107,7 +107,7 @@
                   ></a
                 > -->
                 <iframe
-                  :src="pelatihan.lokasi"
+                  :src="pelatihan.lokasi + '&output=embed'"
                   width="70%"
                   height="260"
                   style="border: 0"
@@ -231,7 +231,8 @@
             <hr />
           </b-col>
         </b-row>
-
+        <h3 v-if="!sesuai">Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih </h3>
+        <h3 v-if="pelatihan.sisa == 0">Maaf kuota peserta untuk pelatihan ini sudah terpenuhi </h3>
         <b-row class="mt-3">
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"

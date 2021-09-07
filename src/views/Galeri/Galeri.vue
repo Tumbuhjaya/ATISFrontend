@@ -59,7 +59,7 @@
                           /></b-td>
                           <b-td class="fs">
                             <iframe
-                              :src="item.lokasi"
+                              :src="item.lokasi + '&output=embed'"
                               width="100%"
                               height="100"
                               style="border: 0"

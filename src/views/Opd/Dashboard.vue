@@ -93,6 +93,11 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
+                    <template #cell(tglnya)="item">
+                        <center>
+                          {{item.item.tglnya}} / {{item.item.tglSel}}
+                        </center>
+                      </template>
                       <!-- <template #cell(lokasinya)="item">
                         <center>
                           <b-badge
@@ -231,16 +236,11 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                      <!-- <template #cell(lokasinya)="item">
+                      <template #cell(tglnya)="item">
                         <center>
-                          <b-badge
-                            variant="dark"
-                            style="padding: 5px; cursor: pointer"
-                            @click="go(item)"
-                            >Lihat Lokasi</b-badge
-                          >
+                          {{item.item.tglnya}} / {{item.item.tglSel}}
                         </center>
-                      </template> -->
+                      </template>
 
                       <template #cell(actions)="item">
                         <b-button
@@ -387,6 +387,11 @@
                           >
                         </center>
                       </template> -->
+                      <template #cell(tglnya)="item">
+                        <center>
+                          {{item.item.tglnya}} / {{item.item.tglSel}}
+                        </center>
+                      </template>
 
                       <template #cell(actions)="item">
                         <!-- <b-button
@@ -459,7 +464,6 @@
     <!-- modal -->
     <b-modal
       id="modal-lg"
-      size="lg"
       title="Formulir Data Pelatihan"
       hide-footer
     >
@@ -531,7 +535,7 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Sumber Dana">
-        <b-form-select :options="sumberDana"></b-form-select>
+        <b-form-select :options="sumberDana" v-model="dataInput.sumberDanaPelatihan"></b-form-select>
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
@@ -574,13 +578,13 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Upload Banner">
-        <input type="file" id="file" ref="file" />
+        <input type="file" id="file" ref="file" @input="handleFile('file')" />
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="">
         <img
           style="width: 100px"
-          :src="ipbackend + '/' + dataInput.bannerPelatihan"
+          :src="src0"
         />
       </b-form-group>
 
@@ -595,8 +599,9 @@
         label-cols="6"
         label-cols-lg="3"
         label="Keterangan Pembatalan"
+        v-if="dataInput.statusPelatihan == 'Dibatalkan'"
       >
-        <b-form-input></b-form-input>
+        <b-form-input v-model="dataInput.keteranganPembatalan"></b-form-input>
       </b-form-group>
 
       <b-row class="mt-5 mb-3">
@@ -914,6 +919,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
+        sumberDanaPelatihan:"",
         lokasi: "",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
@@ -924,6 +930,7 @@ export default {
         anggaranPelatihan: "",
         pelatihanPelatihan: "",
         CPPelatihan: "",
+        keteranganPembatalan: "",
       },
       time1: null,
       time2: null,
@@ -941,8 +948,8 @@ export default {
       ],
 
       status: [
-        { value: "publish", text: "publish" },
-        { value: "unpublish", text: "unpublish" },
+        { value: "Publish", text: "Publish" },
+        { value: "Unpublish", text: "Unpublish" },
         { value: "Dibatalkan", text: "Dibatalkan" },
       ],
 
@@ -1201,12 +1208,14 @@ export default {
       filter3: null,
       filter4: null,
       filterOn: [],
+      file:"",
       file1: "",
       file2: "",
       file3: "",
       file4: "",
       file5: "",
       file6: "",
+      src0:"",
       src1: "",
       src2: "",
       src3: "",
@@ -1351,6 +1360,9 @@ export default {
       } else if (x == "file6") {
         this.file6 = this.$refs.file6.files[0];
         this.src6 = URL.createObjectURL(this.file6);
+      } else if (x == "file") {
+        this.file = this.$refs.file.files[0];
+        this.src0 = URL.createObjectURL(this.file);
       }
     },
     uploadDok() {
@@ -1390,6 +1402,7 @@ export default {
       );
       // console.log(itemnya);
       this.dataInput = itemnya.data.data[0];
+      this.src0 = ipbackend + this.dataInput.bannerPelatihan
     },
     async hapus(id) {
       let vm = this;
@@ -1460,13 +1473,14 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
+          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
-      console.log(itemnya);
+      console.log(itemnya,'ini itemnya');
     },
     async loadSedangDimulai() {
       let vm = this;
@@ -1488,6 +1502,7 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
+          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
           koutanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
@@ -1516,6 +1531,7 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
+          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
@@ -1557,18 +1573,13 @@ export default {
         this.dataInput.tanggalSelesaiPelatihan
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
-      formData.append(
-        "koordinatXPelatihan",
-        this.dataInput.koordinatXPelatihan
-      );
-      formData.append(
-        "koordinatYPelatihan",
-        this.dataInput.koordinatYPelatihan
-      );
+      formData.append("lokasi", this.dataInput.lokasi);
       formData.append("kecamatanPelatihan", this.dataInput.kecamatanPelatihan);
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
+      formData.append("sumberDanaPelatihan", this.dataInput.sumberDanaPelatihan);
+      formData.append("keteranganPembatalan", this.dataInput.keteranganPembatalan);
       if (this.$refs.file.files.length) {
         formData.append("file1", this.$refs.file.files[0]);
       }
@@ -1597,6 +1608,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
+        sumberDanaPelatihan:"",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
         kecamatanPelatihan: "",
@@ -1605,11 +1617,13 @@ export default {
         syaratUmum: "",
         syaratKhusus: "",
         CPPelatihan: "",
+        keteranganPembatalan:""
       };
       this.$bvModal.hide("modal-lg");
     },
 
     async update() {
+      console.log(this.dataInput.keteranganPembatalan)
       // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
       var formData = new FormData();
       formData.append("id", this.dataInput.id);
@@ -1632,19 +1646,12 @@ export default {
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
       formData.append("lokasi", this.dataInput.lokasi);
-      formData.append(
-        "koordinatXPelatihan",
-        this.dataInput.koordinatXPelatihan
-      );
-      formData.append(
-        "koordinatYPelatihan",
-        this.dataInput.koordinatYPelatihan
-      );
       formData.append("kecamatanPelatihan", this.dataInput.kecamatanPelatihan);
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-
+      formData.append("sumberDanaPelatihan", this.dataInput.sumberDanaPelatihan);
+      formData.append("keteranganPembatalan", this.dataInput.keteranganPembatalan);
       if (this.$refs.file.files.length) {
         formData.append("file1", this.$refs.file.files[0]);
       }
@@ -1673,6 +1680,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
+        sumberDanaPelatihan:"",
         lokasi: this.user.namaOPD.urlOPD,
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
@@ -1680,6 +1688,7 @@ export default {
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
+        keteranganPembatalan:"",
       };
       this.$bvModal.hide("modal-lg");
     },
@@ -1695,6 +1704,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
+        sumberDanaPelatihan:"",
         lokasi: this.user.namaOPD.urlOPD,
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",

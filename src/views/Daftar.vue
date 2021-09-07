@@ -65,10 +65,7 @@
                   </b-form-group>
 
                   <b-form-group label-cols="6" label-cols-lg="3" label="Email">
-                    <b-form-input v-model="$v.data.email.$model"></b-form-input>
-                    <b-form-invalid-feedback :state="checkIfValid('email')">
-                      Email Wajib diisi.
-                    </b-form-invalid-feedback>
+                    <b-form-input v-model="data.email"></b-form-input>
                   </b-form-group>
                   <hr />
                   <div
@@ -203,10 +200,6 @@ export default {
       },
       alamat: {
         required,
-      },
-      email: {
-        required,
-        email,
       },
       password: {
         required,

@@ -7,7 +7,7 @@
           <b-col md="12">
             <h2>
               <span>Pelatihan</span>
-              <strong> {{ $route.params.kejuruan }}</strong>
+              <strong> {{ getKate($route.params.kejuruan) }}</strong>
             </h2>
           </b-col>
         </b-row>
@@ -51,7 +51,7 @@
           </b-col>
           <b-col md="12"> </b-col>
         </b-row>
-        <b-row>
+         <b-row>
           <b-col
             md="4"
             class="mt-4"
@@ -67,7 +67,6 @@
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
                   width: 100%;
-                  height: 240px;
                 "
               />
               <img
@@ -99,7 +98,7 @@
                         <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
                           <b-td style="width: 35px"
                             ><img
-                              src="../../assets/pelaksanaan.png"
+                              src="assets/pelaksanaan.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
@@ -115,51 +114,35 @@
                         </b-tr>
 
                         <b-tr v-b-tooltip.hover title="Kuota Peserta">
-                          <b-td style="width: 35px; vertical-align: middle"
+                          <b-td style="width: 35px"
                             ><img
-                              src="../../assets/peserta.png"
+                              src="assets/peserta.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs"
-                            >Kuota Peserta : {{ item.kuotaPeserta }} <br />Sisa
-                            Kuota Peserta :
+                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota :
                             {{ item.kuotaPeserta - item.jmlPeserta }}
-                          </b-td>
+                            Peserta</b-td
+                          >
                         </b-tr>
 
                         <b-tr>
                           <b-td style="width: 35px"
                             ><img
-                              src="../../assets/lokasi.png"
+                              src="assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td class="fs">
-                            <!-- <a :href="item.lokasi" target="_blank"
+                          <b-td class="fs"
+                            ><a :href="item.lokasi" target="_blank"
                               ><b-badge
                                 variant="dark"
                                 style="padding: 5px; cursor: pointer"
                                 >Lihat Lokasi Pendaftaran</b-badge
                               ></a
-                            > -->
-                            <!-- <iframe
-                              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.3573022667224!2d110.49354081477517!3d-7.313698094721612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a786b65969a7d%3A0x9352eb9d4032ec4!2sInspektorat%20Kota%20Salatiga!5e0!3m2!1sid!2sid!4v1630886744903!5m2!1sid!2sid"
-                              width="600"
-                              height="450"
-                              style="border: 0"
-                              allowfullscreen=""
-                              loading="lazy"
-                            ></iframe> -->
-                            <iframe
-                              :src="item.lokasi"
-                              width="100%"
-                              height="100"
-                              style="border: 0"
-                              allowfullscreen=""
-                              loading="lazy"
-                            ></iframe>
-                          </b-td>
+                            ></b-td
+                          >
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -254,6 +237,13 @@ export default {
         this.$router.push({ path: "/pelatihan/" + x.namaKejuruan });
       }
     },
+    getKate(x){
+      if( x == "all"){
+        return "Semua"
+      } else {
+        return x
+      }
+    }
   },
 };
 </script>

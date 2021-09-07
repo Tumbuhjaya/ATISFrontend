@@ -89,7 +89,7 @@
 
               <b-col md="12" class="mt-2">
                 <iframe
-                  :src="details.lokasi"
+                  :src="details.lokasi + '&output=embed'"
                   width="70%"
                   height="260"
                   style="border: 0"

@@ -7,7 +7,7 @@
           <b-col md="12">
             <h2>
               <span>Pelatihan</span>
-              <strong> {{ $route.params.kejuruan }}</strong>
+              <strong> {{ getKate($route.params.kejuruan) }}</strong>
             </h2>
           </b-col>
         </b-row>
@@ -184,6 +184,7 @@ export default {
     return {
       pelatihan: [],
       kejuruan: [],
+      link:'all',
       ipbackend,
       moment,
     };
@@ -199,13 +200,12 @@ export default {
       immediate: true,
     },
   },
-
   methods: {
-    async ambilPelatihan() {
+    async ambilPelatihan(x) {
       let pelatihan = await axios.get(
         ipbackend +
           "pelatihan/listPelByKejuruanBelumTerlaksana/" +
-          this.$route.params.kejuruan
+          this.link
       );
       console.log(pelatihan);
       this.pelatihan = pelatihan.data.data;
@@ -238,6 +238,13 @@ export default {
         this.$router.push({ path: "/pelatihan/" + x.namaKejuruan });
       }
     },
+    getKate(x){
+      if( x == "all"){
+        return "Semua"
+      } else {
+        return x
+      }
+    }
   },
 };
 </script>
