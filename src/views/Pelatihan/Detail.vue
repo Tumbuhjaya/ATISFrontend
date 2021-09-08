@@ -231,8 +231,20 @@
             <hr />
           </b-col>
         </b-row>
-        <h3 v-if="!sesuai">Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih </h3>
-        <h3 v-if="pelatihan.sisa == 0">Maaf kuota peserta untuk pelatihan ini sudah terpenuhi </h3>
+
+        <b-row>
+          <b-col md="12" lg="12">
+            <b-alert show variant="danger">
+              <h4 v-if="!sesuai" class="text-center">
+                Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih
+              </h4>
+
+              <h4 v-if="pelatihan.sisa == 0" class="text-center">
+                Maaf kuota peserta untuk pelatihan ini sudah terpenuhi
+              </h4>
+            </b-alert>
+          </b-col>
+        </b-row>
         <b-row class="mt-3">
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"
@@ -258,6 +270,8 @@ import "quill/dist/quill.core.css";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
+moment.locale("id");
+
 let ret = localStorage.getItem("user");
 ret = JSON.parse(ret);
 export default {

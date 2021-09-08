@@ -51,7 +51,7 @@
           </b-col>
           <b-col md="12"> </b-col>
         </b-row>
-         <b-row>
+        <b-row>
           <b-col
             md="4"
             class="mt-4"
@@ -67,6 +67,7 @@
                   border-top-left-radius: 10px;
                   border-top-right-radius: 10px;
                   width: 100%;
+                  height: 240px;
                 "
               />
               <img
@@ -82,14 +83,14 @@
 
               <div class="content">
                 <h4 class="title">{{ item.judulPelatihan }}</h4>
-                <b-row>
+                <b-row class="mt-2">
                   <b-col md="12">
                     <b-badge variant="success" style="padding: 5px">{{
                       item.namaOPD
                     }}</b-badge>
                   </b-col>
                 </b-row>
-                <!-- <hr class="mb-10"> -->
+                <hr class="mb-10" />
 
                 <b-row class="mt-3">
                   <b-col md="12">
@@ -98,39 +99,39 @@
                         <b-tr v-b-tooltip.hover title="Tanggal Pelaksanaan">
                           <b-td style="width: 35px"
                             ><img
-                              src="assets/pelaksanaan.png"
+                              src="../../assets/pelaksanaan.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs"
                             >{{
-                              moment(item.tanggalMulaiPelatihan).format("LL")
+                              moment(item.tanggalMulaiPelatihan).format("ll")
                             }}
                             s/d
                             {{
-                              moment(item.tanggalSelesaiPelatihan).format("LL")
+                              moment(item.tanggalSelesaiPelatihan).format("ll")
                             }}</b-td
                           >
                         </b-tr>
 
                         <b-tr v-b-tooltip.hover title="Kuota Peserta">
-                          <b-td style="width: 35px"
+                          <b-td style="width: 35px; vertical-align: middle"
                             ><img
-                              src="assets/peserta.png"
+                              src="../../assets/peserta.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs"
-                            >{{ item.kuotaPeserta }} Peserta, Sisa Kuota :
-                            {{ item.kuotaPeserta - item.jmlPeserta }}
-                            Peserta</b-td
+                            >Kuota Peserta : {{ item.kuotaPeserta }}<br />Sisa
+                            Kuota Peserta:
+                            {{ item.kuotaPeserta - item.jmlPeserta }}</b-td
                           >
                         </b-tr>
 
                         <b-tr>
                           <b-td style="width: 35px"
                             ><img
-                              src="assets/lokasi.png"
+                              src="../../assets/lokasi.png"
                               alt=""
                               style="width: 25px"
                           /></b-td>
@@ -237,13 +238,13 @@ export default {
         this.$router.push({ path: "/pelatihan/" + x.namaKejuruan });
       }
     },
-    getKate(x){
-      if( x == "all"){
-        return "Semua"
+    getKate(x) {
+      if (x == "all") {
+        return "Semua";
       } else {
-        return x
+        return x;
       }
-    }
+    },
   },
 };
 </script>
@@ -271,7 +272,7 @@ export default {
 
 #pelatihan .fs {
   /* color: red; */
-  font-size: 14px;
+  font-size: 16px;
   vertical-align: middle;
 }
 </style>

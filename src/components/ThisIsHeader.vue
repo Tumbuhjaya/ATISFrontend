@@ -6,8 +6,8 @@
           <b-col md="12">
             <div class="running-text">
               <marquee-text>
-                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                diam nonumy eirmod tempor invidunt ut labore et dolore magna.
+                Selamat Datang pada Sistem Informasi Pelatihan (S I M P E L)
+                Kota Salatiga -
               </marquee-text>
             </div>
           </b-col>

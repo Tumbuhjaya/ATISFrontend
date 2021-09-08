@@ -142,7 +142,7 @@ footer .indentity-footer .indentity-footer-name .fw400 {
 }
 .ql-container {
   font-family: "Poppins", sans-serif !important;
-  font-size: 16px !important;
+  font-size: 1rem !important;
 }
 .ql-editor {
   padding: 0 !important;
@@ -153,6 +153,9 @@ footer .indentity-footer .indentity-footer-name .fw400 {
   padding-left: 0 !important;
 }
 
+.table-width-2 {
+  width: 180px;
+}
 .table-width {
   width: 160px !important;
 }

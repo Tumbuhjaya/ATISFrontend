@@ -25,13 +25,15 @@
 
               <div class="content">
                 <h4 class="title">{{ item.judulPelatihan }}</h4>
-                <b-row>
+                <b-row class="mt-2">
                   <b-col md="12">
                     <b-badge variant="success" style="padding: 5px">{{
                       item.namaOPD
                     }}</b-badge>
                   </b-col>
                 </b-row>
+
+                <hr class="mb-10" />
 
                 <b-row class="mt-3">
                   <b-col md="12">
@@ -44,9 +46,14 @@
                               alt=""
                               style="width: 25px"
                           /></b-td>
-                          <b-td class="fs"
-                            >{{ setDate(item.tanggalMulaiPelatihan) }} s/d
-                            {{ setDate(item.tanggalSelesaiPelatihan) }}</b-td
+                          <b-td class="fs">
+                            {{
+                              moment(item.tanggalMulaiPelatihan).format("ll")
+                            }}
+                            s/d
+                            {{
+                              moment(item.tanggalSelesaiPelatihan).format("ll")
+                            }}</b-td
                           >
                         </b-tr>
 
@@ -58,15 +65,14 @@
                               style="width: 25px"
                           /></b-td>
                           <b-td class="fs">
-                            <iframe
-                              :src="item.lokasi + '&output=embed'"
-                              width="100%"
-                              height="100"
-                              style="border: 0"
-                              allowfullscreen=""
-                              loading="lazy"
-                            ></iframe
-                          ></b-td>
+                            <a :href="item.lokasi" target="_blank"
+                              ><b-badge
+                                variant="dark"
+                                style="padding: 5px; cursor: pointer"
+                                >Lihat Lokasi Pendaftaran</b-badge
+                              ></a
+                            >
+                          </b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -107,6 +113,7 @@ export default {
   data() {
     return {
       pelatihans: "",
+      moment,
     };
   },
   created() {

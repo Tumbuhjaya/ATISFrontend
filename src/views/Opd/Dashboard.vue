@@ -26,7 +26,10 @@
               <b-tab title="Rencana" active>
                 <b-row>
                   <b-col md="12" lg="12">
-                    <b-button variant="success" class="float-right"
+                    <b-button
+                      variant="success"
+                      class="float-right"
+                      v-b-modal.modal-sm
                       >Cetak Rencana Pelatihan</b-button
                     >
                   </b-col>
@@ -93,9 +96,10 @@
                       @filtered="onFiltered"
                       class="mt-3"
                     >
-                    <template #cell(tglnya)="item">
+                      <template #cell(tglnya)="item">
                         <center>
-                          {{item.item.tglnya}} / {{item.item.tglSel}}
+                          {{ moment(item.item.tglnya).format("ll") }} s/d
+                          {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
                       <!-- <template #cell(lokasinya)="item">
@@ -238,19 +242,28 @@
                     >
                       <template #cell(tglnya)="item">
                         <center>
-                          {{item.item.tglnya}} / {{item.item.tglSel}}
+                          {{ moment(item.item.tglnya).format("ll") }} s/d
+                          {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
 
                       <template #cell(actions)="item">
-                        <b-button
-                          variant="warning"
-                          size="sm"
-                          v-b-tooltip.hover
-                          title="Cetak Absnsi"
-                          ><b-icon icon="printer-fill"></b-icon>
-                          {{ item.actions }}</b-button
+                        <a
+                          :href="
+                            'http://survplus.id:8804/pelatihan/cetakabsensi/' +
+                            item.item.id
+                          "
+                          target="_blank"
                         >
+                          <b-button
+                            variant="warning"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Cetak Absnsi"
+                            ><b-icon icon="printer-fill"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </a>
                         <!-- <b-button
                           variant="warning"
                           size="sm"
@@ -389,7 +402,8 @@
                       </template> -->
                       <template #cell(tglnya)="item">
                         <center>
-                          {{item.item.tglnya}} / {{item.item.tglSel}}
+                          {{ moment(item.item.tglnya).format("ll") }} s/d
+                          {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
 
@@ -430,14 +444,22 @@
                           {{ item.actions }}</b-button
                         >
 
-                        <b-button
-                          variant="warning"
-                          size="sm"
-                          v-b-tooltip.hover
-                          title="Cetak Realisasi"
-                          ><b-icon icon="printer-fill"></b-icon>
-                          {{ item.actions }}</b-button
+                        <a
+                          :href="
+                            'http://survplus.id:8804/pelatihan/cetakrealisasi/' +
+                            item.item.id
+                          "
+                          target="_blank"
                         >
+                          <b-button
+                            variant="warning"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Cetak Realisasi"
+                            ><b-icon icon="printer-fill"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </a>
                       </template>
                     </b-table>
                   </b-col>
@@ -462,11 +484,7 @@
     </section>
 
     <!-- modal -->
-    <b-modal
-      id="modal-lg"
-      title="Formulir Data Pelatihan"
-      hide-footer
-    >
+    <b-modal id="modal-lg" title="Formulir Data Pelatihan" hide-footer>
       <b-row class="mb-3">
         <b-col md="12">
           <h2 class="text-left">
@@ -535,7 +553,10 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Sumber Dana">
-        <b-form-select :options="sumberDana" v-model="dataInput.sumberDanaPelatihan"></b-form-select>
+        <b-form-select
+          :options="sumberDana"
+          v-model="dataInput.sumberDanaPelatihan"
+        ></b-form-select>
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
@@ -582,10 +603,7 @@
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="">
-        <img
-          style="width: 100px"
-          :src="src0"
-        />
+        <img style="width: 100px" :src="src0" />
       </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Status Pelatihan">
@@ -879,6 +897,24 @@
         </b-col>
       </b-row>
     </b-modal>
+
+    <!-- modal tahun -->
+    <b-modal
+      id="modal-sm"
+      size="sm"
+      title="Cetak Rencana Pelatihan Berdasarkan Tahun"
+      hide-footer
+    >
+      <b-row>
+        <b-col md="12" lg="12">
+          <b-form-group label="Pilih Tahun">
+            <b-form-select :options="tahunnya"></b-form-select>
+          </b-form-group>
+
+          <b-button variant="primary">Cetak</b-button>
+        </b-col>
+      </b-row>
+    </b-modal>
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
@@ -909,6 +945,8 @@ export default {
       user: {},
       ipbackend,
       dataPeserta: [],
+      moment,
+
       dataInput: {
         judulPelatihan: "",
         kejuruan: "",
@@ -919,7 +957,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        sumberDanaPelatihan:"",
+        sumberDanaPelatihan: "",
         lokasi: "",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
@@ -941,6 +979,8 @@ export default {
       kecamatan: [{ value: null, text: "-- Pilih --" }],
 
       kelurahan: [{ value: null, text: "-- Pilih --" }],
+
+      tahunnya: [{ value: null, text: "-- Pilih Tahun --" }],
 
       jenjang: [
         { value: "Dasar", text: "Dasar" },
@@ -989,9 +1029,9 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Peserta",
+          label: "Kuota / Sisa Kouta Peserta",
           sortable: true,
-          class: "text-left",
+          class: "text-left table-width-2",
         },
         {
           key: "statusnya",
@@ -1037,9 +1077,9 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Peserta",
+          label: "Kuota / Sisa Kouta Peserta",
           sortable: true,
-          class: "text-left",
+          class: "text-left table-width-2",
         },
         {
           key: "statusnya",
@@ -1094,9 +1134,9 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Peserta",
+          label: "Kuota / Sisa Kouta Peserta",
           sortable: true,
-          class: "text-left",
+          class: "text-left table-width-2",
         },
         {
           key: "statusnya",
@@ -1107,7 +1147,7 @@ export default {
         {
           key: "actions",
           label: "Actions",
-          class: "table-width-3 text-center",
+          class: "table-width text-center",
         },
       ],
       items3: [
@@ -1208,14 +1248,14 @@ export default {
       filter3: null,
       filter4: null,
       filterOn: [],
-      file:"",
+      file: "",
       file1: "",
       file2: "",
       file3: "",
       file4: "",
       file5: "",
       file6: "",
-      src0:"",
+      src0: "",
       src1: "",
       src2: "",
       src3: "",
@@ -1302,6 +1342,10 @@ export default {
     // Set the initial number of items
     let vm = this;
     let ret = localStorage.getItem("user");
+
+    for (let i = 2015; i < 2051; i++) {
+      vm.tahunnya.push({ value: i, text: i });
+    }
     vm.user = JSON.parse(ret);
     this.totalRows = this.items.length;
 
@@ -1402,7 +1446,7 @@ export default {
       );
       // console.log(itemnya);
       this.dataInput = itemnya.data.data[0];
-      this.src0 = ipbackend + this.dataInput.bannerPelatihan
+      this.src0 = ipbackend + this.dataInput.bannerPelatihan;
     },
     async hapus(id) {
       let vm = this;
@@ -1472,15 +1516,15 @@ export default {
           nonya: idx + 1,
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
-          tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
+          tglnya: item.tanggalMulaiPelatihan,
+          tglSel: item.tanggalSelesaiPelatihan,
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
         });
       });
-      console.log(itemnya,'ini itemnya');
+      console.log(itemnya, "ini itemnya");
     },
     async loadSedangDimulai() {
       let vm = this;
@@ -1501,8 +1545,8 @@ export default {
           nonya: idx + 1,
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
-          tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
+          tglnya: item.tanggalMulaiPelatihan,
+          tglSel: item.tanggalSelesaiPelatihan,
           koutanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
@@ -1530,8 +1574,8 @@ export default {
           nonya: idx + 1,
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
-          tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
-          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
+          tglnya: item.tanggalMulaiPelatihan,
+          tglSel: item.tanggalSelesaiPelatihan,
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
@@ -1578,8 +1622,14 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      formData.append("sumberDanaPelatihan", this.dataInput.sumberDanaPelatihan);
-      formData.append("keteranganPembatalan", this.dataInput.keteranganPembatalan);
+      formData.append(
+        "sumberDanaPelatihan",
+        this.dataInput.sumberDanaPelatihan
+      );
+      formData.append(
+        "keteranganPembatalan",
+        this.dataInput.keteranganPembatalan
+      );
       if (this.$refs.file.files.length) {
         formData.append("file1", this.$refs.file.files[0]);
       }
@@ -1608,7 +1658,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        sumberDanaPelatihan:"",
+        sumberDanaPelatihan: "",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
         kecamatanPelatihan: "",
@@ -1617,13 +1667,13 @@ export default {
         syaratUmum: "",
         syaratKhusus: "",
         CPPelatihan: "",
-        keteranganPembatalan:""
+        keteranganPembatalan: "",
       };
       this.$bvModal.hide("modal-lg");
     },
 
     async update() {
-      console.log(this.dataInput.keteranganPembatalan)
+      console.log(this.dataInput.keteranganPembatalan);
       // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
       var formData = new FormData();
       formData.append("id", this.dataInput.id);
@@ -1650,8 +1700,14 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      formData.append("sumberDanaPelatihan", this.dataInput.sumberDanaPelatihan);
-      formData.append("keteranganPembatalan", this.dataInput.keteranganPembatalan);
+      formData.append(
+        "sumberDanaPelatihan",
+        this.dataInput.sumberDanaPelatihan
+      );
+      formData.append(
+        "keteranganPembatalan",
+        this.dataInput.keteranganPembatalan
+      );
       if (this.$refs.file.files.length) {
         formData.append("file1", this.$refs.file.files[0]);
       }
@@ -1680,7 +1736,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        sumberDanaPelatihan:"",
+        sumberDanaPelatihan: "",
         lokasi: this.user.namaOPD.urlOPD,
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
@@ -1688,7 +1744,7 @@ export default {
         kelurahanPelatihan: "",
         syaratUmum: "",
         syaratKhusus: "",
-        keteranganPembatalan:"",
+        keteranganPembatalan: "",
       };
       this.$bvModal.hide("modal-lg");
     },
@@ -1704,7 +1760,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        sumberDanaPelatihan:"",
+        sumberDanaPelatihan: "",
         lokasi: this.user.namaOPD.urlOPD,
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",

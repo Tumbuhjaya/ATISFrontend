@@ -95,7 +95,9 @@
                   style="border: 0"
                   allowfullscreen=""
                   loading="lazy"
+                  v-if="details.lokasi != null"
                 ></iframe>
+                <h4 v-else>tidak ada lokasi</h4>
               </b-col>
             </b-row>
           </b-col>
