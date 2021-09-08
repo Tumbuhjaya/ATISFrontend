@@ -88,7 +88,7 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <iframe
+                <!-- <iframe
                   :src="details.lokasi + '&output=embed'"
                   width="70%"
                   height="260"
@@ -96,8 +96,16 @@
                   allowfullscreen=""
                   loading="lazy"
                   v-if="details.lokasi != null"
-                ></iframe>
-                <h4 v-else>tidak ada lokasi</h4>
+                ></iframe> -->
+                <a
+                  :href="details.lokasi"
+                  target="_blank"
+                  v-if="details.lokasi != null"
+                  ><b-button variant="dark"
+                    >Lihat Lokasi Pendaftaran</b-button
+                  ></a
+                >
+                <h6 v-else>Tidak ada lokasi</h6>
               </b-col>
             </b-row>
           </b-col>

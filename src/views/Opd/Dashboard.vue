@@ -908,10 +908,13 @@
       <b-row>
         <b-col md="12" lg="12">
           <b-form-group label="Pilih Tahun">
-            <b-form-select :options="tahunnya"></b-form-select>
+            <b-form-select
+              :options="tahunnya"
+              v-model="tahunPilih"
+            ></b-form-select>
           </b-form-group>
 
-          <b-button variant="primary">Cetak</b-button>
+          <b-button variant="primary" @click="cetakrencana">Cetak</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -957,6 +960,7 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
+        tahunPilih: 2021,
         sumberDanaPelatihan: "",
         lokasi: "",
         koordinatXPelatihan: "",
@@ -1385,6 +1389,17 @@ export default {
     this.loadTerlaksana();
   },
   methods: {
+    cetakrencana() {
+      // console.log(this.user, "nomor 90 oke");
+      window.open(
+        ipbackend +
+          "pelatihan/cetakopd/" +
+          this.user.namaOPD.OPDId +
+          "/" +
+          this.tahunPilih,
+        "_blank"
+      );
+    },
     handleFile(x) {
       if (x == "file1") {
         this.file1 = this.$refs.file1.files[0];

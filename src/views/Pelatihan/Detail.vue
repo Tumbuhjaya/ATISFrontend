@@ -101,19 +101,24 @@
               </b-col>
 
               <b-col md="12" class="mt-2">
-                <!-- <a :href="pelatihan.lokasi" target="_blank"
-                  ><b-badge variant="dark" style="padding: 5px; cursor: pointer"
-                    >Lihat Lokasi Pendaftaran</b-badge
-                  ></a
-                > -->
-                <iframe
+                <!-- <iframe
                   :src="pelatihan.lokasi + '&output=embed'"
                   width="70%"
                   height="260"
                   style="border: 0"
                   allowfullscreen=""
                   loading="lazy"
-                ></iframe>
+                ></iframe> -->
+
+                <a
+                  :href="pelatihan.lokasi"
+                  target="_blank"
+                  v-if="pelatihan.lokasi != null"
+                  ><b-button variant="dark"
+                    >Lihat Lokasi Pendaftaran</b-button
+                  ></a
+                >
+                <h6 v-else>Tidak ada lokasi</h6>
               </b-col>
             </b-row>
           </b-col>
