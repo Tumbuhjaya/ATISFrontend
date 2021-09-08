@@ -329,11 +329,16 @@ export default {
 
   async mounted() {
     // console.log(CanvasJS);
-
+    let vm = this;
     let pelatihan = await axios.get(
       ipbackend + "pelatihan/grafikPelatihanByOPD/"
     );
     console.log(pelatihan);
+
+    let pelatihanKec = await axios.get(
+      ipbackend + "pelatihan/grafikPelatihanbykecamatan/"
+    );
+    console.log(pelatihanKec);
     let items = [];
 
     pelatihan.data.data.forEach((item, idx) => {
@@ -358,8 +363,8 @@ export default {
 
     let items3 = [];
 
-    kejuruan.data.data.forEach((item, idx) => {
-      items3.push({ y: Number(item.count), label: item.namaKejuruan });
+    pelatihanKec.data.data.forEach((item, idx) => {
+      items3.push({ y: Number(item.count), label: item.namaKecamatan });
     });
 
     this.chartOptions3.data[0].dataPoints = items3;
