@@ -102,6 +102,11 @@
                           {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
+                      <template #cell(kuotanya)="item">
+                        <center>
+                          {{item.item.kuotanya}}/ {{item.item.kuotanya - item.item.jmlPeserta}}
+                        </center>
+                      </template>
                       <!-- <template #cell(lokasinya)="item">
                         <center>
                           <b-badge
@@ -246,11 +251,16 @@
                           {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
+                       <template #cell(kuotanya)="item">
+                        <center>
+                          {{item.item.kuotanya}}/ {{item.item.jmlPeserta}}
+                        </center>
+                      </template>
 
                       <template #cell(actions)="item">
                         <a
                           :href="
-                            'http://survplus.id:8804/pelatihan/cetakabsensi/' +
+                            'http://survplus.id:8804/pelatihan/cetakabsen/' +
                             item.item.id
                           "
                           target="_blank"
@@ -259,7 +269,7 @@
                             variant="warning"
                             size="sm"
                             v-b-tooltip.hover
-                            title="Cetak Absnsi"
+                            title="Cetak Absensi"
                             ><b-icon icon="printer-fill"></b-icon>
                             {{ item.actions }}</b-button
                           >
@@ -404,6 +414,12 @@
                         <center>
                           {{ moment(item.item.tglnya).format("ll") }} s/d
                           {{ moment(item.item.tglSel).format("ll") }}
+                        </center>
+                      </template>
+
+                       <template #cell(kuotanya)="item">
+                        <center>
+                          {{item.item.kuotanya}}/ {{item.item.jmlPeserta}}
                         </center>
                       </template>
 
@@ -1390,7 +1406,7 @@ export default {
   },
   methods: {
     cetakrencana() {
-      // console.log(this.user, "nomor 90 oke");
+      console.log(this.user, "nomor 90 oke");
       window.open(
         ipbackend +
           "pelatihan/cetakopd/" +
@@ -1533,6 +1549,7 @@ export default {
           kategorinya: item.kejuruan,
           tglnya: item.tanggalMulaiPelatihan,
           tglSel: item.tanggalSelesaiPelatihan,
+          jmlPeserta: item.jmlPeserta,
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
@@ -1562,7 +1579,8 @@ export default {
           kategorinya: item.kejuruan,
           tglnya: item.tanggalMulaiPelatihan,
           tglSel: item.tanggalSelesaiPelatihan,
-          koutanya: item.kuotaPeserta,
+          jmlPeserta: item.jmlPeserta,
+          kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
           koordinatYPelatihan: item.koordinatYPelatihan,
@@ -1591,6 +1609,7 @@ export default {
           kategorinya: item.kejuruan,
           tglnya: item.tanggalMulaiPelatihan,
           tglSel: item.tanggalSelesaiPelatihan,
+          jmlPeserta: item.jmlPeserta,
           kuotanya: item.kuotaPeserta,
           statusnya: item.statusPelatihan,
           koordinatXPelatihan: item.koordinatXPelatihan,
