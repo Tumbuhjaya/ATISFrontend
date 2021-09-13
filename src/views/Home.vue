@@ -214,11 +214,11 @@ export default {
       let kejuruan = await axios.get(
         ipbackend + "pelatihan/allListPelByKejuruanBelumTerlaksana/"
       );
-      // console.log(kejuruan);
+      console.log(kejuruan);
       let jml = 0;
       for (let i = 0; i < kejuruan.data.data.length; i++) {
         let x = kejuruan.data.data[i];
-        if (x.count == 1) {
+        if (x.count >= 1) {
           jml += Number(kejuruan.data.data[i].count);
           this.kejuruan.push({
             no: i,
