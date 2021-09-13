@@ -104,7 +104,8 @@
                       </template>
                       <template #cell(kuotanya)="item">
                         <center>
-                          {{item.item.kuotanya}}/ {{item.item.kuotanya - item.item.jmlPeserta}}
+                          {{ item.item.kuotanya }}/
+                          {{ item.item.kuotanya - item.item.jmlPeserta }}
                         </center>
                       </template>
                       <!-- <template #cell(lokasinya)="item">
@@ -251,9 +252,9 @@
                           {{ moment(item.item.tglSel).format("ll") }}
                         </center>
                       </template>
-                       <template #cell(kuotanya)="item">
+                      <template #cell(kuotanya)="item">
                         <center>
-                          {{item.item.kuotanya}}/ {{item.item.jmlPeserta}}
+                          {{ item.item.kuotanya }}/ {{ item.item.jmlPeserta }}
                         </center>
                       </template>
 
@@ -417,9 +418,9 @@
                         </center>
                       </template>
 
-                       <template #cell(kuotanya)="item">
+                      <template #cell(kuotanya)="item">
                         <center>
-                          {{item.item.kuotanya}}/ {{item.item.jmlPeserta}}
+                          {{ item.item.kuotanya }}/ {{ item.item.jmlPeserta }}
                         </center>
                       </template>
 
@@ -1049,7 +1050,7 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Kouta Peserta",
+          label: "Kuota / Sisa Kuota Peserta",
           sortable: true,
           class: "text-left table-width-2",
         },
@@ -1097,7 +1098,7 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Kouta Peserta",
+          label: "Kuota / Peserta Terdaftar",
           sortable: true,
           class: "text-left table-width-2",
         },
@@ -1154,7 +1155,7 @@ export default {
         },
         {
           key: "kuotanya",
-          label: "Kuota / Sisa Kouta Peserta",
+          label: "Kuota / Peserta Terdaftar",
           sortable: true,
           class: "text-left table-width-2",
         },
