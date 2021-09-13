@@ -501,7 +501,12 @@
     </section>
 
     <!-- modal -->
-    <b-modal id="modal-lg" title="Formulir Data Pelatihan" hide-footer>
+    <b-modal
+      id="modal-lg"
+      size="xl"
+      title="Formulir Data Pelatihan"
+      hide-footer
+    >
       <b-row class="mb-3">
         <b-col md="12">
           <h2 class="text-left">
