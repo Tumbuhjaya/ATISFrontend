@@ -130,7 +130,7 @@
                           ><b-icon icon="pencil-square"></b-icon>
                           {{ item.actions }}</b-button
                         >
-                        <b-button
+                        <!-- <b-button
                           variant="danger"
                           size="sm"
                           class="mr-3"
@@ -139,7 +139,7 @@
                           @click="hapus(item.item.id)"
                           ><b-icon icon="trash"></b-icon>
                           {{ item.actions }}</b-button
-                        >
+                        > -->
 
                         <router-link :to="'/data_peserta/' + item.item.id">
                           <b-button

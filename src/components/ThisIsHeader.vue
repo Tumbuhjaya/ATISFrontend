@@ -85,10 +85,10 @@
                 <h6 class="mt-0 mb-0">Galeri</h6>
               </router-link>
               <router-link
-                :to="'/alumni'"
+                :to="'/perangkat_daerah'"
                 style="color: black; text-decoration: none"
               >
-                <h6 class="mt-0 mb-0">Peserta</h6>
+                <h6 class="mt-0 mb-0">Perangkat Daerah</h6>
               </router-link>
               <!-- <router-link :to="'/publikasi'">
                 <h6 class="mt-0 mb-0">Publikasi</h6>

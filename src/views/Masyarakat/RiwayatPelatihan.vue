@@ -91,6 +91,12 @@
                   @filtered="onFiltered"
                   class="mt-3"
                 >
+                  <template #cell(tglnya)="item">
+                    <center>
+                      {{ moment(item.item.tglnya).format("ll") }} s/d
+                      {{ moment(item.item.tglSel).format("ll") }}
+                    </center>
+                  </template>
                   <template #cell(lokasinya)="item">
                     <center>
                       <b-badge
@@ -113,6 +119,15 @@
                         detailPel(item.item.pelatihanId, item.item.userId)
                       "
                       ><b-icon icon="file-ruled"></b-icon>
+                    </b-button>
+
+                    <b-button
+                      variant="warning"
+                      size="sm"
+                      class="mr-3"
+                      v-b-tooltip.hover
+                      title="Batal Pendaftaran Pelatihan"
+                      ><b-icon icon="close"></b-icon>
                     </b-button>
                   </template>
 
@@ -325,6 +340,7 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
+moment.locale("id");
 
 export default {
   name: "RiwayatPelatihan",
@@ -382,7 +398,7 @@ export default {
           label: "Tanggal Pelatihan",
           sortable: true,
           sortDirection: "desc",
-          class: "text-left",
+          class: "text-left table-width-3",
         },
         {
           key: "lokasinya",
@@ -531,6 +547,7 @@ export default {
           judulnya: item.judulPelatihan,
           kategorinya: item.kejuruan,
           tglnya: moment(item.tanggalMulaiPelatihan).format("LL"),
+          tglSel: moment(item.tanggalSelesaiPelatihan).format("LL"),
           lokasinya: item.lokasi,
           namaOPD: item.namaOPD,
           statusnya: item.status,

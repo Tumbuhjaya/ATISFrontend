@@ -184,10 +184,19 @@ const routes = [
     }
   },
 
+  // {
+  //   path: '/alumni',
+  //   name: 'Alumni',
+  //   component: () => import('@/views/Alumni/Alumni'),
+  //   meta: {
+  //     requiresAuth: false
+  //   }
+  // },
+
   {
-    path: '/alumni',
-    name: 'Alumni',
-    component: () => import('@/views/Alumni/Alumni'),
+    path: '/perangkat_daerah',
+    name: 'PerangkarDaerah',
+    component: () => import('@/views/PerangkatDaerah/PerangkatDaerah'),
     meta: {
       requiresAuth: false
     }
