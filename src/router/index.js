@@ -227,11 +227,11 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach(async (to, from, next) => {
-  let ret =      localStorage.getItem('user');
+  let ret = localStorage.getItem('user');
    ret = JSON.parse(ret)
-   console.log(ret);
+  //  console.log(ret);
   // const role = await Storage.get({ key: "role" })
-  console.log(to.query)
+  // console.log(to.query)
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (ret) {
       if (!ret.token) {

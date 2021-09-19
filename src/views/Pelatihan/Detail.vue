@@ -239,8 +239,8 @@
 
         <b-row>
           <b-col md="12" lg="12">
-            <b-alert show variant="danger">
-              <h4 v-if="!sesuai" class="text-center">
+            <b-alert show variant="danger" v-if="!sesuai && login">
+              <h4 class="text-center">
                 Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih
               </h4>
 
@@ -276,9 +276,6 @@ import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
 moment.locale("id");
-
-let ret = localStorage.getItem("user");
-ret = JSON.parse(ret);
 export default {
   name: "DetailPelatihan",
   components: {
@@ -288,8 +285,9 @@ export default {
   data() {
     return {
       pelatihan: [],
-      user: [],
+      user: "",
       ipbackend,
+      login: false,
       moment,
     };
   },
@@ -305,22 +303,31 @@ export default {
     },
   },
   methods: {
+    
     async ambilPelatihan() {
+      let ret = localStorage.getItem("user");
+      ret = JSON.parse(ret);
       console.log(this.$route.params.id);
       let pelatihan = await axios.get(
         ipbackend + "pelatihan/listpelatihanbyid/" + this.$route.params.id
       );
-      console.log(pelatihan);
+      // console.log(pelatihan);
       this.pelatihan = pelatihan.data.data[0];
       this.pelatihan.sisa = pelatihan.data.sisaKuota;
 
-      let datauser = await axios.get(ipbackend + "users/listById/" + ret.id, {
-        headers: {
-          token: ret.token,
-        },
-      });
-      this.user = datauser.data.data[0];
-      console.log(this.pelatihan.kejuruan, this.user.minat2);
+      if (ret) {
+        console.log('cihuy')
+        let datauser = await axios.get(ipbackend + "users/listById/" + ret.id, {
+          headers: {
+            token: ret.token,
+          },
+        });
+        console.log(datauser);
+        this.user = datauser.data.data[0];
+        this.login = true;
+      }
+
+      // console.log(this.pelatihan.kejuruan, this.user.minat2);
     },
   },
 };

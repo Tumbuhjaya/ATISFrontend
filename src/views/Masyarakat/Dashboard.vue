@@ -194,13 +194,13 @@
                       label-cols-lg="3"
                       label="Foto Diri"
                     >
-                      <input type="file" id="file" ref="file" />
+                      <b-form-file type="file" id="file1" ref="file1" @input="handleFile('file1')" />
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
                       <img
                         style="width: 100px"
-                        :src="ipbackend + '/' + dataUser.foto"
+                        :src="src1"
                       />
                     </b-form-group>
 
@@ -209,13 +209,13 @@
                       label-cols-lg="3"
                       label="Foto KTP"
                     >
-                      <input type="file" id="file" ref="file" />
+                      <b-form-file type="file" id="file2" ref="file2" @input="handleFile('file2')" />
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
                       <img
                         style="width: 100px"
-                        :src="ipbackend + '/' + dataUser.foto"
+                        :src="src2"
                       />
                     </b-form-group>
                   </b-col>
@@ -368,6 +368,7 @@
                       >
                         <b-form-select
                           :options="kecamatan"
+                          @change="kel2()"
                           v-model="dataUser.kecamatanUMKM"
                         ></b-form-select>
                       </b-form-group>
@@ -378,7 +379,7 @@
                         label="Kelurahan"
                       >
                         <b-form-select
-                          :options="kelurahan"
+                          :options="kelurahan2"
                           v-model="dataUser.kelurahanUMKM"
                         ></b-form-select>
                       </b-form-group>
@@ -643,6 +644,17 @@ import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
+import { validationMixin } from "vuelidate";
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+  sameAs,
+  alpha,
+  numeric,
+  helpers
+} from "vuelidate/lib/validators";
 
 // nama,jenisKelamin,tanggalLahir,alamat,kecamatan,kelurahan,noHp,email,penerimaBantuanPemerintah,pendidikanTerakhir,statusDalamKeluarga
 export default {
@@ -666,7 +678,8 @@ export default {
       ipbackend,
       riwayatPelatihan: [],
       riwayatPekerjaan: [],
-
+      src1:"",
+      src2:"",
       dataUser: {
         nama: "",
         jenisKelamin: "",
@@ -680,6 +693,7 @@ export default {
         pendidikanTerakhir: "",
         statusDalamKeluarga: "",
         foto: "",
+        fotoKTP:"",
         kepemilikanUMKM: "",
         namaPemilikUMKM: "",
         NIB: "",
@@ -704,6 +718,8 @@ export default {
       kecamatan: [{ value: null, text: "-- Pilih --" }],
 
       kelurahan: [{ value: null, text: "-- Pilih --" }],
+
+      kelurahan2: [{ value: null, text: "-- Pilih --" }],
 
       pendapatan: [{ value: null, text: "-- Pilih --" }],
 
@@ -769,6 +785,60 @@ export default {
       deep: true,
     },
   },
+  mixins: [validationMixin],
+  validations: {
+    item: {
+      nama: {
+        required,
+        isNameValid: helpers.regex("isNameValid", /^[a-z0-9_ \.\,]*$/i),
+        minLength: minLength(8)
+      },
+      NIK: {
+        required,
+        numeric,
+        minLength: minLength(16)
+      },
+      jenisKelamin:{
+        required
+      },
+      tanggalLahir:{
+        required
+      },
+      noHp: {
+        required,
+        numeric
+      },
+      alamat: {
+        required
+      },
+      jenisKelamin: {
+        required
+      },
+      kecamatan: {
+        required
+      },
+      kelurahan: {
+        required
+      },
+      foto:{
+        required
+      },
+      fotoKTP:{
+        required
+      }
+    }
+  },
+  computed: {
+    formString() {
+      return JSON.stringify(this.dataUser, null, 4);
+    },
+    isValid() {
+      return !this.$v.dataUser.$invalid;
+    },
+    isDirty() {
+      return this.$v.dataUser.$anyDirty;
+    },
+  },
   async mounted() {
     let vm = this;
 
@@ -810,6 +880,17 @@ export default {
     this.loadRiwayatPekerjaan();
   },
   methods: {
+    handleFile(x){
+
+    },
+    checkIfValid(fieldName) {
+      // console.log(fieldName)
+      const field = this.$v.dataUser[fieldName];
+      if (!field.$dirty) {
+        return null;
+      }
+      return !(field.$invalid || field.$model === "");
+    },
     // onChangeFileUpload(){
 
     //     this.dataUser.foto = this.$refs.file.files[0];
@@ -923,7 +1004,9 @@ export default {
           },
         }
       );
-      this.dataUser = dataUser.data.data[0];
+      vm.dataUser = dataUser.data.data[0];
+      vm.src1 = ipbackend + vm.dataUser.foto
+      vm.src2 = ipbackend + vm.dataUser.fotoKTP
       // console.log(dataUser.data.data[0]);
     },
     simpan() {
@@ -959,8 +1042,11 @@ export default {
       formData.append("kelurahanUMKM", vm.dataUser.kelurahanUMKM);
       formData.append("kodePosUMKM", vm.dataUser.kodePosUMKM);
       formData.append("noHpUMKM", vm.dataUser.noHpUMKM);
-      if (this.$refs.file.files[0]) {
-        formData.append("file1", this.$refs.file.files[0]);
+      if (this.$refs.file1.files[0]) {
+        formData.append("file1", this.$refs.file1.files[0]);
+      }
+      if (this.$refs.file1.files[0]) {
+        formData.append("file2", this.$refs.file2.files[0]);
       }
 
       axios({
@@ -976,6 +1062,25 @@ export default {
         this.loadData();
       });
     },
+    async kel2(){
+      let vm = this
+      let kelurahan2 = await axios.get(
+          ipbackend + "kelurahan/listKelByKecamatan/" + vm.dataUser.kecamatanUMKM,
+          {
+            headers: {
+              token: vm.user.token,
+            },
+          }
+        );
+        vm.kelurahan2 = [];
+        vm.kelurahan2.push({ value: null, text: "-- Pilih --" });
+        kelurahan2.data.data.forEach((item, idx) => {
+          vm.kelurahan2.push({
+            value: item.namaKelurahan,
+            text: item.namaKelurahan,
+          });
+        });
+    }
   },
 };
 </script>
