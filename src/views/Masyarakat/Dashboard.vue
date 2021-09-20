@@ -117,7 +117,10 @@
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
-                      <b-form-input v-model="dataUser.nama"></b-form-input>
+                      <b-form-input
+                        v-model="$v.dataUser.nama.$model"
+                        :state="checkIfValid('nama')"
+                      ></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -127,7 +130,8 @@
                     >
                       <b-form-select
                         :options="jenisKelamin"
-                        v-model="dataUser.jenisKelamin"
+                        v-model="$v.dataUser.jenisKelamin.$model"
+                        :state="checkIfValid('jenisKelamin')"
                       ></b-form-select>
                     </b-form-group>
 
@@ -137,9 +141,11 @@
                       label="Tanggal Lahir"
                     >
                       <date-picker
-                        v-model="dataUser.tanggalLahir"
+                        :state="checkIfValid('tanggalLahir')"
+                        v-model="$v.dataUser.tanggalLahir.$model"
                         valueType="format"
                         style="width: 100%"
+                        placeholder="TanggalLahir"
                       ></date-picker>
                     </b-form-group>
 
@@ -148,7 +154,10 @@
                       label-cols-lg="3"
                       label="Alamat"
                     >
-                      <b-form-input v-model="dataUser.alamat"></b-form-input>
+                      <b-form-input
+                        v-model="$v.dataUser.alamat.$model"
+                        :state="checkIfValid('alamat')"
+                      ></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -158,7 +167,8 @@
                     >
                       <b-form-select
                         :options="kecamatan"
-                        v-model="dataUser.kecamatan"
+                        v-model="$v.dataUser.kecamatan.$model"
+                        :state="checkIfValid('kecamatan')"
                       ></b-form-select>
                     </b-form-group>
 
@@ -169,7 +179,8 @@
                     >
                       <b-form-select
                         :options="kelurahan"
-                        v-model="dataUser.kelurahan"
+                        v-model="$v.dataUser.kelurahan.$model"
+                        :state="checkIfValid('kelurahan')"
                       ></b-form-select>
                     </b-form-group>
 
@@ -178,7 +189,10 @@
                       label-cols-lg="3"
                       label="No. Hp"
                     >
-                      <b-form-input v-model="dataUser.noHp"></b-form-input>
+                      <b-form-input
+                        v-model="$v.dataUser.noHp.$model"
+                        :state="checkIfValid('noHp')"
+                      ></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -194,14 +208,16 @@
                       label-cols-lg="3"
                       label="Foto Diri"
                     >
-                      <b-form-file type="file" id="file1" ref="file1" @input="handleFile('file1')" />
+                      <b-form-file
+                        type="file"
+                        id="file1"
+                        ref="file1"
+                        @input="handleFile('file1')"
+                      />
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
-                      <img
-                        style="width: 100px"
-                        :src="src1"
-                      />
+                      <img style="width: 100px" :src="src1" />
                     </b-form-group>
 
                     <b-form-group
@@ -209,14 +225,16 @@
                       label-cols-lg="3"
                       label="Foto KTP"
                     >
-                      <b-form-file type="file" id="file2" ref="file2" @input="handleFile('file2')" />
+                      <b-form-file
+                        type="file"
+                        id="file2"
+                        ref="file2"
+                        @input="handleFile('file2')"
+                      />
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
-                      <img
-                        style="width: 100px"
-                        :src="src2"
-                      />
+                      <img style="width: 100px" :src="src2" />
                     </b-form-group>
                   </b-col>
                 </b-row>
@@ -293,7 +311,7 @@
                     <div
                       v-if="
                         dataUser.kepemilikanUMKM == 'Ya, Sebagai Pemilik' ||
-                        dataUser.kepemilikanUMKM == 'Ya, Sebagai Karyawan'
+                          dataUser.kepemilikanUMKM == 'Ya, Sebagai Karyawan'
                       "
                     >
                       <b-form-group
@@ -625,7 +643,9 @@
             <b-tab title="Simpan Data">
               <b-card-text class="mt-3">
                 <p>Apakah anda yakin akan menyimpan data ini ?</p>
-                <b-button variant="primary" @click="simpan">Simpan</b-button>
+                <b-button variant="primary" @click="simpan" :disabled="!isValid"
+                  >Simpan</b-button
+                >
               </b-card-text>
             </b-tab>
           </b-tabs>
@@ -653,8 +673,10 @@ import {
   sameAs,
   alpha,
   numeric,
-  helpers
+  helpers,
 } from "vuelidate/lib/validators";
+import moment from "moment";
+import "moment/locale/id";
 
 // nama,jenisKelamin,tanggalLahir,alamat,kecamatan,kelurahan,noHp,email,penerimaBantuanPemerintah,pendidikanTerakhir,statusDalamKeluarga
 export default {
@@ -678,8 +700,10 @@ export default {
       ipbackend,
       riwayatPelatihan: [],
       riwayatPekerjaan: [],
-      src1:"",
-      src2:"",
+      file1: "",
+      file2: "",
+      src1: "",
+      src2: "",
       dataUser: {
         nama: "",
         jenisKelamin: "",
@@ -693,7 +717,7 @@ export default {
         pendidikanTerakhir: "",
         statusDalamKeluarga: "",
         foto: "",
-        fotoKTP:"",
+        fotoKTP: "",
         kepemilikanUMKM: "",
         namaPemilikUMKM: "",
         NIB: "",
@@ -787,46 +811,46 @@ export default {
   },
   mixins: [validationMixin],
   validations: {
-    item: {
+    dataUser: {
       nama: {
         required,
         isNameValid: helpers.regex("isNameValid", /^[a-z0-9_ \.\,]*$/i),
-        minLength: minLength(8)
+        minLength: minLength(8),
       },
       NIK: {
         required,
         numeric,
-        minLength: minLength(16)
+        minLength: minLength(16),
       },
-      jenisKelamin:{
-        required
+      jenisKelamin: {
+        required,
       },
-      tanggalLahir:{
-        required
+      tanggalLahir: {
+        required,
       },
       noHp: {
         required,
-        numeric
+        numeric,
       },
       alamat: {
-        required
+        required,
       },
       jenisKelamin: {
-        required
+        required,
       },
       kecamatan: {
-        required
+        required,
       },
       kelurahan: {
-        required
+        required,
       },
-      foto:{
-        required
+      foto: {
+        required,
       },
-      fotoKTP:{
-        required
-      }
-    }
+      fotoKTP: {
+        required,
+      },
+    },
   },
   computed: {
     formString() {
@@ -880,8 +904,26 @@ export default {
     this.loadRiwayatPekerjaan();
   },
   methods: {
-    handleFile(x){
-
+    handleFile(x) {
+      if (x == "file1") {
+        this.file1 = this.$refs.file1.files[0];
+        this.src1 = URL.createObjectURL(this.file1);
+        if (this.dataUser.foto == null) {
+          this.dataUser.foto = this.file1;
+          console.log(this.dataUser.foto);
+        }
+      } else if (x == "file2") {
+        this.file2 = this.$refs.file2.files[0];
+        this.src2 = URL.createObjectURL(this.file2);
+        if (this.dataUser.fotoKTP == null) {
+          this.dataUser.fotoKTP = this.file2;
+          console.log(this.dataUser.fotoKTP);
+        }
+      }
+    },
+    sendDate(y) {
+      let x = moment(y).format('YYYY/MM/DD')
+      return x
     },
     checkIfValid(fieldName) {
       // console.log(fieldName)
@@ -1005,14 +1047,15 @@ export default {
         }
       );
       vm.dataUser = dataUser.data.data[0];
-      vm.src1 = ipbackend + vm.dataUser.foto
-      vm.src2 = ipbackend + vm.dataUser.fotoKTP
+      vm.src1 = ipbackend + vm.dataUser.foto;
+      vm.src2 = ipbackend + vm.dataUser.fotoKTP;
       // console.log(dataUser.data.data[0]);
     },
     simpan() {
       console.log(this.dataUser);
       let vm = this;
-
+      let x = vm.sendDate(vm.dataUser.tanggalLahir);
+      let y = vm.sendDate(vm.dataUser.tanggalMulaiUsaha)
       var formData = new FormData();
       formData.append("nama", vm.dataUser.nama);
       formData.append("alamat", vm.dataUser.alamat);
@@ -1028,11 +1071,13 @@ export default {
         vm.dataUser.penerimaBantuanPemerintah
       );
       formData.append("statusDalamKeluarga", vm.dataUser.statusDalamKeluarga);
-      formData.append("tanggalLahir", vm.dataUser.tanggalLahir);
+      formData.append("tanggalLahir", x);
       formData.append("kepemilikanUMKM", vm.dataUser.kepemilikanUMKM);
       formData.append("namaPemilikUMKM", vm.dataUser.namaPemilikUMKM);
       formData.append("namaUMKM", vm.dataUser.namaUMKM);
-      formData.append("tanggalMulaiUsaha", vm.dataUser.tanggalMulaiUsaha);
+      if(vm.dataUser.tanggalMulaiUsaha != null){
+        formData.append("tanggalMulaiUsaha", y);
+      }
       formData.append("NIB", vm.dataUser.NIB);
       formData.append("PIRT", vm.dataUser.PIRT);
       formData.append("IUMK", vm.dataUser.IUMK);
@@ -1062,25 +1107,25 @@ export default {
         this.loadData();
       });
     },
-    async kel2(){
-      let vm = this
+    async kel2() {
+      let vm = this;
       let kelurahan2 = await axios.get(
-          ipbackend + "kelurahan/listKelByKecamatan/" + vm.dataUser.kecamatanUMKM,
-          {
-            headers: {
-              token: vm.user.token,
-            },
-          }
-        );
-        vm.kelurahan2 = [];
-        vm.kelurahan2.push({ value: null, text: "-- Pilih --" });
-        kelurahan2.data.data.forEach((item, idx) => {
-          vm.kelurahan2.push({
-            value: item.namaKelurahan,
-            text: item.namaKelurahan,
-          });
+        ipbackend + "kelurahan/listKelByKecamatan/" + vm.dataUser.kecamatanUMKM,
+        {
+          headers: {
+            token: vm.user.token,
+          },
+        }
+      );
+      vm.kelurahan2 = [];
+      vm.kelurahan2.push({ value: null, text: "-- Pilih --" });
+      kelurahan2.data.data.forEach((item, idx) => {
+        vm.kelurahan2.push({
+          value: item.namaKelurahan,
+          text: item.namaKelurahan,
         });
-    }
+      });
+    },
   },
 };
 </script>

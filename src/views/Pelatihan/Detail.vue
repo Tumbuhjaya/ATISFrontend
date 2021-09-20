@@ -253,7 +253,7 @@
         <b-row class="mt-3">
           <b-col md="12">
             <router-link :to="'/daftar_pelatihan/' + $route.params.id"
-              ><b-button variant="primary" :disabled="!sesuai"
+              ><b-button variant="primary" :disabled="!sesuai && login"
                 >Daftar Pelatihan</b-button
               ></router-link
             >

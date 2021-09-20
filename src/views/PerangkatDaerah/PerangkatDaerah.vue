@@ -83,7 +83,7 @@
                       class="mr-3"
                       v-b-tooltip.hover
                       title="Detail Pelatihan"
-                      @click="item"
+                      @click="getDetail(item)"
                       v-b-modal.modal-lg
                       ><b-icon icon="info-circle"></b-icon>
                     </b-button>
@@ -163,19 +163,22 @@
               <b-table
                 :items="items2"
                 :fields="fields2"
-                :current-page="currentPage"
-                :per-page="perPage"
+                :current-page="currentPage2"
+                :per-page="perPage2"
                 :filter="filter2"
                 :filter-included-fields="filterOn"
                 stacked="md"
                 show-empty
                 bordered
                 small
-                @filtered="onFiltered"
+                @filtered="onFiltered2"
                 class="mt-3"
               >
                 <template #cell(No)="item">
                   {{ item.index + 1 }}
+                </template>
+                <template #cell(tanggalMulaiPelatihan)="item">
+                  {{ moment(item.tanggalMulaiPelatihan).format('ll') }} s/d {{moment(item.tanggalSelesaiPelatihan).format('ll')}}
                 </template>
               </b-table>
             </b-col>
@@ -206,28 +209,31 @@ import ipbackend from "../../ipbackend";
 // @ is an alias to /src
 import ThisIsHeader from "../../components/ThisIsHeader";
 import ThisIsFooter from "../../components/ThisIsFooter";
+import moment from "moment"
+import "moment/locale/id";
 
 export default {
   name: "PerangkatDaerah",
   data() {
     return {
+      moment,
       fields: [
         {
-          key: "nonya",
+          key: "No",
           label: "No",
           sortable: true,
           class: "text-center",
         },
 
         {
-          key: "opdnya",
+          key: "namaOPD",
           label: "Perangkat Daerah",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "jmlnya",
+          key: "count",
           label: "Jumlah Pelatihan",
           sortable: true,
           sortDirection: "desc",
@@ -236,31 +242,25 @@ export default {
 
         { key: "actions", label: "Actions", class: "text-center" },
       ],
-      items: [
-        {
-          nonya: 1,
-          opdnya: "dul",
-          jmlnya: "1",
-        },
-      ],
+      items:[],
 
       fields2: [
         {
-          key: "nonya",
+          key: "No",
           label: "No",
           sortable: true,
           class: "text-center",
         },
 
         {
-          key: "pelatihannya",
+          key: "judulPelatihan",
           label: "Pelatihan",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
         {
-          key: "kategorinya",
+          key: "kejuruan",
           label: "Kategori",
           sortable: true,
           sortDirection: "desc",
@@ -268,7 +268,7 @@ export default {
         },
 
         {
-          key: "subKategorinya",
+          key: "subKejuruan",
           label: "Sub Kategori",
           sortable: true,
           sortDirection: "desc",
@@ -276,26 +276,21 @@ export default {
         },
 
         {
-          key: "tglnya",
+          key: "tanggalMulaiPelatihan",
           label: "Tanggal Pelaksanaan",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
         },
       ],
-      items2: [
-        {
-          nonya: 1,
-          pelatihannya: "dul",
-          kategorinya: "1",
-          subKatergorinya: "1",
-          tglnya: "1",
-        },
-      ],
+      items2: [],
 
       totalRows: 1,
+      totalRows2: 1,
       currentPage: 1,
+      currentPage2: 1,
       perPage: 10,
+      perPage2: 10,
       pageOptions: [10, 50, 100],
       filter: null,
       filter2: null,
@@ -317,6 +312,40 @@ export default {
         });
     },
   },
+  created(){
+    this.getData()
+  },
+  methods:{
+    onFiltered(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows = filteredItems.length
+        this.currentPage = 1
+    },
+    onFiltered2(filteredItems) {
+        // Trigger pagination to update the number of buttons/pages due to filtering
+        this.totalRows2 = filteredItems.length
+        this.currentPage2 = 1
+    },
+    getData(){
+      axios.get(ipbackend + 'pelatihan/listRencanaPelatihanOPD').then(res =>{
+        console.log(res)
+        this.items = res.data.data
+        this.totalRows = this.items.length
+      }).catch(err =>{
+        console.log(err)
+      })
+    },
+    getDetail(x){
+      console.log(x)
+      axios.get(ipbackend + 'pelatihan/listRencanaPelatihanByOPDId/' + x.item.OPDId).then(res=>{
+        console.log(res)
+        this.items2 = res.data.data
+        this.totalRows2 = this.items2.length
+      }).catch(err=>{
+        console.log(err)
+      })
+    }
+  }
 };
 </script>
 

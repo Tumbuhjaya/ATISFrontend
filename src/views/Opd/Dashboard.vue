@@ -971,7 +971,7 @@ export default {
       ipbackend,
       dataPeserta: [],
       moment,
-
+      tahunPilih: 2021,
       dataInput: {
         judulPelatihan: "",
         kejuruan: "",
@@ -982,7 +982,6 @@ export default {
         tanggalMulaiPelatihan: "",
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
-        tahunPilih: 2021,
         sumberDanaPelatihan: "",
         lokasi: "",
         koordinatXPelatihan: "",
@@ -1650,11 +1649,11 @@ export default {
       formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
-        this.dataInput.tanggalMulaiPelatihan
+        moment(this.dataInput.tanggalMulaiPelatihan).format('YYYY/MM/DD')
       );
       formData.append(
         "tanggalSelesaiPelatihan",
-        this.dataInput.tanggalSelesaiPelatihan
+        moment(this.dataInput.tanggalSelesaiPelatihan).format('YYYY/MM/DD')
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
       formData.append("lokasi", this.dataInput.lokasi);
@@ -1728,11 +1727,11 @@ export default {
       formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
-        this.dataInput.tanggalMulaiPelatihan
+        moment(this.dataInput.tanggalMulaiPelatihan).format('YYYY/MM/DD')
       );
       formData.append(
         "tanggalSelesaiPelatihan",
-        this.dataInput.tanggalSelesaiPelatihan
+        moment(this.dataInput.tanggalSelesaiPelatihan).format('YYYY/MM/DD')
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
       formData.append("lokasi", this.dataInput.lokasi);
