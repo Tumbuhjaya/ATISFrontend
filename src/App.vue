@@ -27,7 +27,6 @@
       </div>
     </router-link>
 
-    <router-link :to="''">
       <div
         style="
           background-color: #e0e0e0;
@@ -42,6 +41,7 @@
           border-radius: 6px;
           z-index: 2;
         "
+        @click="downloadManual()"
       >
         <img src="./assets/guide-book.png" alt="" style="width: 70px" />
 
@@ -50,9 +50,25 @@
           <strong>Manual Book</strong>
         </h6>
       </div>
-    </router-link>
   </div>
 </template>
+
+<script>
+import ipBackEnd from './ipbackend';
+export default {
+  data() {
+    return{
+
+    }
+  },
+  methods:{
+    downloadManual(){
+      const url = ipBackEnd + "users/downloadMBPeserta/";
+      window.location.href = url;
+    },
+  }
+}
+</script>
 
 <style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap");
