@@ -24,6 +24,7 @@
             <img
               v-else
               src="https://via.placeholder.com/1140x500?text=Tidak Ada Foto"
+              style="width: 100%"
             />
           </b-col>
 
@@ -303,7 +304,6 @@ export default {
     },
   },
   methods: {
-    
     async ambilPelatihan() {
       let ret = localStorage.getItem("user");
       ret = JSON.parse(ret);
@@ -316,7 +316,7 @@ export default {
       this.pelatihan.sisa = pelatihan.data.sisaKuota;
 
       if (ret) {
-        console.log('cihuy')
+        console.log("cihuy");
         let datauser = await axios.get(ipbackend + "users/listById/" + ret.id, {
           headers: {
             token: ret.token,

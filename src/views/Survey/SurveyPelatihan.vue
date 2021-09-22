@@ -15,11 +15,22 @@
           <b-col md="8" offset-md="2">
             <b-form-group label="Nama">
               <b-form-input v-model="namaPengusul"></b-form-input>
-
             </b-form-group>
 
             <b-form-group label="NIK">
               <b-form-input v-model="NIKUsulan"></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Alamat">
+              <b-form-input></b-form-input>
+            </b-form-group>
+
+            <b-form-group label="Kecamatan">
+              <b-form-select :options="kecamatan"></b-form-select>
+            </b-form-group>
+
+            <b-form-group label="Kelurahan">
+              <b-form-select :options="kelurahan"></b-form-select>
             </b-form-group>
 
             <b-form-group label="No. Telepon">
@@ -50,10 +61,12 @@ export default {
   name: "SurveyPelatihan",
   data() {
     return {
-        namaUsulan: "",
-        namaPengusul: "",
-        NIKUsulan: "",
-        noHpUsulan: "",
+      namaUsulan: "",
+      namaPengusul: "",
+      NIKUsulan: "",
+      noHpUsulan: "",
+      kec: [{ value: "", text: "-- Pilih --" }],
+      kel: [{ value: "", text: "-- Pilih --" }],
     };
   },
   components: {
