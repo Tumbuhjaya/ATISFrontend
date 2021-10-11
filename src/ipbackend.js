@@ -1,3 +1,3 @@
-let ipBackend = 'http://survplus.id:8804/';
+let ipBackend = 'http://besimplemas.salatiga.go.id/';
 
 module.exports= ipBackend
