@@ -6,8 +6,8 @@
           <b-col md="12">
             <div class="running-text">
               <marquee-text>
-                Selamat Datang pada Sistem Informasi Pelatihan (S I M P E L)
-                Kota Salatiga -
+                Selamat Datang pada Sistem Informasi Pelatihan Masyarakat
+                (SIMPEL MAS) Kota Salatiga -
               </marquee-text>
             </div>
           </b-col>
@@ -21,9 +21,9 @@
             <div class="indentity">
               <img src="../assets/logo kota salatiga.png" />
               <div class="indentity-name">
-                <h3 class="mt-0 mb-0"><strong>S I M P E L</strong></h3>
+                <h3 class="mt-0 mb-0"><strong>SIMPEL MAS</strong></h3>
                 <h6 style="font-size: 16px; font-weight: 400">
-                  Sistem Informasi Pelatihan
+                  Sistem Informasi Pelatihan Masyarakat
                 </h6>
 
                 <!-- <h6 style="font-size: 16px; font-weight: 400">Kota Salatiga</h6> -->

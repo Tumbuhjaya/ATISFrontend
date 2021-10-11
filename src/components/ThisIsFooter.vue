@@ -33,9 +33,9 @@
             <b-row class="mt-3">
               <b-col md="12">
                 <p style="font-size: 12px">
-                  Sistem Informasi Pelatiha (SIMPEL) merupakan salah satu
-                  program yang dicanangkan oleh Bappeda Salatiga pada tahun 2021
-                  yang bertujuan mengintegrasikan dan mensinkronkan
+                  Sistem Informasi Pelatihan Masyarakat (SIMPEL MAS) merupakan
+                  salah satu program yang dicanangkan oleh Bappeda Salatiga pada
+                  tahun 2021 yang bertujuan mengintegrasikan dan mensinkronkan
                   program-program pelatihan yang diselenggarakan oleh setiap
                   instansi Pemerintah Kota Salatiga
                 </p>
