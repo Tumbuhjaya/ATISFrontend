@@ -41,17 +41,21 @@
                 </p>
               </b-col>
             </b-row>
+
+            <b-row>
+              <b-col md="12">
+                <a :href="ipBackend + 'users/downloadAPK'" target="_blank">
+                  <button class="btn btn-primary">
+                    Download APK SIMPEL MAS
+                  </button>
+                </a>
+              </b-col>
+            </b-row>
           </b-col>
 
           <b-col md="6" offset-md="1">
             <b-row>
-              <b-col md="4">
-                <!-- <h5>Tentang ATIS</h5>
-                <h5>Pelatihan</h5>
-                <h5>Penyelenggara</h5>
-                <h5>Statistik</h5> -->
-              </b-col>
-              <b-col md="8">
+              <b-col md="12">
                 <b-row>
                   <b-col md="12">
                     <h4 class="mt-0 mb-0">
@@ -83,8 +87,12 @@
 </template>
 
 <script>
+import ipBackend from "../ipbackend";
 export default {
   name: "ThisIsFooter",
+  data: function () {
+    return { ipBackend };
+  },
 };
 </script>
 

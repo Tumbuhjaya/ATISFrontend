@@ -18,56 +18,54 @@
           z-index: 2;
         "
       >
-        <img src="./assets/icon-usulan.png" alt="" style="width: 70px" />
+        <img src="./assets/icon-usulan.png" alt="" style="width: 50px" />
 
-        <h6 class="mt-2 mb-0" style="color: black">Usul</h6>
-        <h6 class="mt-0 mb-0" style="color: black">
+        <h6 class="mt-2 mb-0" style="color: black; font-size: 12px">Usul</h6>
+        <h6 class="mt-0 mb-0" style="color: black; font-size: 12px">
           <strong>Pelatihan</strong>
         </h6>
       </div>
     </router-link>
 
-      <div
-        style="
-          background-color: #e0e0e0;
-          position: fixed;
-          left: 30px;
-          bottom: 30px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          padding: 15px;
-          border-radius: 6px;
-          z-index: 2;
-        "
-        @click="downloadManual()"
-      >
-        <img src="./assets/guide-book.png" alt="" style="width: 70px" />
+    <div
+      style="
+        background-color: #e0e0e0;
+        position: fixed;
+        left: 30px;
+        bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding: 15px;
+        border-radius: 6px;
+        z-index: 2;
+      "
+      @click="downloadManual()"
+    >
+      <img src="./assets/guide-book.png" alt="" style="width: 50px" />
 
-        <h6 class="mt-2 mb-0" style="color: black">Download</h6>
-        <h6 class="mt-0 mb-0" style="color: black">
-          <strong>Manual Book</strong>
-        </h6>
-      </div>
+      <h6 class="mt-2 mb-0" style="color: black; font-size: 12px">Download</h6>
+      <h6 class="mt-0 mb-0" style="color: black; font-size: 12px">
+        <strong>Manual Book</strong>
+      </h6>
+    </div>
   </div>
 </template>
 
 <script>
-import ipBackEnd from './ipbackend';
+import ipBackEnd from "./ipbackend";
 export default {
   data() {
-    return{
-
-    }
+    return {};
   },
-  methods:{
-    downloadManual(){
+  methods: {
+    downloadManual() {
       const url = ipBackEnd + "users/downloadMBPeserta/";
       window.location.href = url;
     },
-  }
-}
+  },
+};
 </script>
 
 <style>
