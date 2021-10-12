@@ -261,7 +261,7 @@
                       <template #cell(actions)="item">
                         <a
                           :href="
-                            'http://survplus.id:8804/pelatihan/cetakabsen/' +
+                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakabsen/' +
                             item.item.id
                           "
                           target="_blank"
@@ -463,7 +463,7 @@
 
                         <a
                           :href="
-                            'http://survplus.id:8804/pelatihan/cetakrealisasi/' +
+                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakrealisasi/' +
                             item.item.id
                           "
                           target="_blank"
@@ -1649,11 +1649,11 @@ export default {
       formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
-        moment(this.dataInput.tanggalMulaiPelatihan).format('YYYY/MM/DD')
+        moment(this.dataInput.tanggalMulaiPelatihan).format("YYYY/MM/DD")
       );
       formData.append(
         "tanggalSelesaiPelatihan",
-        moment(this.dataInput.tanggalSelesaiPelatihan).format('YYYY/MM/DD')
+        moment(this.dataInput.tanggalSelesaiPelatihan).format("YYYY/MM/DD")
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
       formData.append("lokasi", this.dataInput.lokasi);
@@ -1727,11 +1727,11 @@ export default {
       formData.append("sasaranPelatihan", this.dataInput.sasaranPelatihan);
       formData.append(
         "tanggalMulaiPelatihan",
-        moment(this.dataInput.tanggalMulaiPelatihan).format('YYYY/MM/DD')
+        moment(this.dataInput.tanggalMulaiPelatihan).format("YYYY/MM/DD")
       );
       formData.append(
         "tanggalSelesaiPelatihan",
-        moment(this.dataInput.tanggalSelesaiPelatihan).format('YYYY/MM/DD')
+        moment(this.dataInput.tanggalSelesaiPelatihan).format("YYYY/MM/DD")
       );
       formData.append("kuotaPeserta", this.dataInput.kuotaPeserta);
       formData.append("lokasi", this.dataInput.lokasi);
