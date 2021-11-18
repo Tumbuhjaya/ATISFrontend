@@ -286,7 +286,7 @@ import ipbackend from "../ipbackend";
 // @ is an alias to /src
 import ThisIsHeader from "../components/ThisIsHeader";
 import ThisIsFooter from "../components/ThisIsFooter";
-import AnimatedNumber from "animated-number-vue";
+// import AnimatedNumber from "animated-number-vue";
 import VueSlickCarousel from "vue-slick-carousel";
 import moment from "moment";
 moment.locale("id");
