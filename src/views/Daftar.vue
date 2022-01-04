@@ -76,10 +76,7 @@
                       border-radius: 10px;
                     "
                   >
-                    <b-form-group
-                      label="Peminatan 1"
-                      description="Pastikan isi sesuai dengan minat anda, karena peminatan ini akan menetukan kategori pelatihan yang bisa anda ikuti"
-                    >
+                    <b-form-group label="Peminatan 1">
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat1.$model"
@@ -87,12 +84,15 @@
                       <b-form-invalid-feedback :state="checkIfValid('minat1')">
                         Peminatan Wajib diisi.
                       </b-form-invalid-feedback>
+                      <h6
+                        style="font-weight: bold; font-size: 12px"
+                        class="mt-1 mb-0"
+                      >
+                        Meliputi : isi dengan subkategorinya
+                      </h6>
                     </b-form-group>
 
-                    <b-form-group
-                      label="Peminatan 2"
-                      description="Pastikan isi sesuai dengan minat anda, karena peminatan ini akan menetukan kategori pelatihan yang bisa anda ikuti"
-                    >
+                    <b-form-group label="Peminatan 2">
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat2.$model"
@@ -100,6 +100,25 @@
                       <b-form-invalid-feedback :state="checkIfValid('minat2')">
                         Peminatan Wajib diisi.
                       </b-form-invalid-feedback>
+                      <h6
+                        style="font-weight: bold; font-size: 12px"
+                        class="mt-1 mb-0"
+                      >
+                        Meliputi : isi dengan subkategorinya
+                      </h6>
+                    </b-form-group>
+
+                    <b-form-group>
+                      <h6
+                        style="font-weight: bold; font-size: 12px"
+                        class="mt-0 mb-0"
+                      >
+                        <i
+                          >Pastikan isi sesuai dengan minat anda, karena
+                          peminatan ini akan menetukan kategori pelatihan yang
+                          bisa anda ikuti</i
+                        >
+                      </h6>
                     </b-form-group>
                   </div>
                   <hr />

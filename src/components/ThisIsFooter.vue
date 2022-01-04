@@ -67,8 +67,18 @@
                   </b-col>
 
                   <b-col md="12" class="mt-3">
+                    <p style="font-size: 12px">
+                      Apabila anda mengalami kendala pada saat mengoperasikan
+                      simpelmas.salatiga.go.id, silahkan hubungi admin melalui
+                      email berikut ini
+                      <span style="font-weight: bold">
+                        simpelmas.salatiga@gmail.com</span
+                      >
+                    </p>
+                  </b-col>
+                  <b-col md="12" class="mt-3">
                     <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4050.860110010008!2d110.49856856371225!3d-7.3319508571359275!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a7836e1ffaac3%3A0x245363b38d0a6761!2sBappeda%20Salatiga!5e0!3m2!1sid!2sid!4v1627193634401!5m2!1sid!2sid"
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15828.79326772853!2d110.5006196!3d-7.3316109!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x8878386f39e860a4!2sBappeda%20Kota%20Salatiga!5e0!3m2!1sid!2sid!4v1641282617771!5m2!1sid!2sid"
                       width="100%"
                       height="300"
                       style="border: 0"
