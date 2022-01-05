@@ -80,6 +80,7 @@
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat1.$model"
+                        @change="getSub(data.minat1, 'minat1')"
                       ></b-form-select>
                       <b-form-invalid-feedback :state="checkIfValid('minat1')">
                         Peminatan Wajib diisi.
@@ -89,6 +90,10 @@
                         class="mt-1 mb-0"
                       >
                         Meliputi : isi dengan subkategorinya
+                        <p></p>
+                        <p v-for="(item, index) in listSub1" :key="item.id">
+                          {{index+1}} . {{item.namaSubKejuruan}}
+                        </p>
                       </h6>
                     </b-form-group>
 
@@ -96,6 +101,7 @@
                       <b-form-select
                         :options="kategori"
                         v-model="$v.data.minat2.$model"
+                        @change="getSub(data.minat2, 'minat2')"
                       ></b-form-select>
                       <b-form-invalid-feedback :state="checkIfValid('minat2')">
                         Peminatan Wajib diisi.
@@ -105,6 +111,10 @@
                         class="mt-1 mb-0"
                       >
                         Meliputi : isi dengan subkategorinya
+                        <p></p>
+                        <p v-for="(item, index) in listSub2" :key="item.id">
+                          {{index+1}} . {{item.namaSubKejuruan}}
+                        </p>
                       </h6>
                     </b-form-group>
 
@@ -162,10 +172,6 @@ import { validationMixin } from "vuelidate";
 import {
   required,
   minLength,
-  maxLength,
-  email,
-  sameAs,
-  alpha,
   numeric,
   helpers,
 } from "vuelidate/lib/validators";
@@ -176,7 +182,7 @@ export default {
     ThisIsHeader,
     ThisIsFooter,
   },
-  data: function () {
+  data: function() {
     return {
       data: {
         NIK: "",
@@ -190,6 +196,8 @@ export default {
         minat2: "",
       },
       kategori: [{ value: null, text: "-- Pilih --" }],
+      listSub1: [],
+      listSub2: [],
     };
   },
   created() {
@@ -247,6 +255,18 @@ export default {
         return null;
       }
       return !(field.$invalid || field.$model === "");
+    },
+    async getSub(x,y) {
+      console.log(x)
+      let vm = this;
+      let subkategori = await axios.get(
+        ipbackend + "kejuruan/listSubKejuruanByKejuruan/" + x,
+      );
+      if (y == "minat1") {
+        vm.listSub1 = subkategori.data.data;
+      } else if (y == "minat2") {
+        vm.listSub2 = subkategori.data.data;
+      }
     },
     simpan() {
       // console.log(this.data);
