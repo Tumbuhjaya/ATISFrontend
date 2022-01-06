@@ -117,114 +117,228 @@
             </router-link>
           </b-col>
         </b-row> -->
-        <b-row class="mt-3">
-          <b-col md="2">
-            <b-form-group
-              label="Per page"
-              label-for="per-page-select"
-              label-cols-md="6"
-              label-align-md="left"
-              label-size="md"
-              class="mb-0"
-            >
-              <b-form-select
-                id="per-page-select"
-                v-model="perPage"
-                :options="pageOptions"
-                size="md"
-              ></b-form-select>
-            </b-form-group>
-          </b-col>
+        <b-tabs>
+          <b-tab title="Semua Peserta">
+            <b-row class="mt-3">
+              <b-col md="2">
+                <b-form-group
+                  label="Per page"
+                  label-for="per-page-select"
+                  label-cols-md="6"
+                  label-align-md="left"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-form-select
+                    id="per-page-select"
+                    v-model="perPage"
+                    :options="pageOptions"
+                    size="md"
+                  ></b-form-select>
+                </b-form-group>
+              </b-col>
 
-          <b-col md="5" offset-md="5">
-            <b-form-group
-              label="Filter"
-              label-for="filter-input"
-              label-cols-md="3"
-              label-align-md="right"
-              label-size="md"
-              class="mb-0"
-            >
-              <b-input-group size="md">
-                <b-form-input
-                  id="filter-input"
-                  v-model="filter"
-                  type="search"
-                  placeholder="Type to Search"
-                ></b-form-input>
+              <b-col md="5" offset-md="5">
+                <b-form-group
+                  label="Filter"
+                  label-for="filter-input"
+                  label-cols-md="3"
+                  label-align-md="right"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-input-group size="md">
+                    <b-form-input
+                      id="filter-input"
+                      v-model="filter"
+                      type="search"
+                      placeholder="Type to Search"
+                    ></b-form-input>
 
-                <b-input-group-append>
-                  <b-button :disabled="!filter" @click="filter = ''"
-                    >Clear</b-button
-                  >
-                </b-input-group-append>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
+                    <b-input-group-append>
+                      <b-button :disabled="!filter" @click="filter = ''"
+                        >Clear</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-row>
 
-        <b-row>
-          <b-col md="12">
-            <b-table
-              :items="dataPeserta"
-              :fields="fields"
-              :current-page="currentPage"
-              :per-page="perPage"
-              :filter="filter"
-              :filter-included-fields="filterOn"
-              stacked="md"
-              show-empty
-              bordered
-              small
-              @filtered="onFiltered"
-              class="mt-3"
-            >
-              <template #cell(actions)="item">
-                <center>
-                  <b-button
-                    variant="warning"
-                    size="sm"
-                    class="mr-3"
-                    v-b-tooltip.hover
-                    title="Profil Peserta"
-                    v-b-modal.modal-lg
-                    @click="loadProfil(item.item.idnya, $route.params.id)"
-                    ><b-icon icon="info-circle"></b-icon>
-                    {{ item.actions }}</b-button
-                  >
-                </center>
-              </template>
+            <b-row>
+              <b-col md="12">
+                <b-table
+                  :items="dataPeserta"
+                  :fields="fields"
+                  :current-page="currentPage"
+                  :per-page="perPage"
+                  :filter="filter"
+                  :filter-included-fields="filterOn"
+                  stacked="md"
+                  show-empty
+                  bordered
+                  small
+                  @filtered="onFiltered"
+                  class="mt-3"
+                >
+                  <template #cell(actions)="item">
+                    <center>
+                      <b-button
+                        variant="warning"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Profil Peserta"
+                        v-b-modal.modal-lg
+                        @click="loadProfil(item.item.idnya, $route.params.id)"
+                        ><b-icon icon="info-circle"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+                    </center>
+                  </template>
 
-              <template #cell(ikutsertanya)="item">
-                <center>
-                  <b-form-checkbox
-                    :disabled="
-                      kuota == bulk.length && item.item.ditambahkan == 0
-                    "
-                    class="checkbox"
-                    @input="bulks()"
-                    v-model="item.item.ditambahkan"
-                    value="1"
-                    unchecked-value="0"
-                  >
-                  </b-form-checkbox>
-                </center>
-              </template>
-            </b-table>
-          </b-col>
-        </b-row>
+                  <template #cell(ikutsertanya)="item">
+                    <center>
+                      <b-form-checkbox
+                        :disabled="
+                          kuota == bulk.length && item.item.ditambahkan == 0
+                        "
+                        class="checkbox"
+                        @input="bulks()"
+                        v-model="item.item.ditambahkan"
+                        value="1"
+                        unchecked-value="0"
+                      >
+                      </b-form-checkbox>
+                    </center>
+                  </template>
+                </b-table>
+              </b-col>
+            </b-row>
 
-        <b-row>
-          <b-col md="5" offset-md="7">
-            <b-pagination
-              v-model="currentPage"
-              :total-rows="totalRows"
-              :per-page="perPage"
-              align="fill"
-              size="sm"
-            ></b-pagination>
-          </b-col>
-        </b-row>
+            <b-row>
+              <b-col md="5" offset-md="7">
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="totalRows"
+                  :per-page="perPage"
+                  align="fill"
+                  size="sm"
+                ></b-pagination>
+              </b-col>
+            </b-row>
+          </b-tab>
+          <b-tab title="Peserta Berminat">
+            <b-row class="mt-3">
+              <b-col md="2">
+                <b-form-group
+                  label="Per page"
+                  label-for="per-page-select"
+                  label-cols-md="6"
+                  label-align-md="left"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-form-select
+                    id="per-page-select"
+                    v-model="perPage"
+                    :options="pageOptions"
+                    size="md"
+                  ></b-form-select>
+                </b-form-group>
+              </b-col>
+
+              <b-col md="5" offset-md="5">
+                <b-form-group
+                  label="Filter"
+                  label-for="filter-input"
+                  label-cols-md="3"
+                  label-align-md="right"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-input-group size="md">
+                    <b-form-input
+                      id="filter-input"
+                      v-model="filter"
+                      type="search"
+                      placeholder="Type to Search"
+                    ></b-form-input>
+
+                    <b-input-group-append>
+                      <b-button :disabled="!filter" @click="filter = ''"
+                        >Clear</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="12">
+                <b-table
+                  :items="dataPesertaMinat"
+                  :fields="fields"
+                  :current-page="currentPage"
+                  :per-page="perPage"
+                  :filter="filter"
+                  :filter-included-fields="filterOn"
+                  stacked="md"
+                  show-empty
+                  bordered
+                  small
+                  @filtered="onFiltered"
+                  class="mt-3"
+                >
+                  <template #cell(actions)="item">
+                    <center>
+                      <b-button
+                        variant="warning"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Profil Peserta"
+                        v-b-modal.modal-lg
+                        @click="loadProfil(item.item.idnya, $route.params.id)"
+                        ><b-icon icon="info-circle"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+                    </center>
+                  </template>
+
+                  <template #cell(ikutsertanya)="item">
+                    <center>
+                      <b-form-checkbox
+                        :disabled="
+                          kuota == bulk.length && item.item.ditambahkan == 0
+                        "
+                        class="checkbox"
+                        @input="bulks()"
+                        v-model="item.item.ditambahkan"
+                        value="1"
+                        unchecked-value="0"
+                      >
+                      </b-form-checkbox>
+                    </center>
+                  </template>
+                </b-table>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="5" offset-md="7">
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="totalRows2"
+                  :per-page="perPage"
+                  align="fill"
+                  size="sm"
+                ></b-pagination>
+              </b-col>
+            </b-row>
+          </b-tab>
+        </b-tabs>
       </b-container>
     </section>
 
@@ -597,6 +711,7 @@ export default {
       bulk: [],
       moment,
       dataPeserta: [],
+      dataPesertaMinat: [],
       profil: [],
       pelatihanLain: [],
       riwayatPekerjaan: [],
@@ -682,6 +797,16 @@ export default {
           return { text: f.label, value: f.key };
         });
     },
+    // bulkP(){
+    //   let P = []
+    //   let x = this.bulk.map((item) => {
+    //     return {
+    //       userId: item.idnya,
+    //       pelatihanId: this.$route.params.id,
+    //       status: 1,
+    //     };
+    //   });
+    // },
   },
 
   mounted() {
@@ -696,8 +821,16 @@ export default {
   },
   methods: {
     async bulks() {
-      this.bulk = await this.dataPeserta.filter((item) => {
-        return item.ditambahkan == 1;
+      this.bulk = [] 
+      await this.dataPeserta.forEach((item) => {
+        if(item.ditambahkan == 1){
+          this.bulk.push(item)
+        }
+      });
+      await this.dataPesertaMinat.forEach((item) => {
+        if(item.ditambahkan == 1){
+          this.bulk.push(item)
+        }
       });
       if (this.bulk.length >= this.kuota) {
         this.$bvModal.show("maksimum");
@@ -818,21 +951,18 @@ export default {
     },
     async listUser() {
       let vm = this;
-      this.dataPeserta = [];
-      let itemnya = await axios.get(
-        ipbackend + "users/usersNotInPelatihan/" + this.$route.params.id,
+      let minat = await axios.get(
+        ipbackend + "users/listPesertaSesuaiMinat/" + vm.$route.params.id,
         {
           headers: {
             token: vm.user.token,
           },
         }
       );
-      console.log(itemnya.data.data);
-      let x = itemnya.data.data;
-      this.totalRows = x.length;
+      vm.totalRows2 = minat.data.data.length;
 
-      itemnya.data.data.forEach((item, idx) => {
-        this.dataPeserta.push({
+      vm.dataPesertaMinat = await minat.data.data.map((item, idx) => {
+        return {
           nonya: idx + 1,
           idnya: item.id,
           judulPelatihan: item.judulPelatihan,
@@ -851,9 +981,75 @@ export default {
           filePendukung: item.file,
           keteranganFile: item.keteranganFile,
           statusnya: item.status,
-        });
+        };
       });
-      // console.log(itemnya, "anjay");
+
+      let itemnya = await axios.get(
+        ipbackend + "users/usersNotInPelatihan/" + vm.$route.params.id,
+        {
+          headers: {
+            token: vm.user.token,
+          },
+        }
+      );
+      console.log(itemnya.data.data, "anjay");
+      await itemnya.data.data.forEach((ele, idx) => {
+        if (vm.dataPesertaMinat.length) {
+          let x = vm.dataPesertaMinat;
+          let count = 0;
+          for (let i = 0; i < x.length; i++) {
+            count++;
+            if (ele.id == x[i].idnya) {
+              count--;
+              // console.log(count,ele.nama,"<<")
+            } else if (count == vm.dataPesertaMinat.length) {
+              vm.dataPeserta.push({
+                nonya: idx + 1,
+                idnya: ele.id,
+                judulPelatihan: ele.judulPelatihan,
+                foto: ele.foto,
+                jmlPelatihanSelesai: ele.jmlPelatihanSelesai,
+                // niknya: ele.NIK,
+                namanya: ele.nama,
+                kelaminnya: ele.jenisKelamin,
+                // lahirnya: moment(ele.tanggalLahir).format("LL"),
+                alamatnya: ele.alamat,
+                kecamatannya: ele.kecamatan,
+                kelurahannya: ele.kelurahan,
+                // hpnya: ele.noHp,
+                // emailnya: ele.email,
+                ditambahkan: 0,
+                filePendukung: ele.file,
+                keteranganFile: ele.keteranganFile,
+                statusnya: ele.status,
+              });
+            }
+          }
+        } else {
+          vm.dataPeserta.push({
+            nonya: idx + 1,
+            idnya: ele.id,
+            judulPelatihan: ele.judulPelatihan,
+            foto: ele.foto,
+            jmlPelatihanSelesai: ele.jmlPelatihanSelesai,
+            // niknya: ele.NIK,
+            namanya: ele.nama,
+            kelaminnya: ele.jenisKelamin,
+            // lahirnya: moment(ele.tanggalLahir).format("LL"),
+            alamatnya: ele.alamat,
+            kecamatannya: ele.kecamatan,
+            kelurahannya: ele.kelurahan,
+            // hpnya: ele.noHp,
+            // emailnya: ele.email,
+            ditambahkan: 0,
+            filePendukung: ele.file,
+            keteranganFile: ele.keteranganFile,
+            statusnya: ele.status,
+          });
+        }
+      });
+      console.log(vm.dataPesertaMinat, vm.dataPeserta);
+      vm.totalRows = vm.dataPeserta.length;
     },
     onFiltered(filteredItems) {
       // Trigger pagination to update the number of buttons/pages due to filtering
