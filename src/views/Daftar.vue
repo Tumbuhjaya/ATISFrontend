@@ -278,7 +278,7 @@ export default {
           nama: "",
           alamat: "",
           password: "",
-          role: "Peserta",
+          role: "peserta",
           noHp: "",
           email: "",
           minat1: "",
