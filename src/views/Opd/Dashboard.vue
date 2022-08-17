@@ -166,6 +166,23 @@
                             {{ item.actions }}</b-button
                           >
                         </router-link>
+
+                        <a
+                          :href="
+                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakabsen/' +
+                            item.item.id
+                          "
+                          target="_blank"
+                        >
+                          <b-button
+                            variant="warning"
+                            size="sm"
+                            v-b-tooltip.hover
+                            title="Cetak Absensi"
+                            ><b-icon icon="printer-fill"></b-icon>
+                            {{ item.actions }}</b-button
+                          >
+                        </a>
                       </template>
                     </b-table>
                   </b-col>
@@ -580,6 +597,14 @@
           v-model="dataInput.sumberDanaPelatihan"
         ></b-form-select>
       </b-form-group>
+      <b-form-group
+        label-cols="6"
+        label-cols-lg="3"
+        label="Sumber Dana Lainnya"
+        v-if="dataInput.sumberDanaPelatihan == 'lain'"
+      >
+        <b-form-input v-model="dataInput.SumberDanaLainnya"></b-form-input>
+      </b-form-group>
 
       <b-form-group label-cols="6" label-cols-lg="3" label="Pagu Anggaran">
         <b-form-input v-model="dataInput.anggaranPelatihan"></b-form-input>
@@ -983,6 +1008,7 @@ export default {
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
         sumberDanaPelatihan: "",
+        SumberDanaLainnya: "",
         lokasi: "",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
@@ -1023,6 +1049,8 @@ export default {
         { value: "APBD", text: "APBD" },
         { value: "Dakel", text: "Dakel" },
         { value: "DAK", text: "DAK" },
+        { value: "DBHCHT", text: "DBHCHT" },
+        { value: "Sumber Lainnya", text: "Sumber Lainnya" },
       ],
       fields: [
         {
@@ -1661,10 +1689,18 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      formData.append(
-        "sumberDanaPelatihan",
-        this.dataInput.sumberDanaPelatihan
-      );
+      if (vm.dataInput.sumberDanaPelatihan == "lain") {
+        formData.append(
+          "sumberDanaPelatihan",
+          this.dataInput.SumberDanaLainnya
+        );
+      } else {
+        formData.append(
+          "sumberDanaPelatihan",
+          this.dataInput.sumberDanaPelatihan
+        );
+      }
+
       formData.append(
         "keteranganPembatalan",
         this.dataInput.keteranganPembatalan
@@ -1698,6 +1734,7 @@ export default {
         tanggalSelesaiPelatihan: "",
         kuotaPeserta: 0,
         sumberDanaPelatihan: "",
+        SumberDanaLainnya: "",
         koordinatXPelatihan: "",
         koordinatYPelatihan: "",
         kecamatanPelatihan: "",
@@ -1739,10 +1776,17 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      formData.append(
-        "sumberDanaPelatihan",
-        this.dataInput.sumberDanaPelatihan
-      );
+      if (vm.dataInput.sumberDanaPelatihan == "lain") {
+        formData.append(
+          "sumberDanaPelatihan",
+          this.dataInput.SumberDanaLainnya
+        );
+      } else {
+        formData.append(
+          "sumberDanaPelatihan",
+          this.dataInput.sumberDanaPelatihan
+        );
+      }
       formData.append(
         "keteranganPembatalan",
         this.dataInput.keteranganPembatalan

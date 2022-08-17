@@ -992,6 +992,7 @@ export default {
           },
         }
       );
+      vm.dataPeserta = []
       console.log(itemnya.data.data, "anjay");
       await itemnya.data.data.forEach((ele, idx) => {
         if (vm.dataPesertaMinat.length) {
@@ -1080,6 +1081,8 @@ export default {
         .then((res) => {
           console.log(res);
           this.listUser();
+          this.propel()
+          this.bulk = []
         })
         .catch((err) => {
           console.log(err);
