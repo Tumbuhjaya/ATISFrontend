@@ -16,16 +16,22 @@
           <b-col md="12">
             <b-alert show variant="primary">
               <h5 class="alert-heading">Filter Berdasarkan Kategori :</h5>
-              <b-button
-                variant="primary"
-                size="sm"
-                class="mr-1 ml-1 mt-3"
+              <span
                 v-for="item in kejuruan"
                 :key="item.no"
                 @click="filter(item)"
-                >{{ item.namaKejuruan }}
-                <b-badge variant="warning">{{ item.count }}</b-badge></b-button
               >
+                <b-button
+                  v-if="item.count != 0"
+                  variant="primary"
+                  size="sm"
+                  class="mr-1 ml-1 mt-3"
+                  >{{ item.namaKejuruan }}
+                  <b-badge variant="warning">{{
+                    item.count
+                  }}</b-badge></b-button
+                >
+              </span>
 
               <!-- <b-button variant="primary" size="sm" class="mr-1 ml-1 mt-3"
                 >Kategori <b-badge variant="warning">4</b-badge></b-button
@@ -185,6 +191,8 @@ export default {
     return {
       pelatihan: [],
       kejuruan: [],
+      minat: [],
+      ret: "",
       ipbackend,
       moment,
     };
@@ -192,15 +200,59 @@ export default {
   watch: {
     "$route.params": {
       handler(newValue) {
+        let vm = this;
         // const { userName } = newValue
-        this.ambilPelatihan();
-        this.ambilKejuruan();
+        let ret = localStorage.getItem("user");
+        vm.ret = JSON.parse(ret);
+        console.log(vm.ret);
+
+        if (vm.ret != null) {
+          vm.minat = [
+            { namaKejuruan: vm.ret.minat1, count: 0 },
+            { namaKejuruan: vm.ret.minat2, count: 0 },
+          ];
+          vm.ambilByMinat();
+        } else {
+          vm.ambilPelatihan();
+          vm.ambilKejuruan();
+        }
       },
       immediate: true,
     },
   },
 
   methods: {
+    async ambilByMinat() {
+      this.kejuruan = [];
+      let pelatihan = await axios.get(
+        ipbackend + "pelatihan/listPelatihanByMinatUsersLogin",
+        {
+          headers: {
+            token: this.ret.token,
+          },
+        }
+      );
+      // console.log(pelatihan, "ini minat");
+      this.pelatihan = pelatihan.data.data;
+      this.ambilKejuruanMinat();
+    },
+    async ambilKejuruanMinat() {
+      let jml = 0;
+      for (let i = 0; i < this.minat.length; i++) {
+        let x = this.minat[i];
+        this.kejuruan.push({ namaKejuruan: x.namaKejuruan, count: 0 });
+        for (let j = 0; j < this.pelatihan.length; j++) {
+          if (x.namaKejuruan == this.pelatihan[j].kejuruan) {
+            if (j < this.pelatihan.length) {
+              this.kejuruan[i].count++;
+              jml++;
+            }
+          }
+        }
+      }
+      this.kejuruan.unshift({ namaKejuruan: "Semua", count: jml });
+      console.log(this.minat);
+    },
     async ambilPelatihan() {
       let pelatihan = await axios.get(
         ipbackend +

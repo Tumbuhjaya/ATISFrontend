@@ -621,6 +621,8 @@ export default {
       alert(hasil.data.message);
       if (hasil.data.message == "sukses") {
         this.$router.push("/");
+      }else{
+        alert(hasil.data.message)
       }
       // console.log(hasil);
     },
