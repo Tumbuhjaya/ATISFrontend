@@ -211,6 +211,7 @@ export default {
             { namaKejuruan: vm.ret.minat1, count: 0 },
             { namaKejuruan: vm.ret.minat2, count: 0 },
           ];
+          vm.ambilPelatihan();
           vm.ambilByMinat();
         } else {
           vm.ambilPelatihan();
