@@ -207,7 +207,7 @@ export default {
         vm.ret = JSON.parse(ret);
         console.log(vm.ret);
 
-        if (vm.ret != null) {
+        if (vm.ret != null && vm.ret.role == 'peserta') {
           vm.minat = [
             { namaKejuruan: vm.ret.minat1, count: 0 },
             { namaKejuruan: vm.ret.minat2, count: 0 },

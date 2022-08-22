@@ -1689,17 +1689,17 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      if (vm.dataInput.sumberDanaPelatihan == "lain") {
-        formData.append(
-          "sumberDanaPelatihan",
-          this.dataInput.SumberDanaLainnya
-        );
-      } else {
+      // if (vm.dataInput.sumberDanaPelatihan == "lain") {
+      //   formData.append(
+      //     "sumberDanaPelatihan",
+      //     this.dataInput.SumberDanaLainnya
+      //   );
+      // } else {
         formData.append(
           "sumberDanaPelatihan",
           this.dataInput.sumberDanaPelatihan
         );
-      }
+      // }
 
       formData.append(
         "keteranganPembatalan",

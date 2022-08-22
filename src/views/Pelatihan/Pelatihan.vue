@@ -22,7 +22,7 @@
                 @click="filter(item)"
               >
                 <b-button
-                  v-if="item.count != 0"
+                  
                   variant="primary"
                   size="sm"
                   class="mr-1 ml-1 mt-3"
@@ -192,6 +192,7 @@ export default {
       pelatihan: [],
       kejuruan: [],
       minat: [],
+      pelatihanMinat:[],
       ret: "",
       ipbackend,
       moment,
@@ -206,7 +207,7 @@ export default {
         vm.ret = JSON.parse(ret);
         console.log(vm.ret);
 
-        if (vm.ret != null) {
+        if (vm.ret != null && vm.ret.role == 'peserta') {
           vm.minat = [
             { namaKejuruan: vm.ret.minat1, count: 0 },
             { namaKejuruan: vm.ret.minat2, count: 0 },
@@ -234,7 +235,7 @@ export default {
         }
       );
       // console.log(pelatihan, "ini minat");
-      this.pelatihan = pelatihan.data.data;
+      this.pelatihanMinat = pelatihan.data.data;
       this.ambilKejuruanMinat();
     },
     async ambilKejuruanMinat() {
@@ -242,9 +243,9 @@ export default {
       for (let i = 0; i < this.minat.length; i++) {
         let x = this.minat[i];
         this.kejuruan.push({ namaKejuruan: x.namaKejuruan, count: 0 });
-        for (let j = 0; j < this.pelatihan.length; j++) {
-          if (x.namaKejuruan == this.pelatihan[j].kejuruan) {
-            if (j < this.pelatihan.length) {
+        for (let j = 0; j < this.pelatihanMinat.length; j++) {
+          if (x.namaKejuruan == this.pelatihanMinat[j].kejuruan) {
+            if (j < this.pelatihanMinat.length) {
               this.kejuruan[i].count++;
               jml++;
             }
