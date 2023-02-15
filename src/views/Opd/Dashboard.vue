@@ -1776,7 +1776,7 @@ export default {
       formData.append("kelurahanPelatihan", this.dataInput.kelurahanPelatihan);
       formData.append("syaratUmum", this.dataInput.syaratUmum);
       formData.append("syaratKhusus", this.dataInput.syaratKhusus);
-      if (vm.dataInput.sumberDanaPelatihan == "lain") {
+      if (this.dataInput.sumberDanaPelatihan == "lain") {
         formData.append(
           "sumberDanaPelatihan",
           this.dataInput.SumberDanaLainnya
