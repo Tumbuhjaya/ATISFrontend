@@ -168,8 +168,8 @@
                         </router-link>
 
                         <a
-                          :href="
-                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakabsen/' +
+                          :href="ipbackend +
+                            '/pelatihan/cetakabsen/' +
                             item.item.id
                           "
                           target="_blank"
@@ -277,8 +277,8 @@
 
                       <template #cell(actions)="item">
                         <a
-                          :href="
-                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakabsen/' +
+                          :href="ipbackend +
+                            'pelatihan/cetakabsen/' +
                             item.item.id
                           "
                           target="_blank"
@@ -479,8 +479,8 @@
                         >
 
                         <a
-                          :href="
-                            'http://besimpelmas.salatiga.go.id/pelatihan/cetakrealisasi/' +
+                          :href="ipbackend +
+                            '/pelatihan/cetakrealisasi/' +
                             item.item.id
                           "
                           target="_blank"
