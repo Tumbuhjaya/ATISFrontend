@@ -17,8 +17,8 @@
               <b-row>
                 <b-col md="12">
                   <b-form-group
-                    label="NIK/NIP"
-                    description="Apabila anda sebagai peserta silahkan login menggunakan NIK anda, sedangkan apabila anda sebagai OPD silahkan login menggunakan NIP"
+                    label="NIK/NIP/EMAIL"
+                    description="Apabila anda sebagai peserta silahkan login menggunakan NIK/Email anda, sedangkan apabila anda sebagai OPD silahkan login menggunakan NIP/Email"
                   >
                     <b-form-input v-model="data.NIK"></b-form-input>
                   </b-form-group>
