@@ -169,7 +169,7 @@
 
                         <a
                           :href="ipbackend +
-                            '/pelatihan/cetakabsen/' +
+                            'pelatihan/cetakabsen/' +
                             item.item.id
                           "
                           target="_blank"
@@ -480,7 +480,7 @@
 
                         <a
                           :href="ipbackend +
-                            '/pelatihan/cetakrealisasi/' +
+                            'pelatihan/cetakrealisasi/' +
                             item.item.id
                           "
                           target="_blank"
@@ -962,6 +962,52 @@
           </b-form-group>
 
           <b-button variant="primary" @click="cetakrencana">Cetak</b-button>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <!-- modal profil opd -->
+    <b-modal
+      id="modal-profil"
+      size="lg"
+      title="Ubah Profil OPD"
+      hide-footer
+    >
+      <b-row>
+        <b-col md="12" lg="12">
+          <b-form-group label-cols="6" label-cols-lg="3" label="Nama Instansi">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="Alamat Lengkap">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="No. Telepon Instansi">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="No. Faksimile">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="Situs">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="Email">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="Nama Pejabat Penandatangan">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-form-group label-cols="6" label-cols-lg="3" label="NIP Pejabat Penandatangan">
+            <b-form-input></b-form-input>
+          </b-form-group>
+
+          <b-button variant="primary">Simpan</b-button>
         </b-col>
       </b-row>
     </b-modal>

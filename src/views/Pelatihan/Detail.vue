@@ -18,7 +18,7 @@
             <img
               v-if="pelatihan.bannerPelatihan"
               :src="ipbackend + pelatihan.bannerPelatihan"
-              style="width: 100%"
+              style="width: 100%;object-fit: cover;"
             />
 
             <img

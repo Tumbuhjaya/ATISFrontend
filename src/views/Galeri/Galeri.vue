@@ -13,7 +13,21 @@
           <b-col md="4" class="mt-4" v-for="item in pelatihans" :key="item.id">
             <div class="box">
               <img
-                :src="setSrc(item.bannerPelatihan)"
+              v-if="item.bannerPelatihan"
+                :src="ipbackend + item.bannerPelatihan"
+                alt=""
+                style="
+                  border-top-left-radius: 10px;
+                  border-top-right-radius: 10px;
+                  width: 100%;
+                  height: 240px;
+                  object-fit: cover;
+                "
+              />
+
+              <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
                 alt=""
                 style="
                   border-top-left-radius: 10px;
@@ -27,9 +41,11 @@
                 <h4 class="title">{{ item.judulPelatihan }}</h4>
                 <b-row class="mt-2">
                   <b-col md="12">
+                    <div style="overflow: auto;">
                     <b-badge variant="success" style="padding: 5px">{{
                       item.namaOPD
                     }}</b-badge>
+                    </div>
                   </b-col>
                 </b-row>
 
@@ -114,6 +130,7 @@ export default {
     return {
       pelatihans: "",
       moment,
+      ipbackend,
     };
   },
   created() {

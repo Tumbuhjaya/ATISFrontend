@@ -15,10 +15,17 @@
         <b-row class="mt-5">
           <b-col md="6">
             <img
-              :src="setSrc(details.bannerPelatihan)"
+            v-if="details.bannerPelatihan"
+            :src="ipbackend + details.bannerPelatihan"
               alt=""
-              style="width: 100%"
+              style="width: 100%;;object-fit: cover;"
             />
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px"
+              />
           </b-col>
 
           <b-col md="6">
@@ -175,42 +182,78 @@
         <b-row>
           <b-col md="4" class="mt-4">
             <img
+             v-if="details.fotoPelatihan1"
               :src="ipbackend + details.fotoPelatihan1"
               alt=""
-              style="width: 100%; height: 300px"
+              style="width: 100%; height: 300px;object-fit: cover;"
             />
+
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px;"
+              />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
+              v-if="details.fotoPelatihan2"
               :src="ipbackend + details.fotoPelatihan2"
               alt=""
-              style="width: 100%; height: 300px"
+              style="width: 100%; height: 300px;object-fit: cover;"
             />
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px"
+              />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
+              v-if="details.fotoPelatihan3"
               :src="ipbackend + details.fotoPelatihan3"
               alt=""
-              style="width: 100%; height: 300px"
+              style="width: 100%; height: 300px;object-fit: cover;"
             />
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px"
+              />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
+               v-if="details.fotoPelatihan4"
               :src="ipbackend + details.fotoPelatihan4"
               alt=""
-              style="width: 100%; height: 300px"
+              style="width: 100%; height: 300px;object-fit: cover;"
             />
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px"
+              />
           </b-col>
 
           <b-col md="4" class="mt-4">
             <img
+              v-if="details.fotoPelatihan5"
               :src="ipbackend + details.fotoPelatihan5"
               alt=""
-              style="width: 100%; height: 300px"
+              style="width: 100%; height: 300px;object-fit: cover;"
             />
+            <img
+                v-else
+                src="https://via.placeholder.com/360x260?text=Tidak Ada Foto"
+                alt=""
+                style="width: 100%; height: 300px"
+              />
           </b-col>
         </b-row>
       </b-container>

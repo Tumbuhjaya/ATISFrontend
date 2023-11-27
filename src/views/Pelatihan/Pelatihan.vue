@@ -74,6 +74,7 @@
                   border-top-right-radius: 10px;
                   width: 100%;
                   height: 240px;
+                  object-fit: cover;
                 "
               />
               <img
