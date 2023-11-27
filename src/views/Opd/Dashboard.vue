@@ -979,7 +979,7 @@
             <b-form-input></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Alamat Lengkap">
+          <b-form-group label-cols="6" label-cols-lg="3" label="Alamat Instansi">
             <b-form-input></b-form-input>
           </b-form-group>
 
@@ -987,15 +987,15 @@
             <b-form-input></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="No. Faksimile">
+          <b-form-group label-cols="6" label-cols-lg="3" label="No. Faksimile Instansi">
             <b-form-input></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Situs">
+          <b-form-group label-cols="6" label-cols-lg="3" label="Email Instansi">
             <b-form-input></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Email">
+          <b-form-group label-cols="6" label-cols-lg="3" label="Situs Instansi">
             <b-form-input></b-form-input>
           </b-form-group>
 
