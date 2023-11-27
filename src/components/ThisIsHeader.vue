@@ -139,6 +139,7 @@
                 <b-dropdown-item v-else @click="$router.push('/dashboard_opd')"
                   >Dashboard</b-dropdown-item
                 >
+                <b-dropdown-item>Profil</b-dropdown-item>
                 <b-dropdown-item @click="logout">Logout</b-dropdown-item>
               </b-dropdown>
             </div>

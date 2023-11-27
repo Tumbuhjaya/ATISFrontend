@@ -16,8 +16,7 @@
                   <div class="indentity-footer-name">
                     <h6 class="mt-0 mb-0">
                       <strong
-                        >Badan Perencaan, Pembangunan dan Penelitian Daerah Kota
-                        Salatiga</strong
+                        >Badan Perencanaan, Penelitian dan Pengembangan Daerah</strong
                       >
                     </h6>
 
