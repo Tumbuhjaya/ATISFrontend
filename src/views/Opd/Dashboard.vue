@@ -6,7 +6,7 @@
         <b-row>
           <b-col md="12">
             <h2 class="text-center"><strong>Dashboard</strong></h2>
-            <h4 class="text-center">{{ user.namaOPD.namaOPD }}</h4>
+            <h4 class="text-center">{{ user.namaOPD }}</h4>
           </b-col>
         </b-row>
 
@@ -975,39 +975,39 @@
     >
       <b-row>
         <b-col md="12" lg="12">
-          <b-form-group label-cols="6" label-cols-lg="3" label="Nama Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"  label="Nama Instansi">
+            <b-form-input  v-model="users.nama"></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Alamat Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"  label="Alamat Instansi">
+            <b-form-input  v-model="users.alamat"></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="No. Telepon Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"   label="No. Telepon Instansi">
+            <b-form-input v-model="users.no_telepon_instansi"></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="No. Faksimile Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"   label="No. Faksimile Instansi">
+            <b-form-input v-model="users.no_faksimile_instansi"></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Email Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"   label="Email Instansi">
+            <b-form-input v-model="users.email"></b-form-input>
           </b-form-group>
 
-          <b-form-group label-cols="6" label-cols-lg="3" label="Situs Instansi">
-            <b-form-input></b-form-input>
+          <b-form-group label-cols="6" label-cols-lg="3"   label="Situs Instansi">
+            <b-form-input v-model="users.situs_instansi"></b-form-input>
           </b-form-group>
 
           <b-form-group label-cols="6" label-cols-lg="3" label="Nama Pejabat Penandatangan">
-            <b-form-input></b-form-input>
+            <b-form-input  v-model="users.nama_penandatangan"></b-form-input>
           </b-form-group>
 
           <b-form-group label-cols="6" label-cols-lg="3" label="NIP Pejabat Penandatangan">
-            <b-form-input></b-form-input>
+            <b-form-input   v-model="users.nip_penandatangan" ></b-form-input>
           </b-form-group>
 
-          <b-button variant="primary">Simpan</b-button>
+          <b-button variant="primary" @click="simpan">Simpan</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -1039,6 +1039,47 @@ export default {
   data() {
     return {
       user: {},
+      users: {IUMK:'',
+    NIB:'',
+    NIK:'',
+    OPDId:'',
+    PIRT:'',
+    alamat:'',
+    alamatUMKM:'',
+    createdAt:'',
+    deletedAt:'',
+    email:'',
+    foto:'',
+    fotoKTP:'',
+    id:'',
+    jenisKelamin:'',
+    kecamatan:'',
+    kecamatanUMKM:'',
+    kelurahan:'',
+    kelurahanUMKM:'',
+    kepemilikanUMKM:'',
+    kodePosUMKM:'',
+    lainnya:'',
+    minat1:'',
+    minat2:'',
+    nama:'',
+    namaPemilikUMKM:'',
+    namaUMKM:'',
+    nama_penandatangan:'',
+    nip_penandatangan:'',
+    noHp:'',
+    noHpUMKM:'',
+    no_faksimile_instansi:'',
+    no_telepon_instansi:'',
+    password:'',
+    pendidikanTerakhir:'',
+    penerimaBantuanPemerintah:'',
+    role:'',
+    situs_instansi:'',
+    statusDalamKeluarga:'',
+    tanggalLahir:'',
+    tanggalMulaiUsaha:'',
+    updatedAt:'',},
       ipbackend,
       dataPeserta: [],
       moment,
@@ -1447,7 +1488,12 @@ export default {
     }
     vm.user = JSON.parse(ret);
     this.totalRows = this.items.length;
-
+    let users = await axios.get(ipbackend + "users/listById/"+vm.user.id, {
+      headers: {
+        token: vm.user.token,
+      },
+    });
+    vm.users = users.data.data[0]
     let kecamatan = await axios.get(ipbackend + "kelurahan/listKecamatan/", {
       headers: {
         token: vm.user.token,
@@ -1491,7 +1537,7 @@ export default {
           "pelatihan/cetakopd/" +
           this.user.namaOPD.OPDId +
           "/" +
-          this.tahunPilih,
+          this.tahunPilih+'?id='+this.user.id,
         "_blank"
       );
     },
@@ -1793,7 +1839,33 @@ export default {
       };
       this.$bvModal.hide("modal-lg");
     },
-
+    async simpan(){
+      var formData = new FormData();
+      formData.append("id", this.users.id);
+      formData.append("alamat", this.users.alamat);
+      formData.append("nama", this.users.nama);
+      formData.append("email", this.users.email);
+      formData.append("nama_penandatangan", this.users.nama_penandatangan);
+      formData.append("nip_penandatangan", this.users.nip_penandatangan);
+      formData.append("no_telepon_instansi", this.users.no_telepon_instansi);
+      formData.append("no_faksimile_instansi", this.users.no_faksimile_instansi);
+      formData.append("situs_instansi", this.users.situs_instansi);
+      axios
+        .post(ipbackend + "users/update", formData, {
+          headers: {
+            token: this.user.token,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          // this.$emit("tembak");
+          alert('sukses')
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     async update() {
       console.log(this.dataInput.keteranganPembatalan);
       // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
