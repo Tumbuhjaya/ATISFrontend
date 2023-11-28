@@ -6,7 +6,7 @@
         <b-row>
           <b-col md="12">
             <h2 class="text-center"><strong>Dashboard</strong></h2>
-            <h4 class="text-center">{{ user.namaOPD }}</h4>
+            <h4 class="text-center">{{ user.namaOPD.namaOPD }}</h4>
           </b-col>
         </b-row>
 
