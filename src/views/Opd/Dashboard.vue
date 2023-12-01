@@ -170,7 +170,7 @@
                         <a
                           :href="ipbackend +
                             'pelatihan/cetakabsen/' +
-                            item.item.id
+                            item.item.id+'?id='+user.id
                           "
                           target="_blank"
                         >
@@ -279,7 +279,7 @@
                         <a
                           :href="ipbackend +
                             'pelatihan/cetakabsen/' +
-                            item.item.id
+                            item.item.id+'?id='+user.id
                           "
                           target="_blank"
                         >
@@ -481,7 +481,7 @@
                         <a
                           :href="ipbackend +
                             'pelatihan/cetakrealisasi/' +
-                            item.item.id
+                            item.item.id+'?id='+user.id
                           "
                           target="_blank"
                         >
@@ -1378,7 +1378,7 @@ export default {
           class: "text-left",
         },
       ],
-
+        user:localStorage.getItem('user'),
       totalRows: 1,
       currentPage: 1,
       perPage: 10,
