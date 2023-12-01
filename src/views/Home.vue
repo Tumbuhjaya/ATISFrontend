@@ -172,7 +172,6 @@
     <ThisIsFooter></ThisIsFooter>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import ThisIsHeader from "../components/ThisIsHeader";
