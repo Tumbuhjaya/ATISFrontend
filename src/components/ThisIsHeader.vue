@@ -139,7 +139,7 @@
                 <b-dropdown-item v-else @click="$router.push('/dashboard_opd')"
                   >Dashboard</b-dropdown-item
                 >
-                <b-dropdown-item v-b-modal.modal-profil>Profil</b-dropdown-item>
+                <b-dropdown-item v-b-modal.modal-profil  v-if="user[0].role == 'OPD'">Profil</b-dropdown-item>
                 <b-dropdown-item @click="logout">Logout</b-dropdown-item>
               </b-dropdown>
             </div>
