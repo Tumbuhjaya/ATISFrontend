@@ -274,14 +274,42 @@
     <div class="b-row">
       <b-col md="12">
         <b-form-group label-cols="6" label-cols-lg="3" label="Peminatan 1">
-          <b-form-select></b-form-select>
+          <b-form-select
+          :options="kategori"
+          v-model="temp_minat1"
+          @change="getSub(temp_minat1, 'minat1')">
+        </b-form-select>
+        <h6
+          style="font-weight: bold; font-size: 12px"
+          class="mt-1 mb-0"
+        >
+          Meliputi : isi dengan subkategorinya
+          <p></p>
+          <p v-for="(item, index) in listSub1" :key="item.id">
+            {{index+1}} . {{item.namaSubKejuruan}}
+          </p>
+        </h6>
         </b-form-group>
 
         <b-form-group label-cols="6" label-cols-lg="3" label="Peminatan 2">
-          <b-form-select ></b-form-select>
+          <b-form-select 
+          :options="kategori"
+          v-model="temp_minat2"
+          @change="getSub(temp_minat2, 'minat2')">
+        </b-form-select>
+        <h6
+          style="font-weight: bold; font-size: 12px"
+          class="mt-1 mb-0"
+        >
+          Meliputi : isi dengan subkategorinya
+          <p></p>
+          <p v-for="(item, index) in listSub2" :key="item.id">
+            {{index+1}} . {{item.namaSubKejuruan}}
+          </p>
+        </h6>
         </b-form-group>
 
-        <b-button variant="primary" class="mt-3">Simpan</b-button>
+        <b-button variant="primary" class="mt-3" @click="simpan">Simpan</b-button>
       </b-col>
     </div>
   </b-modal>
@@ -311,6 +339,13 @@ export default {
       ipbackend,
       login: false,
       moment,
+      kategori: [{ value: null, text: "-- Pilih --" }],
+      temp_minat1: "",
+      temp_minat2: "",
+      listSub1: [],
+      listSub2: [],
+      minat: [],
+      users:{}
     };
   },
   mounted() {
@@ -324,7 +359,118 @@ export default {
       );
     },
   },
+  created() {
+    let vm = this
+    this.getKategori();
+    let ret = localStorage.getItem("user");
+      ret = JSON.parse(ret);
+      console.log(ret.token);
+      vm.users = ret
+      console.log(this.$route.params.id);
+      this.temp_minat1 = ret.minat1
+      this.temp_minat2 = ret.minat2
+      vm.getSub(ret.minat1,'minat1')
+      vm.getSub(ret.minat2,'minat2')
+
+  },
+  watch: {
+    "$route.params": {
+      handler(newValue) {
+        let vm = this;
+        // const { userName } = newValue
+        let ret = localStorage.getItem("user");
+        vm.ret = JSON.parse(ret);
+        console.log(vm.ret);
+
+        if (vm.ret != null && vm.ret.role == 'peserta') {
+          vm.minat = [
+            { namaKejuruan: vm.ret.temp_minat1, count: 0 },
+            { namaKejuruan: vm.ret.temp_minat2, count: 0 },
+          ];
+          vm.ambilPelatihan();
+          vm.ambilByMinat();
+        } else {
+          vm.ambilPelatihan();
+          vm.ambilKejuruan();
+        }
+      },
+      immediate: true,
+    },
+  },
   methods: {
+    simpan() {
+      // console.log(this.data);
+      let data = {
+        id:this.users.id,
+          temp_minat1: this.temp_minat1,
+          temp_minat2: this.temp_minat2,
+          tanggal_usulan_perubahan: this.moment(),
+
+        }
+        axios({
+        method: "post",
+        url: ipbackend + "users/update",
+        data,
+        headers: {
+          token: this.users.token,
+        },
+      }).then((data) => {
+        console.log(data);
+          alert(data.data.message);
+      });
+
+    },
+    async ambilByMinat() {
+      this.kejuruan = [];
+      let pelatihan = await axios.get(
+        ipbackend + "pelatihan/listPelatihanByMinatUsersLogin",
+        {
+          headers: {
+            token: this.ret.token,
+          },
+        }
+      );
+      // console.log(pelatihan, "ini minat");
+      this.pelatihanMinat = pelatihan.data.data;
+      this.ambilKejuruanMinat();
+    },
+    async ambilKejuruanMinat() {
+      let jml = 0;
+      for (let i = 0; i < this.minat.length; i++) {
+        let x = this.minat[i];
+        this.kejuruan.push({ namaKejuruan: x.namaKejuruan, count: 0 });
+        for (let j = 0; j < this.pelatihanMinat.length; j++) {
+          if (x.namaKejuruan == this.pelatihanMinat[j].kejuruan) {
+            if (j < this.pelatihanMinat.length) {
+              this.kejuruan[i].count++;
+              jml++;
+            }
+          }
+        }
+      }
+      this.kejuruan.unshift({ namaKejuruan: "Semua", count: jml });
+      console.log(this.minat);
+    },
+    async getKategori() {
+      let kate = await axios.get(ipbackend + "kejuruan/listKejuruan");
+      console.log(kate);
+      for (let i = 0; i < kate.data.data.length; i++) {
+        let x = kate.data.data[i];
+        this.kategori.push({ value: x.namaKejuruan, text: x.namaKejuruan });
+      }
+    },
+    async getSub(x,y) {
+      console.log(x)
+      let vm = this;
+      let subkategori = await axios.get(
+        ipbackend + "kejuruan/listSubKejuruanByKejuruan/" + x,
+      );
+      if (y == "minat1") {
+        vm.listSub1 = subkategori.data.data;
+      } else if (y == "minat2") {
+        vm.listSub2 = subkategori.data.data;
+      }
+    },
     async ambilPelatihan() {
       let ret = localStorage.getItem("user");
       ret = JSON.parse(ret);
