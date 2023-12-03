@@ -241,13 +241,13 @@
         <b-row>
           <b-col md="12" lg="12">
             <b-alert show variant="danger" v-if="!sesuai && login">
-              <h4 class="text-center">
-                Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih
-              </h4>
+              <h5 class="text-center">
+                Maaf Pelatihan ini tidak sesuai dengan peminatan yang anda pilih, <span style="font-weight: bold;color: red;"  v-b-modal.modal-usul-peminatan>Usul Perubahan Peminatan</span>
+              </h5>
 
-              <h4 v-if="pelatihan.sisa == 0" class="text-center">
+              <h5 v-if="pelatihan.sisa == 0" class="text-center">
                 Maaf kuota peserta untuk pelatihan ini sudah terpenuhi
-              </h4>
+              </h5>
             </b-alert>
           </b-col>
         </b-row>
@@ -258,12 +258,33 @@
                 >Daftar Pelatihan</b-button
               ></router-link
             >
+
+
+            
           </b-col>
         </b-row>
       </b-container>
     </section>
 
     <ThisIsFooter></ThisIsFooter>
+
+
+  <!-- modal ubah peminatan -->
+  <b-modal id="modal-usul-peminatan" title="Usul Perubahan Peminatan" hide-footer>
+    <div class="b-row">
+      <b-col md="12">
+        <b-form-group label-cols="6" label-cols-lg="3" label="Peminatan 1">
+          <b-form-select></b-form-select>
+        </b-form-group>
+
+        <b-form-group label-cols="6" label-cols-lg="3" label="Peminatan 2">
+          <b-form-select ></b-form-select>
+        </b-form-group>
+
+        <b-button variant="primary" class="mt-3">Simpan</b-button>
+      </b-col>
+    </div>
+  </b-modal>
   </div>
 </template>
 
