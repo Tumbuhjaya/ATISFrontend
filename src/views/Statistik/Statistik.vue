@@ -255,7 +255,7 @@ export default {
 
         axisY: {
           labelFontSize: 14,
-          interval: 1,
+          interval: 5,
         },
         data: [
           {
@@ -281,7 +281,7 @@ export default {
 
         axisY: {
           labelFontSize: 14,
-          interval: 1,
+          interval: 5,
         },
         data: [
           {
@@ -307,7 +307,7 @@ export default {
 
         axisY: {
           labelFontSize: 14,
-          interval: 1,
+          interval: 5,
         },
         data: [
           {

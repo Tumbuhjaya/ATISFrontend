@@ -117,118 +117,13 @@
             </router-link>
           </b-col>
         </b-row> -->
-        <b-tabs>
-          <b-tab title="Semua Peserta">
+        <b-tabs align="center">
+          <b-tab title="Peserta Sesuai Peminatan">
             <b-row class="mt-3">
-              <b-col md="2">
-                <b-form-group
-                  label="Per page"
-                  label-for="per-page-select"
-                  label-cols-md="6"
-                  label-align-md="left"
-                  label-size="md"
-                  class="mb-0"
-                >
-                  <b-form-select
-                    id="per-page-select"
-                    v-model="perPage"
-                    :options="pageOptions"
-                    size="md"
-                  ></b-form-select>
-                </b-form-group>
-              </b-col>
-
-              <b-col md="5" offset-md="5">
-                <b-form-group
-                  label="Filter"
-                  label-for="filter-input"
-                  label-cols-md="3"
-                  label-align-md="right"
-                  label-size="md"
-                  class="mb-0"
-                >
-                  <b-input-group size="md">
-                    <b-form-input
-                      id="filter-input"
-                      v-model="filter"
-                      type="search"
-                      placeholder="Type to Search"
-                    ></b-form-input>
-
-                    <b-input-group-append>
-                      <b-button :disabled="!filter" @click="filter = ''"
-                        >Clear</b-button
-                      >
-                    </b-input-group-append>
-                  </b-input-group>
-                </b-form-group>
-              </b-col>
-            </b-row>
-
-            <b-row>
               <b-col md="12">
-                <b-table
-                  :items="dataPeserta"
-                  :fields="fields"
-                  :current-page="currentPage"
-                  :per-page="perPage"
-                  :filter="filter"
-                  :filter-included-fields="filterOn"
-                  stacked="md"
-                  show-empty
-                  bordered
-                  small
-                  @filtered="onFiltered"
-                  class="mt-3"
-                >
-                  <template #cell(actions)="item">
-                    <center>
-                      <b-button
-                        variant="warning"
-                        size="sm"
-                        class="mr-3"
-                        v-b-tooltip.hover
-                        title="Profil Peserta"
-                        v-b-modal.modal-lg
-                        @click="loadProfil(item.item.idnya, $route.params.id)"
-                        ><b-icon icon="info-circle"></b-icon>
-                        {{ item.actions }}</b-button
-                      >
-                    </center>
-                  </template>
-
-                  <template #cell(ikutsertanya)="item">
-                    <center>
-                      <b-form-checkbox
-                        :disabled="
-                          kuota == bulk.length && item.item.ditambahkan == 0
-                        "
-                        class="checkbox"
-                        @input="bulks()"
-                        v-model="item.item.ditambahkan"
-                        value="1"
-                        unchecked-value="0"
-                      >
-                      </b-form-checkbox>
-                    </center>
-                  </template>
-                </b-table>
+                <h5 style="text-align:center"><strong>DATA PESERTA SESUAI PEMINATAN</strong></h5>
               </b-col>
             </b-row>
-
-            <b-row>
-              <b-col md="5" offset-md="7">
-                <b-pagination
-                  v-model="currentPage"
-                  :total-rows="totalRows"
-                  :per-page="perPage"
-                  align="fill"
-                  size="sm"
-                ></b-pagination>
-              </b-col>
-            </b-row>
-          </b-tab>
-          <b-tab title="Peserta Berminat">
             <b-row class="mt-3">
               <b-col md="2">
                 <b-form-group
@@ -304,6 +199,28 @@
                         ><b-icon icon="info-circle"></b-icon>
                         {{ item.actions }}</b-button
                       >
+
+                      <b-button
+                        variant="info"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Edit Profil Peserta"
+                        v-b-modal.modal-lg-profil
+                        ><b-icon icon="pencil-square"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+
+                      <b-button
+                        variant="success"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Verifikasi Perubahan Peminatan"
+                        v-b-modal.modal-lg-peminatan
+                        ><b-icon icon="check2-circle"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
                     </center>
                   </template>
 
@@ -338,6 +255,145 @@
               </b-col>
             </b-row>
           </b-tab>
+
+          <b-tab title="Peserta Diluar Peminatan">
+            <b-row class="mt-3">
+              <b-col md="12">
+                <h5 style="text-align:center"><strong>DATA PESERTA DILUAR PEMINATAN</strong></h5>
+              </b-col>
+            </b-row>
+            <b-row class="mt-3">
+              <b-col md="2">
+                <b-form-group
+                  label="Per page"
+                  label-for="per-page-select"
+                  label-cols-md="6"
+                  label-align-md="left"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-form-select
+                    id="per-page-select"
+                    v-model="perPage"
+                    :options="pageOptions"
+                    size="md"
+                  ></b-form-select>
+                </b-form-group>
+              </b-col>
+
+              <b-col md="5" offset-md="5">
+                <b-form-group
+                  label="Filter"
+                  label-for="filter-input"
+                  label-cols-md="3"
+                  label-align-md="right"
+                  label-size="md"
+                  class="mb-0"
+                >
+                  <b-input-group size="md">
+                    <b-form-input
+                      id="filter-input"
+                      v-model="filter"
+                      type="search"
+                      placeholder="Type to Search"
+                    ></b-form-input>
+
+                    <b-input-group-append>
+                      <b-button :disabled="!filter" @click="filter = ''"
+                        >Clear</b-button
+                      >
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="12">
+                <b-table
+                  :items="dataPeserta"
+                  :fields="fields"
+                  :current-page="currentPage"
+                  :per-page="perPage"
+                  :filter="filter"
+                  :filter-included-fields="filterOn"
+                  stacked="md"
+                  show-empty
+                  bordered
+                  small
+                  @filtered="onFiltered"
+                  class="mt-3"
+                >
+                  <template #cell(actions)="item">
+                    <center>
+                      <b-button
+                        variant="warning"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Profil Peserta"
+                        v-b-modal.modal-lg
+                        @click="loadProfil(item.item.idnya, $route.params.id)"
+                        ><b-icon icon="info-circle"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+
+                      <b-button
+                        variant="info"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Edit Profil Peserta"
+                        v-b-modal.modal-lg-profil
+                        ><b-icon icon="pencil-square"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+
+                      <b-button
+                        variant="success"
+                        size="sm"
+                        class="mr-3"
+                        v-b-tooltip.hover
+                        title="Verifikasi Perubahan Peminatan"
+                        v-b-modal.modal-lg-peminatan
+                        ><b-icon icon="check2-circle"></b-icon>
+                        {{ item.actions }}</b-button
+                      >
+                    </center>
+                  </template>
+
+                  <template #cell(ikutsertanya)="item">
+                    <center>
+                      <b-form-checkbox
+                        :disabled="
+                          kuota == bulk.length && item.item.ditambahkan == 0
+                        "
+                        class="checkbox"
+                        @input="bulks()"
+                        v-model="item.item.ditambahkan"
+                        value="1"
+                        unchecked-value="0"
+                      >
+                      </b-form-checkbox>
+                    </center>
+                  </template>
+                </b-table>
+              </b-col>
+            </b-row>
+
+            <b-row>
+              <b-col md="5" offset-md="7">
+                <b-pagination
+                  v-model="currentPage"
+                  :total-rows="totalRows"
+                  :per-page="perPage"
+                  align="fill"
+                  size="sm"
+                ></b-pagination>
+              </b-col>
+            </b-row>
+          </b-tab>
+          
         </b-tabs>
       </b-container>
     </section>
@@ -679,7 +735,414 @@
                 </b-row>
               </b-card-text>
             </b-tab>
+
+            <b-tab title="Riwayat Perubahan Peminatan">
+              <b-card-text>
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-table-simple small bordered class="mb-0">
+                      <b-thead>
+                        <b-tr>
+                          <b-th rowspan="2">Tanggal Usulan Perubahan</b-th>
+                          <b-th colspan="2">Peminatan Lama </b-th>
+                          <b-th colspan="2">Peminatan Baru</b-th>
+                          <b-th rowspan="2">Status</b-th>
+                        </b-tr>
+
+                        <b-tr>
+                          <b-th>Satu</b-th>
+                          <b-th>Dua</b-th>
+                          <b-th>Satu</b-th>
+                          <b-th>Dua</b-th>
+                        </b-tr>
+                      </b-thead>
+                      <b-tbody>
+                        <b-tr>
+                          <b-td>-</b-td>
+                          <b-td>-</b-td>
+                          <b-td>-</b-td>
+                          <b-td>-</b-td>
+                          <b-td>-</b-td>
+                          <b-td>-</b-td>
+                        </b-tr>
+                      </b-tbody>
+                    </b-table-simple>
+                  </b-col>
+                </b-row>
+              </b-card-text>
+            </b-tab>
           </b-tabs>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal id="modal-lg-profil" size="lg" title="Edit Profil Peserta" hide-footer>
+      <b-row>
+        <b-col md="12">
+                <b-row>
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Identitas</strong
+                      >
+                    </h4></b-col
+                  >
+                </b-row>
+
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-form-group label-cols="6" label-cols-lg="3" label="NIK">
+                      <b-form-input
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
+                      <b-form-input
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Jenis Kelamin"
+                    >
+                      <b-form-select
+                        :options="jenisKelamin"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Tanggal Lahir"
+                    >
+                      <date-picker
+                        style="width: 100%"
+                        placeholder="TanggalLahir"
+                      ></date-picker>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Alamat"
+                    >
+                      <b-form-input
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kecamatan"
+                    >
+                      <b-form-select
+                        :options="kecamatan"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Kelurahan"
+                    >
+                      <b-form-select
+                        :options="kelurahan"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="No. Hp"
+                    >
+                      <b-form-input
+                      ></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Email"
+                    >
+                      <b-form-input></b-form-input>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Foto Diri"
+                    >
+                      <b-form-file
+                        type="file"
+                      />
+                    </b-form-group>
+
+                    <b-form-group label-cols="6" label-cols-lg="3">
+                      <img style="width: 100px"/>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Foto KTP"
+                    >
+                      <b-form-file
+                        type="file"
+                      />
+                    </b-form-group>
+
+                    <b-form-group label-cols="6" label-cols-lg="3">
+                      <img style="width: 100px" />
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+
+                <b-row>
+                  <b-col md="12">
+                    <h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Sosial Ekonomi</strong
+                      >
+                    </h4>
+                  </b-col>
+                </b-row>
+
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Penerima Bantuan Pemerintah"
+                    >
+                      <b-form-select
+                        :options="bantuan"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Pendidikan Terakhir"
+                    >
+                      <b-form-select
+                        :options="pendidikan"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Status Dalam Keluarga"
+                    >
+                      <b-form-select
+                        :options="keluarga"
+                      ></b-form-select>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+
+                <b-row>
+                  <b-col md="12"
+                    ><h4>
+                      <span style="font-weight: 400">Data</span>&nbsp;<strong
+                        >Kepemilikan Usaha</strong
+                      >
+                    </h4></b-col
+                  >
+                </b-row>
+
+                <b-row class="mt-3">
+                  <b-col md="12">
+                    <b-form-group
+                      label-cols="6"
+                      label-cols-lg="3"
+                      label="Memiliki Usaha"
+                    >
+                      <b-form-select
+                        :options="kepemilikanUsaha"
+                      ></b-form-select>
+                    </b-form-group>
+
+                    <!-- kondisional field berdasarkan kepemilikan -->
+                    <div
+                    >
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nama UMKM"
+                      >
+                        <b-form-input
+                        ></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Tanggal Mulai Usaha"
+                      >
+                        <date-picker
+                          valueType="format"
+                          style="width: 100%"
+                          placeholder="Tanggal Mulai Usaha"
+                        ></date-picker>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nomor Surat Ijin Usaha (NIB)"
+                      >
+                        <b-form-input></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nomor Surat Ijin Usaha (IUMK)"
+                      >
+                        <b-form-input></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nomor Surat Ijin Usaha (PIRT)"
+                      >
+                        <b-form-input></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nomor Surat Ijin Usaha (Lainnya)"
+                      >
+                        <b-form-input></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Alamat Usaha"
+                      >
+                        <b-form-input
+                        ></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Kecamatan"
+                      >
+                        <b-form-select
+                          :options="kecamatan"
+                        ></b-form-select>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Kelurahan"
+                      >
+                        <b-form-select
+                          :options="kelurahan2"
+                        ></b-form-select>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Kode Pos"
+                      >
+                        <b-form-input
+                        ></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Nama Pemilik"
+                      >
+                        <b-form-input
+                        ></b-form-input>
+                      </b-form-group>
+
+                      <b-form-group
+                        label-cols="6"
+                        label-cols-lg="3"
+                        label="Telepon/No. Hp"
+                      >
+                        <b-form-input
+                        ></b-form-input>
+                      </b-form-group>
+                    </div>
+                  </b-col>
+                </b-row>
+        </b-col>
+      </b-row>
+
+      <b-row>
+        <b-col md=12>
+          <b-button variant="primary">Simpan</b-button>
+        </b-col>
+      </b-row>
+    </b-modal>
+
+    <b-modal id="modal-lg-peminatan" title="Verifikasi Usulan Perubahan Peminatan Peserta" hide-footer>
+      <b-row>
+        <b-col md="12">
+          <b-table-simple small bordered class="mb-0">
+            <b-tbody>
+              <b-tr>
+                <b-td colspan="3" style="font-weight:bold">Peminatan Lama</b-td>
+              </b-tr>
+
+              <b-tr>
+                <b-td style="width:180px">Peminatan Satu</b-td>
+                <b-td style="width:10px">:</b-td>
+                <b-td>-</b-td>
+              </b-tr>
+
+              <b-tr>
+                <b-td>Peminatan Dua</b-td>
+                <b-td>:</b-td>
+                <b-td>-</b-td>
+              </b-tr>
+            </b-tbody>
+          </b-table-simple>
+        </b-col>
+
+        <b-col md="12" style="margin-top:15px">
+          <b-table-simple small bordered class="mb-0">
+            <b-tbody>
+              <b-tr>
+                <b-td colspan="3" style="font-weight:bold">Peminatan Baru</b-td>
+              </b-tr>
+
+              <b-tr>
+                <b-td style="width:180px">Peminatan Satu</b-td>
+                <b-td style="width:10px">:</b-td>
+                <b-td>-</b-td>
+              </b-tr>
+
+              <b-tr>
+                <b-td>Peminatan Dua</b-td>
+                <b-td>:</b-td>
+                <b-td>-</b-td>
+              </b-tr>
+            </b-tbody>
+          </b-table-simple>
+        </b-col>
+
+        <b-col md="12" style="margin-top:15px">
+          <h6><strong>Alasan Perubahan Peminatan</strong></h6>
+          <h6>--</h6>
+        </b-col>
+      </b-row>
+
+      <b-row style="margin-top:15px">
+        <b-col md=12>
+          <b-button variant="success">Setujui</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -697,6 +1160,8 @@ import ThisIsFooter from "../../components/ThisIsFooter";
 import axios from "axios";
 import ipbackend from "../../ipbackend";
 import moment from "moment";
+import DatePicker from "vue2-datepicker";
+import "vue2-datepicker/index.css";
 
 export default {
   name: "RiwayatPelatihan",
@@ -719,6 +1184,49 @@ export default {
       ikutSerta: [
         { value: 1, text: "Ya" },
         { value: 0, text: "Tidak" },
+      ],
+      jenisKelamin: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Laki-laki", text: "Laki-laki" },
+        { value: "Perempuan", text: "Perempuan" },
+      ],
+
+      kecamatan: [{ value: null, text: "-- Pilih --" }],
+
+      kelurahan: [{ value: null, text: "-- Pilih --" }],
+
+      kelurahan2: [{ value: null, text: "-- Pilih --" }],
+
+      pendapatan: [{ value: null, text: "-- Pilih --" }],
+
+      bantuan: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Ya", text: "Ya" },
+        { value: "Tidak", text: "Tidak" },
+      ],
+
+      kepemilikanUsaha: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Ya, Sebagai Pemilik", text: "Ya, Sebagai Pemilik" },
+        { value: "Ya, Sebagai Karyawan", text: "Ya, Sebagai Karyawan" },
+        { value: "Tidak Memiliki Usaha", text: "Tidak Memiliki Usaha" },
+      ],
+
+      keluarga: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Suami/Ayah", text: "Suami/Ayah" },
+        { value: "Istri/Ibu", text: "Istri/Ibu" },
+        { value: "Anak", text: "Anak" },
+        { value: "Lainnya", text: "Lainnya" },
+      ],
+
+      pendidikan: [
+        { value: null, text: "-- Pilih --" },
+        { value: "Tidak Lulus SD", text: "Tidak Lulus SD" },
+        { value: "SD", text: "SD" },
+        { value: "SMP", text: "SMP" },
+        { value: "SMA", text: "SMA" },
+        { value: "Perguruan Tinggi", text: "Perguruan Tinggi" },
       ],
       fields: [
         {
@@ -763,7 +1271,7 @@ export default {
           key: "ikutsertanya",
           label: "Pilih Peserta",
           sortable: true,
-          class: "text-left",
+          class: "text-center",
         },
 
         {
@@ -772,7 +1280,7 @@ export default {
           sortable: true,
           class: "text-left table-width",
         },
-        { key: "actions", label: "Actions", class: "text-center" },
+        { key: "actions", label: "Actions", class: "text-center custom-width-100" },
       ],
       items: [],
       totalRows: 1,
@@ -786,6 +1294,7 @@ export default {
   components: {
     ThisIsHeader,
     ThisIsFooter,
+    DatePicker,
   },
 
   computed: {
@@ -1092,7 +1601,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #data_peserta .section-one {
   padding: 60px 0;
 }
@@ -1102,4 +1611,9 @@ export default {
   justify-content: space-evenly;
   /* background-color: red; */
 }
+
+.custom-width-100{
+  width: 180px !important;
+}
+
 </style>

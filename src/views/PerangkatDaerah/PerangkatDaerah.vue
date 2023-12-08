@@ -176,9 +176,10 @@
               >
                 <template #cell(No)="item">
                   {{ item.index + 1 }}
+                  
                 </template>
-                <template #cell(tanggalMulaiPelatihan)="item">
-                  {{ moment(item.tanggalMulaiPelatihan).format('ll') }} s/d {{moment(item.tanggalSelesaiPelatihan).format('ll')}}
+                <template #cell(tglPelaksanaan)="item">
+                  {{ moment(item.item.tanggalMulaiPelatihan).format('ll') }} s/d {{moment(item.item.tanggalSelesaiPelatihan).format('ll')}}
                 </template>
               </b-table>
             </b-col>
@@ -187,9 +188,9 @@
           <b-row>
             <b-col md="5" offset-md="7">
               <b-pagination
-                v-model="currentPage"
-                :total-rows="totalRows"
-                :per-page="perPage"
+                v-model="currentPage2"
+                :total-rows="totalRows2"
+                :per-page="perPage2"
                 align="fill"
                 size="sm"
               ></b-pagination>
@@ -276,12 +277,12 @@ export default {
         },
 
         {
-          key: "tanggalMulaiPelatihan",
+          key: "tglPelaksanaan",
           label: "Tanggal Pelaksanaan",
           sortable: true,
           sortDirection: "desc",
           class: "text-left",
-        },
+        }
       ],
       items2: [],
 

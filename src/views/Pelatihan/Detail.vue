@@ -309,6 +309,12 @@
         </h6>
         </b-form-group>
 
+        <b-form-group label-cols="6" label-cols-lg="3" label="Alasan Perubahan Peminatan">
+          <b-form-textarea
+            rows="2"
+          ></b-form-textarea>
+        </b-form-group>
+
         <b-button variant="primary" class="mt-3" @click="simpan">Simpan</b-button>
       </b-col>
     </div>

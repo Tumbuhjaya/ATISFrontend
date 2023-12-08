@@ -31,7 +31,17 @@
                     ></b-form-input>
                   </b-form-group>
 
-                  <b-button variant="primary" @click="login">Login</b-button>
+                  <div style="width: 100%;display: flex;">
+                    <div style="width: 50%;height: 50px;background-color: ;display: flex;justify-content: flex-start;align-items: center;">
+                      <b-button variant="primary" @click="login">Login</b-button>
+                    </div>
+                    <div style="width: 50%;height: 50px;background-color: ;display: flex;justify-content: flex-end;align-items: center
+                      ;">
+                      <span v-b-modal.modal-lupa-password>
+                        <h6 style="color: red;">Lupa Password ?</h6>
+                      </span>
+                    </div>
+                  </div>
                 </b-col>
 
                 <b-col md="12">
@@ -55,6 +65,36 @@
     </section>
 
     <ThisIsFooter></ThisIsFooter>
+
+    <b-modal id="modal-lupa-password" title="Lupa Password" hide-footer>
+      <h6>Silahkan masukkan informasi akun anda </h6>
+      <br/>
+      <b-form-group
+        label-cols="6"
+        label-cols-lg="3"
+        label="Nama"
+      >
+        <b-form-input></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        label-cols="6"
+        label-cols-lg="3"
+        label="NIK"
+      >
+        <b-form-input></b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        label-cols="6"
+        label-cols-lg="3"
+        label="Email"
+      >
+        <b-form-input></b-form-input>
+      </b-form-group>
+
+      <b-button variant="primary">Simpan</b-button>
+    </b-modal>
   </div>
 </template>
 
