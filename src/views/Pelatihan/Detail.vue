@@ -312,6 +312,7 @@
         <b-form-group label-cols="6" label-cols-lg="3" label="Alasan Perubahan Peminatan">
           <b-form-textarea
             rows="2"
+            v-model="alasan_perubahan"
           ></b-form-textarea>
         </b-form-group>
 
@@ -348,6 +349,7 @@ export default {
       kategori: [{ value: null, text: "-- Pilih --" }],
       temp_minat1: "",
       temp_minat2: "",
+      alasan_perubahan:'',
       listSub1: [],
       listSub2: [],
       minat: [],
@@ -410,6 +412,7 @@ export default {
         id:this.users.id,
           temp_minat1: this.temp_minat1,
           temp_minat2: this.temp_minat2,
+          alasan_perubahan:this.alasan_perubahan,
           tanggal_usulan_perubahan: this.moment(),
 
         }

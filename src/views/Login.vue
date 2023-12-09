@@ -74,7 +74,7 @@
         label-cols-lg="3"
         label="Nama"
       >
-        <b-form-input></b-form-input>
+        <b-form-input  v-model="nama"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -82,7 +82,7 @@
         label-cols-lg="3"
         label="NIK"
       >
-        <b-form-input></b-form-input>
+        <b-form-input  v-model="NIK"></b-form-input>
       </b-form-group>
 
       <b-form-group
@@ -90,10 +90,10 @@
         label-cols-lg="3"
         label="Email"
       >
-        <b-form-input></b-form-input>
+        <b-form-input v-model="email"></b-form-input>
       </b-form-group>
 
-      <b-button variant="primary">Simpan</b-button>
+      <b-button variant="primary" @click="reset">Simpan</b-button>
     </b-modal>
   </div>
 </template>
@@ -112,6 +112,9 @@ export default {
   },
   data: function() {
     return {
+      NIK:'',
+      nama:'',
+      email:'',
       data: {
         NIK: "",
         password: "",
@@ -120,6 +123,19 @@ export default {
     };
   },
   methods: {
+    reset(){
+      let vm = this;
+      let data = {
+        NIK: vm.NIK ,
+        email: vm.email ,
+        nama: vm.nama
+      }
+      console.log(data);
+      axios.post(ipbackend + "users/resetPassword", data).then((data) => {
+        console.log(data);
+        alert(data.data.message)
+      })
+    },
     login() {
       console.log(this.data);
       let vm = this;
