@@ -765,13 +765,13 @@
                         </b-tr>
                       </b-thead>
                       <b-tbody>
-                        <b-tr>
-                          <b-td>{{ profil_user.tanggal_usulan_perubahan }}</b-td>
-                          <b-td>{{ profil_user.minat1 }}</b-td>
-                          <b-td>{{ profil_user.minat2 }}</b-td>
-                          <b-td>{{ profil_user.temp_minat1 }}</b-td>
-                          <b-td>{{ profil_user.temp_minat2 }}</b-td>
-                          <b-td>{{ profil_user.alasan_perubahan }}</b-td>
+                        <b-tr v-for="item in riwayat">
+                          <b-td>{{ item.tanggal_usulan_perubahan }}</b-td>
+                          <b-td>{{ item.minat1awal }}</b-td>
+                          <b-td>{{ item.minat2awal }}</b-td>
+                          <b-td>{{ item.minat1akhir }}</b-td>
+                          <b-td>{{ item.minat2akhir }}</b-td>
+                          <b-td>{{ item.alasan_perubahan }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -1243,6 +1243,7 @@ export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      riwayat:[],
       foto:'',
       fotoKTP:'',
       foto2:'',
@@ -1632,7 +1633,17 @@ export default {
       });
       //  console.log(profil.data.data[0],'-------');
       this.profil = profil.data.data[0];
-
+      vm.riwayat=[]
+      let riwayat = await axios.get(ipbackend + "perubahan_peminatan/listByUserId/" + id, {
+        headers: {
+          token: vm.user.token,
+        },
+      });
+      vm.riwayat = riwayat.data.data
+      console.log(riwayat);
+      for (let i = 0; i < vm.riwayat.length; i++) {
+        vm.riwayat[i].tanggal_usulan_perubahan = moment(vm.riwayat.tanggal_usulan_perubahan).format('LL')
+      }
       let pelatihanLain = await axios.get(
         ipbackend + "pelatihanlain/listByUsersId/" + id,
         {
@@ -1837,6 +1848,7 @@ export default {
         },
       });
       vm.profil_user = profil.data.data[0]
+
       console.log(vm.profil_user , 'profil_user');
     }
   },
