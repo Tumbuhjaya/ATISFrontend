@@ -819,6 +819,7 @@
                       <b-form-select
                       :value.sync="profil_user.jenisKelamin"
                         :options="jenisKelamin"
+                        v-model="profil_user.jenisKelamin"
                       ></b-form-select>
                     </b-form-group>
 
@@ -852,6 +853,7 @@
                       <b-form-select
                         :options="kecamatan"
                         :value.sync="profil_user.kecamatan"
+                        v-model="profil_user.kecamatan"
 
                       ></b-form-select>
                     </b-form-group>
@@ -864,6 +866,7 @@
                       <b-form-select
                         :options="kelurahan"
                         :value.sync="profil_user.kelurahan"
+                        v-model="profil_user.kelurahan"
 
                       ></b-form-select>
                     </b-form-group>
@@ -894,11 +897,15 @@
                       label-cols-lg="3"
                       label="Foto Diri"
                     >
-                      <b-form-file
+                      <!-- <b-form-file
                         type="file"
-                        @change="handleFile('foto')"
-                        :placeholder="place(foto)"
-                      />
+                        ref="foto2"
+                        id="foto2"
+                        @change="handleFile('foto2')"
+                      /> -->
+                      
+                      <input type="file" id="foto2" ref="foto2" @input="handleFile('foto2')" />
+
                       <a v-if="profil_user.foto" :href="`/${profil_user.foto}`" target="_blank">Lihat Foto</a>
                     </b-form-group>
 
@@ -911,11 +918,15 @@
                       label-cols-lg="3"
                       label="Foto KTP"
                     >
-                      <b-form-file
+                      <!-- <b-form-file
                         type="file"
-                        @change="handleFile('fotoKTP')"
-                        :placeholder="place(fotoKTP)"
-                      />
+                        id="fotoKTP2"
+                        ref="fotoKTP2"
+                        @change="handleFile('fotoKTP2')"
+                      /> -->
+                      
+                      <input type="file" id="fotoKTP2" ref="fotoKTP2" @input="handleFile('fotoKTP2')" />
+
                       <a v-if="profil_user.fotoKTP" :href="`/${profil_user.fotoKTP}`" target="_blank">Lihat Foto</a>
 
                     </b-form-group>
@@ -945,6 +956,7 @@
                     >
                       <b-form-select
                       :value.sync="profil_user.penerimaBantuanPemerintah"
+                      v-model="profil_user.penerimaBantuanPemerintah"
 
                         :options="bantuan"
                       ></b-form-select>
@@ -957,6 +969,7 @@
                     >
                       <b-form-select
                       :value.sync="profil_user.pendidikanTerakhir"
+                      v-model="profil_user.pendidikanTerakhir"
 
                         :options="pendidikan"
                       ></b-form-select>
@@ -969,6 +982,7 @@
                     >
                       <b-form-select
                       :value.sync="profil_user.statusDalamKeluarga"
+                      v-model="profil_user.statusDalamKeluarga"
 
                         :options="keluarga"
                       ></b-form-select>
@@ -995,7 +1009,8 @@
                     >
                       <b-form-select
                         :options="kepemilikanUsaha"
-                        
+                        v-model="profil_user.kepemilikanUsaha"
+
                         :value.sync="profil_user.kepemilikanUMKM"
 
                       ></b-form-select>
@@ -1067,6 +1082,7 @@
                         label="Nomor Surat Ijin Usaha (Lainnya)"
                       >
                         <b-form-input
+                        v-model=" profil_user.lainnya"
                         ></b-form-input>
                       </b-form-group>
 
@@ -1088,6 +1104,7 @@
                         <b-form-select
                           :options="kecamatanUMKM"
                           :value.sync="profil_user.kecamatanUMKM"
+                          v-model="profil_user.kecamatanUMKM"
 
                         ></b-form-select>
                       </b-form-group>
@@ -1100,6 +1117,7 @@
                         <b-form-select
                           :options="kelurahanUMKM"
                           v-model=" profil_user.kelurahanUMKM"
+                          :value.sync="profil_user.kelurahanUMKM"
 
                         ></b-form-select>
                       </b-form-group>
@@ -1227,6 +1245,8 @@ export default {
     return {
       foto:'',
       fotoKTP:'',
+      foto2:'',
+      fotoKTP2:'',
       totalRows2:'',
       judul:'',
       kecamatanUMKM:[],
@@ -1395,19 +1415,15 @@ export default {
     this. get_kec()
   },
   methods: {
-    handleFile(x) {
-      if (x == "foto") {
-        this.foto = this.$refs.foto.$data.state[0];
-      } else if (x == "fotoKTP") {
-        this.fotoKTP = this.$refs.fotoKTP.$data.state[0];
-      }
-    },
-    place(x) {
-      if (x == "") {
-        return "Pilih File";
-      } else {
-        return x.name;
-      }
+ async   handleFile(x) {
+   if (x == "foto2") {
+    this.foto = await this.$refs.foto2.files[0]
+    console.log(this.foto );
+      } else if (x == "fotoKTP2") {                
+        this.fotoKTP = await this.$refs.fotoKTP2.files[0]
+        console.log(this.fotoKTP );
+
+        }
     },
   async  get_kec(){
     let vm = this
@@ -1454,7 +1470,38 @@ export default {
     });
     },
     async edit_profil(){
-        console.log(this.profil_user);
+        let vm = this
+        let formData = new FormData();
+        for (const i in vm.profil_user) {
+          if(i!='tanggalMulaiUsaha'&&i!='tanggalLahir'&&i!='foto'&&i!='fotoKTP'&&i!='tanggal_usulan_perubahan'&&i!='tanggal_disetujui_perubahan'){
+            formData.append(i, vm.profil_user[i]);
+          }
+        }
+      formData.append("file1", vm.foto);
+      formData.append("file2", vm.fotoKTP);
+      if (vm.profil_user.tanggalMulaiUsaha) {
+        formData.append("tanggalMulaiUsaha",moment(vm.profil_user.tanggalMulaiUsaha).format() );
+
+      }
+      if (vm.profil_user.tanggalLahir) {
+        formData.append("tanggalLahir", moment(vm.profil_user.tanggalLahir).format());
+
+      }
+      axios
+        .post(ipbackend + "users/updateByAdmin", formData, {
+          headers: {
+            token: vm.user.token,
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          vm.listUser();
+
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
     simpan(item){
         console.log(item , ' itemnya');
