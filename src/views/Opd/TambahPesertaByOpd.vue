@@ -207,18 +207,21 @@
                         v-b-tooltip.hover
                         title="Edit Profil Peserta"
                         v-b-modal.modal-lg-profil
+                        @click="load(item,'profil')"
                         ><b-icon icon="pencil-square"></b-icon>
                         {{ item.actions }}</b-button
                       >
-
                       <b-button
+                        v-if="item.temp_minat1"
                         variant="success"
                         size="sm"
                         class="mr-3"
                         v-b-tooltip.hover
                         title="Verifikasi Perubahan Peminatan"
                         v-b-modal.modal-lg-peminatan
-                        ><b-icon icon="check2-circle"></b-icon>
+                        @click="load(item,'minat')"
+                        >
+<b-icon icon="check2-circle"></b-icon>
                         {{ item.actions }}</b-button
                       >
                     </center>
@@ -345,16 +348,21 @@
                         v-b-tooltip.hover
                         title="Edit Profil Peserta"
                         v-b-modal.modal-lg-profil
+                        @click="load(item,'profil')"
+
                         ><b-icon icon="pencil-square"></b-icon>
                         {{ item.actions }}</b-button
                       >
 
                       <b-button
+                      v-if="item.item.temp_minat1"
+                      
                         variant="success"
                         size="sm"
                         class="mr-3"
                         v-b-tooltip.hover
                         title="Verifikasi Perubahan Peminatan"
+                        @click="load(item,'minat')"
                         v-b-modal.modal-lg-peminatan
                         ><b-icon icon="check2-circle"></b-icon>
                         {{ item.actions }}</b-button
@@ -758,12 +766,12 @@
                       </b-thead>
                       <b-tbody>
                         <b-tr>
-                          <b-td>-</b-td>
-                          <b-td>-</b-td>
-                          <b-td>-</b-td>
-                          <b-td>-</b-td>
-                          <b-td>-</b-td>
-                          <b-td>-</b-td>
+                          <b-td>{{ profil_user.tanggal_usulan_perubahan }}</b-td>
+                          <b-td>{{ profil_user.minat1 }}</b-td>
+                          <b-td>{{ profil_user.minat2 }}</b-td>
+                          <b-td>{{ profil_user.temp_minat1 }}</b-td>
+                          <b-td>{{ profil_user.temp_minat2 }}</b-td>
+                          <b-td>{{ profil_user.alasan_perubahan }}</b-td>
                         </b-tr>
                       </b-tbody>
                     </b-table-simple>
@@ -793,11 +801,13 @@
                   <b-col md="12">
                     <b-form-group label-cols="6" label-cols-lg="3" label="NIK">
                       <b-form-input
+                      v-model=" profil_user.NIK"
                       ></b-form-input>
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3" label="Nama">
                       <b-form-input
+                      v-model=" profil_user.nama"
                       ></b-form-input>
                     </b-form-group>
 
@@ -807,6 +817,7 @@
                       label="Jenis Kelamin"
                     >
                       <b-form-select
+                      :value.sync="profil_user.jenisKelamin"
                         :options="jenisKelamin"
                       ></b-form-select>
                     </b-form-group>
@@ -819,6 +830,7 @@
                       <date-picker
                         style="width: 100%"
                         placeholder="TanggalLahir"
+                        v-model=" profil_user.tanggalLahir"
                       ></date-picker>
                     </b-form-group>
 
@@ -828,6 +840,7 @@
                       label="Alamat"
                     >
                       <b-form-input
+                      v-model=" profil_user.alamat"
                       ></b-form-input>
                     </b-form-group>
 
@@ -838,6 +851,8 @@
                     >
                       <b-form-select
                         :options="kecamatan"
+                        :value.sync="profil_user.kecamatan"
+
                       ></b-form-select>
                     </b-form-group>
 
@@ -848,6 +863,8 @@
                     >
                       <b-form-select
                         :options="kelurahan"
+                        :value.sync="profil_user.kelurahan"
+
                       ></b-form-select>
                     </b-form-group>
 
@@ -857,6 +874,7 @@
                       label="No. Hp"
                     >
                       <b-form-input
+                      v-model=" profil_user.noHp"
                       ></b-form-input>
                     </b-form-group>
 
@@ -865,7 +883,10 @@
                       label-cols-lg="3"
                       label="Email"
                     >
-                      <b-form-input></b-form-input>
+                      <b-form-input
+                      v-model=" profil_user.email"
+
+                      ></b-form-input>
                     </b-form-group>
 
                     <b-form-group
@@ -875,7 +896,10 @@
                     >
                       <b-form-file
                         type="file"
+                        @change="handleFile('foto')"
+                        :placeholder="place(foto)"
                       />
+                      <a v-if="profil_user.foto" :href="`/${profil_user.foto}`" target="_blank">Lihat Foto</a>
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
@@ -889,7 +913,11 @@
                     >
                       <b-form-file
                         type="file"
+                        @change="handleFile('fotoKTP')"
+                        :placeholder="place(fotoKTP)"
                       />
+                      <a v-if="profil_user.fotoKTP" :href="`/${profil_user.fotoKTP}`" target="_blank">Lihat Foto</a>
+
                     </b-form-group>
 
                     <b-form-group label-cols="6" label-cols-lg="3">
@@ -916,6 +944,8 @@
                       label="Penerima Bantuan Pemerintah"
                     >
                       <b-form-select
+                      :value.sync="profil_user.penerimaBantuanPemerintah"
+
                         :options="bantuan"
                       ></b-form-select>
                     </b-form-group>
@@ -926,6 +956,8 @@
                       label="Pendidikan Terakhir"
                     >
                       <b-form-select
+                      :value.sync="profil_user.pendidikanTerakhir"
+
                         :options="pendidikan"
                       ></b-form-select>
                     </b-form-group>
@@ -936,6 +968,8 @@
                       label="Status Dalam Keluarga"
                     >
                       <b-form-select
+                      :value.sync="profil_user.statusDalamKeluarga"
+
                         :options="keluarga"
                       ></b-form-select>
                     </b-form-group>
@@ -961,6 +995,9 @@
                     >
                       <b-form-select
                         :options="kepemilikanUsaha"
+                        
+                        :value.sync="profil_user.kepemilikanUMKM"
+
                       ></b-form-select>
                     </b-form-group>
 
@@ -973,6 +1010,7 @@
                         label="Nama UMKM"
                       >
                         <b-form-input
+                        v-model=" profil_user.namaUMKM"
                         ></b-form-input>
                       </b-form-group>
 
@@ -985,6 +1023,8 @@
                           valueType="format"
                           style="width: 100%"
                           placeholder="Tanggal Mulai Usaha"
+                          v-model=" profil_user.tanggalMulaiUsaha"
+
                         ></date-picker>
                       </b-form-group>
 
@@ -993,7 +1033,10 @@
                         label-cols-lg="3"
                         label="Nomor Surat Ijin Usaha (NIB)"
                       >
-                        <b-form-input></b-form-input>
+                        <b-form-input
+                        v-model=" profil_user.NIB"
+
+                        ></b-form-input>
                       </b-form-group>
 
                       <b-form-group
@@ -1001,7 +1044,10 @@
                         label-cols-lg="3"
                         label="Nomor Surat Ijin Usaha (IUMK)"
                       >
-                        <b-form-input></b-form-input>
+                        <b-form-input
+                        v-model=" profil_user.IUMK"
+
+                        ></b-form-input>
                       </b-form-group>
 
                       <b-form-group
@@ -1009,7 +1055,10 @@
                         label-cols-lg="3"
                         label="Nomor Surat Ijin Usaha (PIRT)"
                       >
-                        <b-form-input></b-form-input>
+                        <b-form-input
+                        v-model=" profil_user.PIRT"
+
+                        ></b-form-input>
                       </b-form-group>
 
                       <b-form-group
@@ -1017,7 +1066,8 @@
                         label-cols-lg="3"
                         label="Nomor Surat Ijin Usaha (Lainnya)"
                       >
-                        <b-form-input></b-form-input>
+                        <b-form-input
+                        ></b-form-input>
                       </b-form-group>
 
                       <b-form-group
@@ -1026,6 +1076,7 @@
                         label="Alamat Usaha"
                       >
                         <b-form-input
+                        v-model=" profil_user.alamatUMKM"
                         ></b-form-input>
                       </b-form-group>
 
@@ -1035,7 +1086,9 @@
                         label="Kecamatan"
                       >
                         <b-form-select
-                          :options="kecamatan"
+                          :options="kecamatanUMKM"
+                          :value.sync="profil_user.kecamatanUMKM"
+
                         ></b-form-select>
                       </b-form-group>
 
@@ -1045,7 +1098,9 @@
                         label="Kelurahan"
                       >
                         <b-form-select
-                          :options="kelurahan2"
+                          :options="kelurahanUMKM"
+                          v-model=" profil_user.kelurahanUMKM"
+
                         ></b-form-select>
                       </b-form-group>
 
@@ -1055,6 +1110,7 @@
                         label="Kode Pos"
                       >
                         <b-form-input
+                        v-model=" profil_user.kodePosUMKM"
                         ></b-form-input>
                       </b-form-group>
 
@@ -1064,6 +1120,7 @@
                         label="Nama Pemilik"
                       >
                         <b-form-input
+                        v-model=" profil_user.namaPemilikUMKM"
                         ></b-form-input>
                       </b-form-group>
 
@@ -1073,6 +1130,7 @@
                         label="Telepon/No. Hp"
                       >
                         <b-form-input
+                        v-model=" profil_user.noHpUMKM"
                         ></b-form-input>
                       </b-form-group>
                     </div>
@@ -1083,7 +1141,7 @@
 
       <b-row>
         <b-col md=12>
-          <b-button variant="primary">Simpan</b-button>
+          <b-button variant="primary" @click="edit_profil">Simpan</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -1100,13 +1158,13 @@
               <b-tr>
                 <b-td style="width:180px">Peminatan Satu</b-td>
                 <b-td style="width:10px">:</b-td>
-                <b-td>-</b-td>
+                <b-td>{{ profil_user.minat1 }}</b-td>
               </b-tr>
 
               <b-tr>
                 <b-td>Peminatan Dua</b-td>
                 <b-td>:</b-td>
-                <b-td>-</b-td>
+                <b-td>{{ profil_user.minat2 }}</b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>
@@ -1122,13 +1180,13 @@
               <b-tr>
                 <b-td style="width:180px">Peminatan Satu</b-td>
                 <b-td style="width:10px">:</b-td>
-                <b-td>-</b-td>
+                <b-td>{{ profil_user.temp_minat1 }}</b-td>
               </b-tr>
 
               <b-tr>
                 <b-td>Peminatan Dua</b-td>
                 <b-td>:</b-td>
-                <b-td>-</b-td>
+                <b-td>{{ profil_user.temp_minat2 }}</b-td>
               </b-tr>
             </b-tbody>
           </b-table-simple>
@@ -1136,13 +1194,13 @@
 
         <b-col md="12" style="margin-top:15px">
           <h6><strong>Alasan Perubahan Peminatan</strong></h6>
-          <h6>--</h6>
+          <b-td>{{ profil_user.alasan_perubahan }}</b-td>
         </b-col>
       </b-row>
 
       <b-row style="margin-top:15px">
         <b-col md=12>
-          <b-button variant="success">Setujui</b-button>
+          <b-button variant="success" @click="simpan(profil_user)">Setujui</b-button>
         </b-col>
       </b-row>
     </b-modal>
@@ -1167,6 +1225,13 @@ export default {
   name: "RiwayatPelatihan",
   data() {
     return {
+      foto:'',
+      fotoKTP:'',
+      totalRows2:'',
+      judul:'',
+      kecamatanUMKM:[],
+      kelurahanUMKM:[],
+      profil_user:{},
       detailUser: {},
       user: {},
       pelatihan: [],
@@ -1327,8 +1392,115 @@ export default {
     this.totalRows = this.items.length;
     // this.loadProfil();
     this.propel();
+    this. get_kec()
   },
   methods: {
+    handleFile(x) {
+      if (x == "foto") {
+        this.foto = this.$refs.foto.$data.state[0];
+      } else if (x == "fotoKTP") {
+        this.fotoKTP = this.$refs.fotoKTP.$data.state[0];
+      }
+    },
+    place(x) {
+      if (x == "") {
+        return "Pilih File";
+      } else {
+        return x.name;
+      }
+    },
+  async  get_kec(){
+    let vm = this
+    vm.kecamatan = [];
+    vm.kecamatanUMKM = []
+    vm.kecamatanUMKM.push({ value: null, text: "-- Pilih --" });
+    vm.kecamatan.push({ value: null, text: "-- Pilih --" });
+      let kecamatan =await  axios.get(ipbackend + "kelurahan/listKecamatan/", {
+      headers: {
+        token: this.user.token,
+      },
+    });
+    for (let i = 0; i < kecamatan.data.data.length; i++) {
+      this.kecamatan.push({
+        value: kecamatan.data.data[i].namaKecamatan,
+        text: kecamatan.data.data[i].namaKecamatan,
+      });
+      this.kecamatanUMKM.push({
+        value: kecamatan.data.data[i].namaKecamatan,
+        text: kecamatan.data.data[i].namaKecamatan,
+      });
+    }
+    let kelurahan = await axios.get(ipbackend + "kelurahan/list/", {
+      headers: {
+        token: vm.user.token,
+      },
+    });
+    vm.kelurahan = [];
+    vm.kelurahan.push({ value: null, text: "-- Pilih --" });
+    vm.kelurahanUMKM = [];
+    vm.kelurahanUMKM.push({ value: null, text: "-- Pilih --" });
+
+    
+    kelurahan.data.data.forEach((item, idx) => {
+      vm.kelurahan.push({
+        value: item.namaKelurahan,
+        text: item.namaKelurahan,
+      });
+      vm.kelurahanUMKM.push({
+        value: item.namaKelurahan,
+        text: item.namaKelurahan,
+      });
+
+    });
+    },
+    async edit_profil(){
+        console.log(this.profil_user);
+    },
+    simpan(item){
+        console.log(item , ' itemnya');
+        let data = {
+        id:item.id,
+          minat1: item.temp_minat1,
+          minat2: item.temp_minat2,
+          temp_minat1: null,
+          temp_minat2: null,
+          tanggal_usulan_perubahan:null,
+          alasan_perubahan:null
+        }
+        let data2 = {
+          userId:item.id,
+          minat1awal: item.minat1,
+          minat2awal: item.minat2,
+          minat1akhir: item.temp_minat1,
+          minat2akhir:  item.temp_minat2,
+          alasan_perubahan:item.alasan_perubahan,
+          tanggal_usulan_perubahan:moment(item.tanggal_usulan_perubahan).format(),
+          tanggal_disetujui_perubahan:moment().format(),
+        }
+        axios({
+        method: "post",
+        url: ipbackend + "perubahan_peminatan/insert",
+        data:data2,
+        headers: {
+          token: this.user.token,
+        },
+      }).then((data) => {
+        console.log(data);
+      });
+        axios({
+        method: "post",
+        url: ipbackend + "users/updateByAdmin",
+        data,
+        headers: {
+          token: this.user.token,
+        },
+      }).then((data) => {
+        console.log(data);
+        this.listUser();
+          alert(data.data.message);
+      });
+
+    },
     async bulks() {
       this.bulk = [] 
       await this.dataPeserta.forEach((item) => {
@@ -1457,6 +1629,7 @@ export default {
         }
       );
       this.detailUser = detailUser.data.data[0];
+      console.log(this.detailUser);
     },
     async listUser() {
       let vm = this;
@@ -1471,7 +1644,13 @@ export default {
       vm.totalRows2 = minat.data.data.length;
 
       vm.dataPesertaMinat = await minat.data.data.map((item, idx) => {
+        if (item.id =='771') {
+          console.log(item,'1');
+
+        }
         return {
+          temp_minat1:item.temp_minat1,
+          temp_minat2:item.temp_minat2,
           nonya: idx + 1,
           idnya: item.id,
           judulPelatihan: item.judulPelatihan,
@@ -1504,6 +1683,7 @@ export default {
       vm.dataPeserta = []
       console.log(itemnya.data.data, "anjay");
       await itemnya.data.data.forEach((ele, idx) => {
+  
         if (vm.dataPesertaMinat.length) {
           let x = vm.dataPesertaMinat;
           let count = 0;
@@ -1513,7 +1693,10 @@ export default {
               count--;
               // console.log(count,ele.nama,"<<")
             } else if (count == vm.dataPesertaMinat.length) {
+        
               vm.dataPeserta.push({
+                temp_minat1:ele.temp_minat1,
+                temp_minat2:ele.temp_minat2,
                 nonya: idx + 1,
                 idnya: ele.id,
                 judulPelatihan: ele.judulPelatihan,
@@ -1537,6 +1720,8 @@ export default {
           }
         } else {
           vm.dataPeserta.push({
+            temp_minat1:ele.temp_minat1,
+            temp_minat2:ele.temp_minat2,
             nonya: idx + 1,
             idnya: ele.id,
             judulPelatihan: ele.judulPelatihan,
@@ -1597,6 +1782,16 @@ export default {
           console.log(err);
         });
     },
+   async load(a,b){
+        let vm = this;
+      let profil = await axios.get(ipbackend + "users/listById/" + a.item.idnya, {
+        headers: {
+          token: vm.user.token,
+        },
+      });
+      vm.profil_user = profil.data.data[0]
+      console.log(vm.profil_user , 'profil_user');
+    }
   },
 };
 </script>
