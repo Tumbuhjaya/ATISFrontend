@@ -828,13 +828,14 @@
                       label-cols-lg="3"
                       label="Tanggal Lahir"
                     >
-                      <date-picker
+                      <!-- <date-picker
                         style="width: 100%"
                         placeholder="TanggalLahir"
-                        v-model=" profil_user.tanggalLahir"
-                      ></date-picker>
+                        :value="profil_user.tanggalLahir"
+                        v-model="profil_user.tanggalLahir"
+                      ></date-picker> -->
+                      <input type="date" v-model="profil_user.tanggalLahir">
                     </b-form-group>
-
                     <b-form-group
                       label-cols="6"
                       label-cols-lg="3"
@@ -1034,13 +1035,14 @@
                         label-cols-lg="3"
                         label="Tanggal Mulai Usaha"
                       >
-                        <date-picker
+                        <!-- <date-picker
                           valueType="format"
                           style="width: 100%"
                           placeholder="Tanggal Mulai Usaha"
                           v-model=" profil_user.tanggalMulaiUsaha"
 
-                        ></date-picker>
+                        ></date-picker> -->
+                        <input type="date" v-model=" profil_user.tanggalMulaiUsaha">
                       </b-form-group>
 
                       <b-form-group
@@ -1474,10 +1476,11 @@ export default {
         let vm = this
         let formData = new FormData();
         for (const i in vm.profil_user) {
-          if(i!='tanggalMulaiUsaha'&&i!='tanggalLahir'&&i!='foto'&&i!='fotoKTP'&&i!='tanggal_usulan_perubahan'&&i!='tanggal_disetujui_perubahan'){
+          if(i!='minat1'&&i!='minat2'&&i!='temp_minat1'&&i!='temp_minat2'&&i!='tanggal_usulan_perubahan'&&i!='alasan_perubahan'&&i!='tanggalMulaiUsaha'&&i!='tanggalLahir'&&i!='foto'&&i!='fotoKTP'&&i!='tanggal_usulan_perubahan'&&i!='tanggal_disetujui_perubahan'){
             formData.append(i, vm.profil_user[i]);
           }
         }
+
       formData.append("file1", vm.foto);
       formData.append("file2", vm.fotoKTP);
       if (vm.profil_user.tanggalMulaiUsaha) {
@@ -1642,7 +1645,7 @@ export default {
       vm.riwayat = riwayat.data.data
       console.log(riwayat);
       for (let i = 0; i < vm.riwayat.length; i++) {
-        vm.riwayat[i].tanggal_usulan_perubahan = moment(vm.riwayat.tanggal_usulan_perubahan).format('LL')
+        vm.riwayat[i].tanggal_usulan_perubahan = moment(vm.riwayat[i].tanggal_usulan_perubahan).format('LL')
       }
       let pelatihanLain = await axios.get(
         ipbackend + "pelatihanlain/listByUsersId/" + id,
@@ -1848,6 +1851,14 @@ export default {
         },
       });
       vm.profil_user = profil.data.data[0]
+      if ( vm.profil_user.tanggalLahir) {
+        vm.profil_user.tanggalLahir = moment(vm.profil_user.tanggalLahir).format('YYYY-MM-DD')
+
+      }
+      if (vm.profil_user.tanggalMulaiUsaha) {
+        vm.profil_user.tanggalMulaiUsaha = moment(vm.profil_user.tanggalMulaiUsaha).format('YYYY-MM-DD')
+
+      }
 
       console.log(vm.profil_user , 'profil_user');
     }
