@@ -831,7 +831,6 @@
                       <!-- <date-picker
                         style="width: 100%"
                         placeholder="TanggalLahir"
-                        :value="profil_user.tanggalLahir"
                         v-model="profil_user.tanggalLahir"
                       ></date-picker> -->
                       <input type="date" v-model="profil_user.tanggalLahir">
@@ -1010,7 +1009,7 @@
                     >
                       <b-form-select
                         :options="kepemilikanUsaha"
-                        v-model="profil_user.kepemilikanUsaha"
+                        v-model="profil_user.kepemilikanUMKM"
 
                         :value.sync="profil_user.kepemilikanUMKM"
 
@@ -1476,11 +1475,11 @@ export default {
         let vm = this
         let formData = new FormData();
         for (const i in vm.profil_user) {
-          if(i!='minat1'&&i!='minat2'&&i!='temp_minat1'&&i!='temp_minat2'&&i!='tanggal_usulan_perubahan'&&i!='alasan_perubahan'&&i!='tanggalMulaiUsaha'&&i!='tanggalLahir'&&i!='foto'&&i!='fotoKTP'&&i!='tanggal_usulan_perubahan'&&i!='tanggal_disetujui_perubahan'){
+          if(i!='no_telepon_instansi'  &&i!='no_faksimile_instansi'  &&i!='situs_instansi'  &&i!='nama_penandatangan'  &&i!='nip_penandatangan'  &&i!='minat1'&&i!='minat2'&&i!='temp_minat1'&&i!='temp_minat2'&&i!='tanggal_usulan_perubahan'&&i!='alasan_perubahan'&&i!='tanggalMulaiUsaha'&&i!='tanggalLahir'&&i!='foto'&&i!='fotoKTP'&&i!='tanggal_usulan_perubahan'&&i!='tanggal_disetujui_perubahan'){
             formData.append(i, vm.profil_user[i]);
+            console.log(i, vm.profil_user[i]);
           }
         }
-
       formData.append("file1", vm.foto);
       formData.append("file2", vm.fotoKTP);
       if (vm.profil_user.tanggalMulaiUsaha) {
