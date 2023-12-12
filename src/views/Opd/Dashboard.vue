@@ -167,22 +167,25 @@
                           >
                         </router-link>
 
-                        <a
+                        <!-- <a
                           :href="ipbackend +
                             'pelatihan/cetakabsen/' +
                             item.item.id+'?id='+user.id
                           "
                           target="_blank"
-                        >
+                        > -->
+                    
                           <b-button
                             variant="warning"
                             size="sm"
                             v-b-tooltip.hover
+                            v-b-modal.modal-cetak-absen
+                            @click="cetak(item.item.id,user.id)"
                             title="Cetak Absensi"
                             ><b-icon icon="printer-fill"></b-icon>
                             {{ item.actions }}</b-button
                           >
-                        </a>
+                        <!-- </a> -->
                       </template>
                     </b-table>
                   </b-col>
@@ -703,7 +706,31 @@
         >Simpan</b-button
       >
     </b-modal>
+    <b-modal
+      id="modal-cetak-absen"
+      size="xl"
+      title="Formulir Cetak Absen"
+      hide-footer
+    >
+      <b-row class="mb-3">
+        <b-col md="12">
+          <h2 class="text-left">
+            <strong
+              ><span style="font-weight: 400">Cetak</span> Absen</strong
+            >
+          </h2>
+        </b-col>
+      </b-row>
+      <b-form-group label-cols="6" label-cols-lg="3" label="Tanggal">
+        <date-picker
+          style="width: 100%"
+          placeholder="Tanggal"
+          v-model="tanggal"
+        ></date-picker>
+      </b-form-group>
+      <b-button variant="primary" @click="cetak_absen">Cetak</b-button>
 
+    </b-modal>
     <!-- modal peserta -->
     <b-modal id="modal-peserta" size="xl" title="Data Peserta" hide-footer>
       <b-row>
@@ -1038,6 +1065,9 @@ export default {
   name: "DashboardOpd",
   data() {
     return {
+      tanggal:'',
+      id_cetak:0,
+      id_user:0,
       user: {},
       users: {IUMK:'',
     NIB:'',
@@ -1866,6 +1896,10 @@ export default {
           console.log(err);
         });
     },
+    async cetak(a,b){
+      this.id_cetak = a
+      this.id_user = b
+    },
     async update() {
       console.log(this.dataInput.keteranganPembatalan);
       // judulPelatihan,kejuruan,subKejuruan,statusPelatihan,deskripsiPelatihan,jenjang,tanggalMulaiPelatihan,tanggalSelesaiPelatihan,kuotaPeserta,lokasi,kecamatanPelatihan,kelurahanPelatihan,syaratUmum,syaratKhusus
@@ -1976,6 +2010,9 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+    async cetak_absen(){
+      location.href = ipbackend+`pelatihan/cetakabsen/${this.id_cetak}?tanggal=${moment(this.tanggal).format('LL')}&id=${this.id_user}`
+    }
     // go(x) {
     //   console.log(x)
     //   window.open('https://www.google.com/maps/@-7.020909,110.3827747', '_blank')
