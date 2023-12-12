@@ -179,7 +179,7 @@
                   
                 </template>
                 <template #cell(tglPelaksanaan)="item">
-                  {{ moment(item.item.tanggalMulaiPelatihan).format('ll') }} s/d {{moment(item.item.tanggalSelesaiPelatihan).format('ll')}}
+                  {{ moment(item.item.tanggalMulaiPelatihan).format() }} s/d {{moment(item.item.tanggalSelesaiPelatihan).format()}}
                 </template>
               </b-table>
             </b-col>
